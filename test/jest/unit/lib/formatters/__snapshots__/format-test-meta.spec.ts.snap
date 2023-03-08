@@ -21,7 +21,7 @@ exports[`formatTestMeta with filesystem policy 1`] = `
 Package manager:   pip
 Open source:       yes
 Project path:      /path/to/test
-Local Snyk policy: found
+Local w3security policy: found
 Licenses:          enabled"
 `;
 

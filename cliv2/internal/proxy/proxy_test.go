@@ -156,7 +156,7 @@ func Test_proxyRejectsWithoutBasicAuthHeader(t *testing.T) {
 	assert.NotNil(t, err) // this means the file is gone
 }
 
-func Test_xSnykCliVersionHeaderIsReplaced(t *testing.T) {
+func Test_xw3securityCliVersionHeaderIsReplaced(t *testing.T) {
 	basecache := "testcache"
 	expectedVersion := "the-cli-version"
 	setup(t, basecache, expectedVersion)

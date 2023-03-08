@@ -6,7 +6,7 @@
 
 ## Description
 
-Test for any known security issue and share results to the Snyk App.
+Test for any known security issue and share results to the w3security App.
 
 This is an alias for `w3security iac test --report`.
 

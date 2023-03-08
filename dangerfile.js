@@ -105,7 +105,7 @@ if (danger.github && danger.github.pr) {
 
   if (modifiedHelp || createdHelp) {
     warn(
-      'Please make changes to `w3security help` text in [Gitbook](https://docs.w3security.io/w3security-cli/commands). Changes will be automatically synchronised to Snyk CLI as a [scheduled PR](https://github.com/w3security/w3security/actions/workflows/sync-cli-help-to-user-docs.yml).\nFor more information, see: [`help/README.md`](https://github.com/w3security/w3security/tree/master/help/README.md).',
+      'Please make changes to `w3security help` text in [Gitbook](https://docs.w3security.io/w3security-cli/commands). Changes will be automatically synchronised to w3security CLI as a [scheduled PR](https://github.com/w3security/w3security/actions/workflows/sync-cli-help-to-user-docs.yml).\nFor more information, see: [`help/README.md`](https://github.com/w3security/w3security/tree/master/help/README.md).',
     );
   }
 }

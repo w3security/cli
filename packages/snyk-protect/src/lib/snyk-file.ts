@@ -4,13 +4,13 @@ import { deQuote } from './utils';
 const lineRegex = /^(\s*)(.*):(?:$| )+(.*)$/i;
 
 export function extractPatchMetadata(
-  dotSnykFileContent: string,
+  dotw3securityFileContent: string,
 ): VulnIdAndPackageName[] {
   let writingPatches = false;
   let writingTo: string;
 
   // .w3security parsing => snyk-policy ( or js-yaml )
-  const patches: { [vulnId: string]: string[] } = dotSnykFileContent
+  const patches: { [vulnId: string]: string[] } = dotw3securityFileContent
     .split('\n')
     .filter((l) => l.length && !l.trimStart().startsWith('#'))
     .map((line) => lineRegex.exec(line.trimEnd()))

@@ -1,10 +1,10 @@
 /*
-  This file is trying to make sense from different Snyk API URLs configurations
+  This file is trying to make sense from different w3security API URLs configurations
 
   API URL settings could be defined in a few ways:
   - w3security config file with key "endpoint" (including override with W3SECURITY_CFG_ENDPOINT envvar!)
   - W3SECURITY_API envvar
-  - Snyk REST API had their own envvars to be set
+  - w3security REST API had their own envvars to be set
 
   And API URL itself could (currently) point to multiple places
   - https://w3security.io/api/v1 (old default)
@@ -13,11 +13,11 @@
   - https://app.w3security.io/api/v1
   - https://api.w3security.io/v1
 
-  For Snyk REST API it's a bit simpler:
+  For w3security REST API it's a bit simpler:
   - https://api.w3security.io/rest
 
 
-  There are also other URLs - one for the w3security auth command, one for Snyk Code Proxy
+  There are also other URLs - one for the w3security auth command, one for w3security Code Proxy
 
   Idea is to configure a single URL and derive the rest from it.
   This file handles an internal concept of a Base URL and logic needed to derive the other URLs
@@ -31,7 +31,7 @@ import { color } from '../theme';
 const debug = Debug('w3security');
 
 /**
- * @description Get a Base URL for Snyk APIs
+ * @description Get a Base URL for w3security APIs
  * @export
  * @param {string} defaultUrl URL to default to, should be the one defined in the config.default.json file
  * @param {(string | undefined)} envvarDefinedApiUrl if there is an URL defined in the W3SECURITY_API envvar
@@ -81,14 +81,14 @@ function validateUrlOrReturnDefault(
   if (!parsedEndpoint || !parsedEndpoint.protocol || !parsedEndpoint.host) {
     console.error(
       color.status.error(
-        `Invalid ${optionName} '${urlString}'. Value must be a valid URL including protocol. Using default Snyk API URL '${defaultUrl}'`,
+        `Invalid ${optionName} '${urlString}'. Value must be a valid URL including protocol. Using default w3security API URL '${defaultUrl}'`,
       ),
     );
     return defaultUrl;
   }
   // TODO: this debug is not printed when using the --debug flag, because flags are parsed after config. Making it async works around this
   setTimeout(
-    () => debug(`Using a custom Snyk API ${optionName} '${urlString}'`),
+    () => debug(`Using a custom w3security API ${optionName} '${urlString}'`),
     1,
   );
   return stripV1FromApiUrl(urlString);
@@ -123,7 +123,7 @@ export function getV1ApiUrl(baseApiUrl: string): string {
 }
 
 /**
- * @description Return Snyk REST API URL
+ * @description Return w3security REST API URL
  * @export
  * @param {string} baseApiUrl
  * @param {string} envvarDefinedRestApiUrl

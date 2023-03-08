@@ -6,13 +6,13 @@
 
 ## Description
 
-The `w3security monitor` command creates a project in your Snyk account to be continuously monitored for open source vulnerabilities and license issues. After running this command, log in to the Snyk website and view your projects to see the monitor.
+The `w3security monitor` command creates a project in your w3security account to be continuously monitored for open source vulnerabilities and license issues. After running this command, log in to the w3security website and view your projects to see the monitor.
 
-For Snyk Container see [`w3security container` help](https://docs.w3security.io/w3security-cli/commands/container)
+For w3security Container see [`w3security container` help](https://docs.w3security.io/w3security-cli/commands/container)
 
-The `monitor` command is not supported for Snyk Code.
+The `monitor` command is not supported for w3security Code.
 
-For Snyk Infrastructure as Code follow the instructions in "Regularly testing IaC files" on [Snyk CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
+For w3security Infrastructure as Code follow the instructions in "Regularly testing IaC files" on [w3security CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
 
 ## Exit codes
 
@@ -22,9 +22,9 @@ Possible exit codes and their meaning:
 **2**: failure, try to re-run command\
 **3**: failure, no supported projects detected
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and and set variables for connecting with the Snyk API. See [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+You can use environment variables to configure the w3security CLI and and set variables for connecting with the w3security API. See [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 
@@ -38,7 +38,7 @@ See also subsequent sections for options for specific build environments, packag
 
 Auto-detect all projects in the working directory (including Yarn workspaces).
 
-For more information see the article [Does the Snyk CLI support monorepos or multiple manifest files?](https://support.w3security.io/hc/en-us/articles/360000910577-Does-the-Snyk-CLI-support-monorepos-or-multiple-manifest-files-)
+For more information see the article [Does the w3security CLI support monorepos or multiple manifest files?](https://support.w3security.io/hc/en-us/articles/360000910577-Does-the-w3security-CLI-support-monorepos-or-multiple-manifest-files-)
 
 ### `--fail-fast`
 
@@ -48,7 +48,7 @@ The exit code is 2 and the scan ends. No vulnerability information is reported f
 
 To perform the scan, resolve the error and scan again.
 
-Note: If you do not use `--fail-fast`, Snyk scans all the projects but does not report any vulnerabilities for projects it could not scan due to misconfiguration or another error.
+Note: If you do not use `--fail-fast`, w3security scans all the projects but does not report any vulnerabilities for projects it could not scan due to misconfiguration or another error.
 
 ### `--detection-depth=<DEPTH>`
 
@@ -88,7 +88,7 @@ Default: scan only production dependencies.
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>` to run Snyk commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
+Specify the `<ORG_ID>` to run w3security commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
 
 If you have multiple organizations, you can set a default from the CLI using:
 
@@ -106,11 +106,11 @@ For more information see the article [How to select the organization to use in t
 
 Specify a package file.
 
-When testing locally or monitoring a project, you can specify the file that Snyk should inspect for package information. When the file is not specified, Snyk tries to detect the appropriate file for your project.
+When testing locally or monitoring a project, you can specify the file that w3security should inspect for package information. When the file is not specified, w3security tries to detect the appropriate file for your project.
 
 ### `--package-manager=<PACKAGE_MANAGER_NAME>`
 
-Specify the name of the package manager when the filename specified with the `--file=<FILE>` option is not standard. This allows Snyk to find the file.
+Specify the name of the package manager when the filename specified with the `--file=<FILE>` option is not standard. This allows w3security to find the file.
 
 Example: `$ w3security monitor --file=req.txt --package-manager=pip`
 
@@ -120,7 +120,7 @@ For C++ only, scan all files for known open source dependencies.
 
 For options you can use with `--unmanaged` see [Options for scanning using `--unmanaged`](https://docs.w3security.io/w3security-cli/commands/monitor#options-for-scanning-using-unmanaged)
 
-For more information see [Snyk for C/C++](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-c-c++)
+For more information see [w3security for C/C++](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-c-c++)
 
 ### `--ignore-policy`
 
@@ -128,17 +128,17 @@ Ignore all set policies, the current policy in the `.w3security` file, org level
 
 ### `--trust-policies`
 
-Apply and use ignore rules from the Snyk policies in your dependencies; otherwise ignore rules in the dependencies are only shown as a suggestion.
+Apply and use ignore rules from the w3security policies in your dependencies; otherwise ignore rules in the dependencies are only shown as a suggestion.
 
 ### `--project-name=<PROJECT_NAME>`
 
-Specify a custom Snyk project name.
+Specify a custom w3security project name.
 
 Example: `$ w3security monitor --project-name=my-project`
 
 ### `--target-reference=<TARGET_REFERENCE>`
 
-Specify a reference which differentiates this project, for example, a branch name or version. Projects having the same reference can be grouped based on that reference. Supported for Snyk Open Source and use with `--unmanaged`.
+Specify a reference which differentiates this project, for example, a branch name or version. Projects having the same reference can be grouped based on that reference. Supported for w3security Open Source and use with `--unmanaged`.
 
 For more information see [Separating projects by branch or version](https://docs.w3security.io/w3security-cli/secure-your-projects-in-the-long-term/grouping-projects-by-branch-or-version)
 
@@ -150,7 +150,7 @@ Manually pass a path to a `.w3security` policy file.
 
 Print results on the console as a JSON data structure.
 
-Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `monitor` command fails. For instructions on how to proceed see [Editing project attributes from the Snyk CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
+Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `monitor` command fails. For instructions on how to proceed see [Editing project attributes from the w3security CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
 
 ### `--project-environment=<ENVIRONMENT>[,<ENVIRONMENT>]...>`
 
@@ -186,17 +186,17 @@ This is an alias for `--project-tags`
 
 ## Options for Maven projects
 
-For more information about Maven CLI options see [Snyk for Java and Kotlin](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-java-gradle-maven)
+For more information about Maven CLI options see [w3security for Java and Kotlin](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-java-gradle-maven)
 
 ### `--maven-aggregate-project`
 
 Use `--maven-aggregate-project` instead of `--all-projects` when scanning Maven aggregate projects, that is, ones that use modules and inheritance.
 
-When scanning these types of projects, Snyk performs a compile to ensure all modules are resolvable by the Maven reactor.&#x20;
+When scanning these types of projects, w3security performs a compile to ensure all modules are resolvable by the Maven reactor.&#x20;
 
 Be sure to run the scan in the same directory as the root pom.xml file.&#x20;
 
-Snyk reports test results per pom.xml file.
+w3security reports test results per pom.xml file.
 
 ### `--scan-all-unmanaged`
 
@@ -206,7 +206,7 @@ Auto-detect maven jars, aars, and wars in given directory. To monitor individual
 
 ## Options for Gradle projects
 
-For more information about Gradle CLI options see [Snyk for Java and Kotlin](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-java-gradle-maven)
+For more information about Gradle CLI options see [w3security for Java and Kotlin](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-java-gradle-maven)
 
 ### `--sub-project=<NAME>`, `--gradle-sub-project=<NAME>`
 
@@ -320,15 +320,15 @@ Display dependencies.
 
 Use use this option to see what files contributed to each dependency identified.
 
-To see how confident Snyk is about the identified dependency and its version, use the `--print-deps` or `--print-dep-paths` option.
+To see how confident w3security is about the identified dependency and its version, use the `--print-deps` or `--print-dep-paths` option.
 
-For more information on uses of CLI options for C/C++ projects see [Snyk for C / C++](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-c-c++)
+For more information on uses of CLI options for C/C++ projects see [w3security for C / C++](https://docs.w3security.io/products/w3security-open-source/language-and-package-manager-support/w3security-for-c-c++)
 
 ## Options for build tools
 
 ### `-- [<CONTEXT-SPECIFIC_OPTIONS>]`
 
-Use a double dash (`--`) after the complete Snyk command to pass options (arguments, flags) that follow directly to the build tool, for example Gradle or Maven.
+Use a double dash (`--`) after the complete w3security command to pass options (arguments, flags) that follow directly to the build tool, for example Gradle or Maven.
 
 The format is `w3security <command> -- [<context-specific_options>]`
 

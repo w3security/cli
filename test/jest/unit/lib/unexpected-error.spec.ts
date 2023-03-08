@@ -7,7 +7,7 @@ import { getFixturePath } from '../../util/getFixturePath';
  * errors are handled by Jest; so its error handling will never trigger.
  *
  * Since these are "unexpected" errors which we aren't aware of and shouldn't
- * have, there's no failure scenario for it within Snyk CLI either.
+ * have, there's no failure scenario for it within w3security CLI either.
  *
  * So we're testing it by launching separate standalone scripts in their own
  * NodeJS process.

@@ -1,5 +1,5 @@
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 
 jest.setTimeout(1000 * 60);
@@ -43,7 +43,7 @@ describe('w3security test --fail-on', () => {
       server.setNextResponse(await project.read('vulns-result.json'));
 
       // setting the "org" is a workaround to fix this test, the limitation of a single next response is actually the root cause because it requires the first request to be the test request.
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `test --fail-on=${failOn} --org=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee`,
         {
           cwd: project.path(),

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { SnykIacTestError } from '../../../../../../../src/lib/iac/test/v2/errors';
+import { w3securityIacTestError } from '../../../../../../../src/lib/iac/test/v2/errors';
 import {
   convertEngineToJsonResults,
   Result,
@@ -26,7 +26,7 @@ describe('convertEngineToJsonResults', () => {
   const w3securityIacTestFixture = JSON.parse(w3securityIacTestFixtureContent);
   w3securityIacTestFixture.errors = w3securityIacTestFixture.errors?.map((item) => {
     const isError = 'code' in item;
-    return isError ? new SnykIacTestError(item) : item;
+    return isError ? new w3securityIacTestError(item) : item;
   });
 
   const integratedJsonOutputFixtureContent = fs.readFileSync(

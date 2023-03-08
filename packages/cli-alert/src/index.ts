@@ -77,7 +77,7 @@ async function sendPagerDuty() {
         event_action: 'trigger',
         payload: {
           summary: 'CLI Alert. Smoke tests failing',
-          source: 'Snyk CLI Smoke tests',
+          source: 'w3security CLI Smoke tests',
           severity: 'warning',
         },
         dedup_key: 'b0209ed890d34eb787b3ed58f31553cc',

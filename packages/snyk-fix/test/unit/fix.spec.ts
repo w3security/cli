@@ -5,7 +5,7 @@ import { generateEntityToFix } from '../helpers/generate-entity-to-fix';
 
 jest.mock('@snyk/fix-pipenv-pipfile');
 
-describe('Snyk fix', () => {
+describe('w3security fix', () => {
   beforeAll(() => {
     jest.spyOn(pipenvPipfileFix, 'isPipenvSupportedVersion').mockReturnValue({
       supported: true,
@@ -23,7 +23,7 @@ describe('Snyk fix', () => {
     });
   });
 
-  it('Snyk fix returns results for supported type', async () => {
+  it('w3security fix returns results for supported type', async () => {
     // Arrange
     const projectTestResult = generateEntityToFix(
       'pip',
@@ -44,7 +44,7 @@ describe('Snyk fix', () => {
     expect(res.results).toMatchSnapshot();
   });
 
-  it('Snyk fix returns results for supported type in dryRun mode (no write)', async () => {
+  it('w3security fix returns results for supported type in dryRun mode (no write)', async () => {
     // Arrange
     const projectTestResult = generateEntityToFix(
       'pip',
@@ -62,7 +62,7 @@ describe('Snyk fix', () => {
     expect(writeFileSpy).not.toHaveBeenCalled();
   });
 
-  it('Snyk fix returns results for supported & unsupported type', async () => {
+  it('w3security fix returns results for supported & unsupported type', async () => {
     // Arrange
     const projectTestResult = generateEntityToFix(
       'pip',
@@ -81,7 +81,7 @@ describe('Snyk fix', () => {
     expect(res).toMatchSnapshot();
   });
 
-  it('Snyk fix returns results as expected', async () => {
+  it('w3security fix returns results as expected', async () => {
     // Arrange
     const txtProdProjectTestResult = generateEntityToFix(
       'pip',
@@ -125,7 +125,7 @@ describe('Snyk fix', () => {
       res.results.python.succeeded[2].original.scanResult.identity.targetFile,
     ).toEqual('prod.txt');
   });
-  it('Snyk fix returns results as expected when 1 fails to fix', async () => {
+  it('w3security fix returns results as expected when 1 fails to fix', async () => {
     // Arrange
     const txtProdProjectTestResult = generateEntityToFix(
       'pip',
@@ -177,7 +177,7 @@ describe('Snyk fix', () => {
     ).toEqual('prod.txt');
   });
 
-  it('Snyk fix returns results as expected when remediation data is empty', async () => {
+  it('w3security fix returns results as expected when remediation data is empty', async () => {
     // Arrange
     const txtProdProjectTestResult = generateEntityToFix(
       'pip',
@@ -313,7 +313,7 @@ describe('groupEntitiesPerScanType', () => {
 });
 
 describe('Error handling', () => {
-  it('Snyk fix returns error when called with unsupported type', async () => {
+  it('w3security fix returns error when called with unsupported type', async () => {
     // Arrange
     const projectTestResult = generateEntityToFix(
       'npm',
@@ -329,7 +329,7 @@ describe('Error handling', () => {
     expect(res).toMatchSnapshot();
   });
 
-  it('Snyk fix returns error when manifest can not be parsed', async () => {
+  it('w3security fix returns error when manifest can not be parsed', async () => {
     // Arrange
     const projectTestResult = generateEntityToFix(
       'pip',

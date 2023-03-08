@@ -123,7 +123,7 @@ test('auth with no args', async (t) => {
     const res = await auth.default();
     t.match(
       res,
-      'Your account has been authenticated. Snyk is now ready to be used',
+      'Your account has been authenticated. w3security is now ready to be used',
       'w3security auth worked',
     );
     t.ok(open.calledOnce, 'called open once');

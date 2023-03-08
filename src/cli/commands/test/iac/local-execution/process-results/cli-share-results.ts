@@ -74,7 +74,7 @@ export async function shareResults({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   } else if (res.statusCode! < 200 || res.statusCode! > 299) {
     throw new ValidationError(
-      res.body.error ?? 'An error occurred, please contact Snyk support',
+      res.body.error ?? 'An error occurred, please contact w3security support',
     );
   }
 

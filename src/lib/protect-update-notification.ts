@@ -50,7 +50,7 @@ export function packageJsonFileExistsInDirectory(
   }
 }
 
-export function checkPackageJsonForSnykDependency(
+export function checkPackageJsonForw3securityDependency(
   packageJsonPath: string,
 ): boolean {
   try {
@@ -64,16 +64,16 @@ export function checkPackageJsonForSnykDependency(
       }
     }
   } catch (e) {
-    debug('Error in checkPackageJsonForSnykDependency()', e);
+    debug('Error in checkPackageJsonForw3securityDependency()', e);
   }
   return false;
 }
 
-export function getPackageJsonPathsContainingSnykDependency(
+export function getPackageJsonPathsContainingw3securityDependency(
   fileOption: string | undefined,
   paths: string[],
 ): string[] {
-  const packageJsonPathsWithSnykDepForProtect: string[] = [];
+  const packageJsonPathsWithw3securityDepForProtect: string[] = [];
 
   try {
     if (fileOption) {
@@ -87,11 +87,11 @@ export function getPackageJsonPathsContainingSnykDependency(
             directoryWithPackageJson,
             'package.json',
           );
-          const packageJsonContainsSnykDep = checkPackageJsonForSnykDependency(
+          const packageJsonContainsw3securityDep = checkPackageJsonForw3securityDependency(
             packageJsonPath,
           );
-          if (packageJsonContainsSnykDep) {
-            packageJsonPathsWithSnykDepForProtect.push(packageJsonPath);
+          if (packageJsonContainsw3securityDep) {
+            packageJsonPathsWithw3securityDepForProtect.push(packageJsonPath);
           }
         }
       }
@@ -99,18 +99,18 @@ export function getPackageJsonPathsContainingSnykDependency(
       paths.forEach((testPath) => {
         if (packageJsonFileExistsInDirectory(testPath)) {
           const packageJsonPath = path.resolve(testPath, 'package.json');
-          const packageJsonContainsSnykDep = checkPackageJsonForSnykDependency(
+          const packageJsonContainsw3securityDep = checkPackageJsonForw3securityDependency(
             packageJsonPath,
           );
-          if (packageJsonContainsSnykDep) {
-            packageJsonPathsWithSnykDepForProtect.push(packageJsonPath);
+          if (packageJsonContainsw3securityDep) {
+            packageJsonPathsWithw3securityDepForProtect.push(packageJsonPath);
           }
         }
       });
     }
   } catch (e) {
-    debug('Error in getPackageJsonPathsContainingSnykDependency()', e);
+    debug('Error in getPackageJsonPathsContainingw3securityDependency()', e);
   }
 
-  return packageJsonPathsWithSnykDepForProtect;
+  return packageJsonPathsWithw3securityDepForProtect;
 }

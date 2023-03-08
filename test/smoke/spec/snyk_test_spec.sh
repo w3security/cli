@@ -1,6 +1,6 @@
 #shellcheck shell=sh
 
-Describe "Snyk test command"
+Describe "w3security test command"
   Before w3security_login
   After w3security_logout
 

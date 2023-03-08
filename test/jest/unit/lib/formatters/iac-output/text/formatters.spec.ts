@@ -2,11 +2,11 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { IacOutputMeta } from '../../../../../../../src/lib/types';
 import {
-  formatSnykIacTestTestData,
+  formatw3securityIacTestTestData,
   formatTestData,
 } from '../../../../../../../src/lib/formatters/iac-output/text';
 import { FormattedResult } from '../../../../../../../src/cli/commands/test/iac/local-execution/types';
-import { SnykIacTestOutput } from '../../../../../../../src/lib/iac/test/v2/scan/results';
+import { w3securityIacTestOutput } from '../../../../../../../src/lib/iac/test/v2/scan/results';
 import {
   FormattedOutputResultsBySeverity,
   IacTestData,
@@ -63,8 +63,8 @@ describe('formatTestData', () => {
   });
 });
 
-describe('formatSnykIacTestTestData', () => {
-  const w3securityIacTestOutputFixture: SnykIacTestOutput = JSON.parse(
+describe('formatw3securityIacTestTestData', () => {
+  const w3securityIacTestOutputFixture: w3securityIacTestOutput = JSON.parse(
     fs.readFileSync(
       path.join(
         __dirname,
@@ -80,7 +80,7 @@ describe('formatSnykIacTestTestData', () => {
       'utf-8',
     ),
   );
-  const w3securityIacTestOutputWithSuppressionsFixture: SnykIacTestOutput = JSON.parse(
+  const w3securityIacTestOutputWithSuppressionsFixture: w3securityIacTestOutput = JSON.parse(
     fs.readFileSync(
       path.join(
         __dirname,
@@ -131,7 +131,7 @@ describe('formatSnykIacTestTestData', () => {
   );
 
   it('formats the test data correctly', () => {
-    const result = formatSnykIacTestTestData(
+    const result = formatw3securityIacTestTestData(
       w3securityIacTestOutputFixture.results,
       'project-name',
       'org-name',
@@ -141,7 +141,7 @@ describe('formatSnykIacTestTestData', () => {
   });
 
   it('formats the test data correctly when suppressions are present', () => {
-    const result = formatSnykIacTestTestData(
+    const result = formatw3securityIacTestTestData(
       w3securityIacTestOutputWithSuppressionsFixture.results,
       'project-name',
       'org-name',

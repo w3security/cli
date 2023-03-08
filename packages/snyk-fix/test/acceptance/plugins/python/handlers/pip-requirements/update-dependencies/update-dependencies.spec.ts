@@ -253,7 +253,7 @@ describe('fix *req*.txt / *.txt Python projects', () => {
 
     // Assert
     const expectedManifest =
-      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability';
+      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability';
     // Note no extra newline was added to the expected manifest
     const fixedFileContent = fs.readFileSync(fixedFilePath, 'utf-8');
     expect(fixedFileContent).toEqual(expectedManifest);
@@ -335,7 +335,7 @@ describe('fix *req*.txt / *.txt Python projects', () => {
 
     // Assert
     const expectedManifest =
-      'Django==2.0.1\nClickhouse_Driver==0.1.5\nclickhouse-driver==0.1.5\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability\n';
+      'Django==2.0.1\nClickhouse_Driver==0.1.5\nclickhouse-driver==0.1.5\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability\n';
     // Note no extra newline was added to the expected manifest
     const fixedFileContent = fs.readFileSync(fixedFilePath, 'utf-8');
     expect(fixedFileContent).toEqual(expectedManifest);
@@ -418,7 +418,7 @@ describe('fix *req*.txt / *.txt Python projects', () => {
 
     // Assert
     const expectedManifest =
-      '\n#some comment\n\nDjango==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability\n';
+      '\n#some comment\n\nDjango==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability\n';
 
     // Note no extra newline was added to the expected manifest
     const fixedFileContent = fs.readFileSync(fixedFilePath, 'utf-8');

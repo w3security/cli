@@ -1,4 +1,4 @@
-[1mSnyk Scanning Infrastructure As Code Discrepancies...[22m
+[1mw3security Scanning Infrastructure As Code Discrepancies...[22m
 
   Info:    Resources under IaC, but different to terraform states.
   Resolve: Reapply IaC resources or update into terraform.

@@ -218,7 +218,7 @@ function checkRuntime() {
       `runtime! Supported runtime range is '${runtime.supportedRange}'`,
     );
     console.error(
-      'Please upgrade your Node.js runtime. The last version of Snyk CLI that supports Node.js v8 is v1.454.0.',
+      'Please upgrade your Node.js runtime. The last version of w3security CLI that supports Node.js v8 is v1.454.0.',
     );
     process.exit(EXIT_CODES.ERROR);
   }
@@ -241,7 +241,7 @@ export async function main(): Promise<void> {
 
     if (globalArgs.options['group-issues'] && globalArgs.options['iac']) {
       throw new UnsupportedOptionCombinationError([
-        '--group-issues is currently not supported for Snyk IaC.',
+        '--group-issues is currently not supported for w3security IaC.',
       ]);
     }
     if (

@@ -24,7 +24,7 @@ mv "$APP_PATH" "$APP_PATH_UNSIGNED"
 osslsigncode sign -h sha512 \
   -pkcs12 "$SIGNING_SECRETS" \
   -pass "$SIGNING_SECRETS_PASSWORD" \
-  -n "Snyk CLI" \
+  -n "w3security CLI" \
   -i "https://w3security.io" \
   -t "http://timestamp.sectigo.com" \
   -in "$APP_PATH_UNSIGNED" \

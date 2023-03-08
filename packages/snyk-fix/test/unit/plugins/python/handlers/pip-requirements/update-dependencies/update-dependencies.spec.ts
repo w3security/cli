@@ -23,7 +23,7 @@ describe('remediation', () => {
     const manifestContents = 'Django==1.6.1';
 
     const expectedManifest =
-      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability';
+      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability';
 
     const requirements = parseRequirementsFile(manifestContents);
     const result = updateDependencies(requirements, upgrades);
@@ -56,7 +56,7 @@ describe('remediation', () => {
     const manifestContents = 'Django==1.6.1\n';
 
     const expectedManifest =
-      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability\n';
+      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability\n';
 
     const requirements = parseRequirementsFile(manifestContents);
     const result = updateDependencies(requirements, upgrades);
@@ -88,7 +88,7 @@ describe('remediation', () => {
     const manifestContents = '\n#some comment\n\nDjango==1.6.1\n';
 
     const expectedManifest =
-      '\n#some comment\n\nDjango==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability\n';
+      '\n#some comment\n\nDjango==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability\n';
 
     const requirements = parseRequirementsFile(manifestContents);
     const result = updateDependencies(requirements, upgrades);
@@ -326,7 +326,7 @@ describe('remediation', () => {
     const manifestContents = 'Django==1.6.1';
 
     const expectedManifest =
-      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability';
+      'Django==2.0.1\ntransitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability';
     const directUpgradesOnly = false;
     const requirements = parseRequirementsFile(manifestContents);
     const result = updateDependencies(

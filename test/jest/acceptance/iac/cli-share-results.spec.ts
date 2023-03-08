@@ -34,7 +34,7 @@ describe('CLI Share Results', () => {
       );
 
       expect(stdout).toMatch(
-        'Flag "--report" is only supported if feature flag "iacCliShareResults" is enabled. To enable it, please contact Snyk support.',
+        'Flag "--report" is only supported if feature flag "iacCliShareResults" is enabled. To enable it, please contact w3security support.',
       );
       expect(exitCode).toBe(2);
     });

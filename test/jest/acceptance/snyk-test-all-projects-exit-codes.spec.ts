@@ -1,6 +1,6 @@
 import { fakeServer } from '../../acceptance/fake-server';
 import { createProject } from '../util/createProject';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60 * 5);
 
@@ -42,7 +42,7 @@ describe('w3security test --all-projects with one project that has errors', () =
       server.setDepGraphResponse(
         await project.readJSON('test-dep-graph-result.json'),
       );
-      const { code, stderr } = await runSnykCLI(`test --all-projects`, {
+      const { code, stderr } = await runw3securityCLI(`test --all-projects`, {
         cwd: project.path(),
         env,
       });
@@ -59,7 +59,7 @@ describe('w3security test --all-projects with one project that has errors', () =
       server.setDepGraphResponse(
         await project.readJSON('test-dep-graph-result.json'),
       );
-      const { code, stderr } = await runSnykCLI(
+      const { code, stderr } = await runw3securityCLI(
         `test --all-projects --fail-fast`,
         {
           cwd: project.path(),
@@ -78,7 +78,7 @@ describe('w3security test --all-projects with one project that has errors', () =
       const project = await createProject(
         'w3security-test-all-projects-exit-codes/project-with-no-issues-and-project-with-error',
       );
-      const { code, stderr } = await runSnykCLI(`test --all-projects`, {
+      const { code, stderr } = await runw3securityCLI(`test --all-projects`, {
         cwd: project.path(),
         env,
       });
@@ -92,7 +92,7 @@ describe('w3security test --all-projects with one project that has errors', () =
       const project = await createProject(
         'w3security-test-all-projects-exit-codes/project-with-no-issues-and-project-with-error',
       );
-      const { code, stderr } = await runSnykCLI(
+      const { code, stderr } = await runw3securityCLI(
         `test --all-projects --fail-fast`,
         {
           cwd: project.path(),

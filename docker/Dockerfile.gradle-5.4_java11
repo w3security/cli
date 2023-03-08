@@ -1,6 +1,6 @@
 FROM openjdk:11-jdk-slim
 
-MAINTAINER Snyk Ltd
+MAINTAINER w3security Ltd
 
 RUN mkdir /home/node
 WORKDIR /home/node

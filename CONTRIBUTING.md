@@ -1,6 +1,6 @@
 # Contributing
 
-> This guide is for internal Snyk contributors with write access to this repository. If you are an external contributor, before working on any contributions, please first [contact support](https://support.w3security.io) to discuss the issue or feature request with us.
+> This guide is for internal w3security contributors with write access to this repository. If you are an external contributor, before working on any contributions, please first [contact support](https://support.w3security.io) to discuss the issue or feature request with us.
 
 ## Prerequisites
 
@@ -82,7 +82,7 @@ npx jest --runInBand --selectProjects @w3security/protect <path>
 
 Debugger configuration is available for VS Code. Open "Run and Debug" and choose "Jest Current File".
 
-Typically, you should not run the full test suite locally. Snyk CLI includes a variety of features which require various tools and configuration to be installed. Our PR pipeline will take care of most of that. Locally, you should focus on the tests related to your changes.
+Typically, you should not run the full test suite locally. w3security CLI includes a variety of features which require various tools and configuration to be installed. Our PR pipeline will take care of most of that. Locally, you should focus on the tests related to your changes.
 
 ## Writing tests
 
@@ -109,11 +109,11 @@ If you are mostly testing functions calling other functions, consider writing an
 
 Acceptance tests enforce the correctness of our distribution and are written from the perspective of an user.
 
-Snyk CLI's acceptance tests execute a specific command line as a standalone process, then assert on `stdout`, `stdin` and the exit code. As an example, see: [`oauth-token.spec.ts`](test/jest/acceptance/oauth-token.spec.ts).
+w3security CLI's acceptance tests execute a specific command line as a standalone process, then assert on `stdout`, `stdin` and the exit code. As an example, see: [`oauth-token.spec.ts`](test/jest/acceptance/oauth-token.spec.ts).
 
 Your tests should never call remote endpoints. Otherwise, our release pipelines will require those services to be available. To avoid this, we can assume external services are kept compatible. If any of these services cause issues, we can rely on production monitoring to alert us.
 
-Use [fake-server](./test/acceptance/fake-server.ts) to mock any Snyk API calls. If you are using other endpoints, mock those too in a similar way.
+Use [fake-server](./test/acceptance/fake-server.ts) to mock any w3security API calls. If you are using other endpoints, mock those too in a similar way.
 
 Place fixtures in `./test/fixtures`. Keep them minimal to reduce maintenance. Use [`createProject`](./test/jest/util/createProject.ts) to use your fixtures in isolated working directories for your tests.
 
@@ -164,7 +164,7 @@ When making changes, ensure documentation is updated accordingly.
 
 User-facing documentation is [available on GitBook](https://docs.w3security.io/features/w3security-cli).
 
-`w3security help` output must also be [edited on GitBook](https://docs.w3security.io/features/w3security-cli/commands). Changes will automatically be pulled into Snyk CLI as pull requests.
+`w3security help` output must also be [edited on GitBook](https://docs.w3security.io/features/w3security-cli/commands). Changes will automatically be pulled into w3security CLI as pull requests.
 
 ## Creating a branch
 

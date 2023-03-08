@@ -4115,7 +4115,7 @@
       "severities": {},
       "orgLicenseRules": {}
     },
-    "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.14.0\nignore: {}\npatch: {}\n",
+    "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.14.0\nignore: {}\npatch: {}\n",
     "ignoreSettings": null,
     "org": "gitphill"
   },

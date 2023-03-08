@@ -1,5 +1,5 @@
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 
 jest.setTimeout(1000 * 60);
@@ -40,7 +40,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
       'yarn-workspace-out-of-sync',
     );
 
-    const { code, stdout, stderr } = await runSnykCLI('test --all-projects', {
+    const { code, stdout, stderr } = await runw3securityCLI('test --all-projects', {
       cwd: project.path(),
       env,
     });
@@ -65,7 +65,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
       'yarn-workspace-out-of-sync',
     );
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --all-projects --fail-fast',
       {
         cwd: project.path(),
@@ -90,7 +90,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
       'yarn-workspace-out-of-sync',
     );
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --all-projects --strict-out-of-sync=false',
       {
         cwd: project.path(),
@@ -117,7 +117,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
       await project.readJSON('test-graph-result.json'),
     );
 
-    const { code, stdout, stderr } = await runSnykCLI('test --all-projects', {
+    const { code, stdout, stderr } = await runw3securityCLI('test --all-projects', {
       cwd: project.path(),
       env,
     });
@@ -134,7 +134,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
     server.setDepGraphResponse(
       await project.readJSON('test-graph-result-medium-severity.json'),
     );
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --all-projects --ignore-policy',
       {
         cwd: project.path(),
@@ -155,7 +155,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
   test('`test mono-repo-with-ignores --all-projects` respects .w3security policy', async () => {
     const project = await createProjectFromWorkspace('mono-repo-with-ignores');
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --all-projects --detection-depth=3',
       {
         cwd: project.path(),
@@ -196,7 +196,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
   test('`test empty --all-projects`', async () => {
     const project = await createProjectFromWorkspace('empty');
 
-    const { code, stdout, stderr } = await runSnykCLI('test --all-projects', {
+    const { code, stdout, stderr } = await runw3securityCLI('test --all-projects', {
       cwd: project.path(),
       env,
     });
@@ -209,7 +209,7 @@ describe('w3security test --all-projects (mocked server only)', () => {
   test('`test composer-app --all-projects`', async () => {
     const project = await createProjectFromWorkspace('composer-app');
 
-    const { code, stdout, stderr } = await runSnykCLI('test --all-projects', {
+    const { code, stdout, stderr } = await runw3securityCLI('test --all-projects', {
       cwd: project.path(),
       env,
     });

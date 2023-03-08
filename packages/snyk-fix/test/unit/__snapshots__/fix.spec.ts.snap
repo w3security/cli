@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error handling Snyk fix returns error when called with unsupported type 1`] = `
+exports[`Error handling w3security fix returns error when called with unsupported type 1`] = `
 Object {
   "exceptions": Object {
     "npm": Object {
@@ -92,7 +92,7 @@ Tip: Re-run in debug mode to see more information: DEBUG=*w3security* <COMMAND>.
 }
 `;
 
-exports[`Error handling Snyk fix returns error when manifest can not be parsed 1`] = `
+exports[`Error handling w3security fix returns error when manifest can not be parsed 1`] = `
 Object {
   "exceptions": Object {},
   "fixSummary": "
@@ -194,7 +194,7 @@ Summary:
 }
 `;
 
-exports[`Snyk fix Snyk fix returns results for supported & unsupported type 1`] = `
+exports[`w3security fix w3security fix returns results for supported & unsupported type 1`] = `
 Object {
   "exceptions": Object {},
   "fixSummary": "
@@ -367,9 +367,9 @@ Summary:
 }
 `;
 
-exports[`Snyk fix Snyk fix returns results for supported type 1`] = `Object {}`;
+exports[`w3security fix w3security fix returns results for supported type 1`] = `Object {}`;
 
-exports[`Snyk fix Snyk fix returns results for supported type 2`] = `
+exports[`w3security fix w3security fix returns results for supported type 2`] = `
 Object {
   "python": Object {
     "failed": Array [],

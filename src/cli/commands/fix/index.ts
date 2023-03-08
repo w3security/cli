@@ -21,7 +21,7 @@ import { icon, color } from '../../../lib/theme';
 import { checkOSSPaths } from '../../../lib/check-paths';
 
 const debug = Debug('w3security-fix');
-const w3securityFixFeatureFlag = 'cliSnykFix';
+const w3securityFixFeatureFlag = 'cliw3securityFix';
 
 interface FixOptions {
   dryRun?: boolean;
@@ -43,10 +43,10 @@ export default async function fix(...args: MethodArgs): Promise<string> {
   validateTestOptions(options);
   validateCredentials(options);
   const results: w3securityFix.EntityToFix[] = [];
-  results.push(...(await runSnykTestLegacy(options, paths)));
+  results.push(...(await runw3securityTestLegacy(options, paths)));
   // fix
   debug(
-    `Organization has ${w3securityFixFeatureFlag} feature flag enabled for experimental Snyk fix functionality`,
+    `Organization has ${w3securityFixFeatureFlag} feature flag enabled for experimental w3security fix functionality`,
   );
   const vulnerableResults = results.filter(
     (res) => Object.keys(res.testResult.issues).length,
@@ -61,7 +61,7 @@ export default async function fix(...args: MethodArgs): Promise<string> {
     },
   );
 
-  setSnykFixAnalytics(
+  setw3securityFixAnalytics(
     fixSummary,
     meta,
     results,
@@ -90,7 +90,7 @@ export default async function fix(...args: MethodArgs): Promise<string> {
  * TODO: once project envelope is default all code below will be deleted
  * we should be calling test via new Ecosystems instead
  */
-async function runSnykTestLegacy(
+async function runw3securityTestLegacy(
   options: Options & TestOptions & FixOptions,
   paths: string[],
 ): Promise<w3securityFix.EntityToFix[]> {
@@ -165,7 +165,7 @@ async function runSnykTestLegacy(
   return results;
 }
 
-function setSnykFixAnalytics(
+function setw3securityFixAnalytics(
   fixSummary: string,
   meta: w3securityFix.FixedMeta,
   w3securityTestResponses: w3securityFix.EntityToFix[],

@@ -22,8 +22,8 @@ export function convertEngineToSarifResults(scanResult: TestOutput): sarif.Log {
   }
   const tool: sarif.Tool = {
     driver: {
-      name: 'Snyk IaC',
-      fullName: 'Snyk Infrastructure as Code',
+      name: 'w3security IaC',
+      fullName: 'w3security Infrastructure as Code',
       version: getVersion(),
       informationUri:
         'https://docs.w3security.io/products/w3security-infrastructure-as-code',
@@ -51,7 +51,7 @@ export function convertEngineToSarifResults(scanResult: TestOutput): sarif.Log {
         automationDetails: {
           id: 'w3security-iac',
         },
-        results: mapSnykIacTestResultsToSarifResults(scanResult.results),
+        results: mapw3securityIacTestResultsToSarifResults(scanResult.results),
       },
     ],
   };
@@ -142,7 +142,7 @@ function renderMarkdown(markdown: string) {
   return marked.parse(markdown);
 }
 
-function mapSnykIacTestResultsToSarifResults(
+function mapw3securityIacTestResultsToSarifResults(
   results: Results | undefined,
 ): sarif.Result[] {
   const result: sarif.Result[] = [];

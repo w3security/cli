@@ -1,4 +1,4 @@
-# Snyk CLI Smoke Tests
+# w3security CLI Smoke Tests
 
 Design goal is to have a single test suite, that can detect if CLI is not working properly - before and after it's released. Defects it should catch are e.g. [broken pkg builds for a specific platform](https://github.com/w3security/w3security/issues/670), [misaligned dependencies](https://github.com/w3security/w3security/issues/1261) or [issues with a specific installation targets](https://github.com/w3security/w3security/issues/1270).
 

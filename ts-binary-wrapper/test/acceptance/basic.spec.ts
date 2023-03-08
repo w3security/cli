@@ -133,7 +133,7 @@ describe('Basic acceptance test', () => {
     expect(resultIndex.status).not.toEqual(0); // we expect this to fail, since the legacy cli is not available in the test, still we want to see that the logic around is working properly
     expect(resultIndex.stdout.toString()).toEqual('');
     expect(resultIndex.stderr.toString()).toContain(
-      'You are currently running a degraded version of the Snyk CLI.',
+      'You are currently running a degraded version of the w3security CLI.',
     );
   });
 
@@ -168,7 +168,7 @@ describe('Basic acceptance test', () => {
     expect(resultIndex.status).not.toEqual(0); // we expect this to fail, since the legacy cli is not available in the test, still we want to see that the logic around is working properly
     expect(resultIndex.stdout.toString()).toEqual('');
     expect(resultIndex.stderr.toString()).toContain(
-      'You are currently running a degraded version of the Snyk CLI.',
+      'You are currently running a degraded version of the w3security CLI.',
     );
   });
 

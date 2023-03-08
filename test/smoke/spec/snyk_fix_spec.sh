@@ -1,6 +1,6 @@
 #shellcheck shell=sh
 
-Describe "Snyk fix command logged in"
+Describe "w3security fix command logged in"
   Before w3security_login
   After w3security_logout
 
@@ -15,7 +15,7 @@ Describe "Snyk fix command logged in"
   End
 End
 
-Describe "Snyk fix command logged out"
+Describe "w3security fix command logged out"
   Before w3security_logout
 
   Describe "Bubbles up auth error"

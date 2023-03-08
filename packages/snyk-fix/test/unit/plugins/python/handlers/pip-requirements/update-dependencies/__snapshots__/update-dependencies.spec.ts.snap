@@ -9,7 +9,7 @@ irc==16.2 # this has a cyclic dependency (internal jaraco.text <==> jaraco.colle
 testtools==\\\\
     2.3.0 # this has a cycle (fixtures ==> testtols);
 ./packages/prometheus_client-0.6.0
-transitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
+transitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability
 "
 `;
 

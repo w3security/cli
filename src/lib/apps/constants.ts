@@ -37,24 +37,24 @@ ${chalk.bold('Usage')}
 export const CreateAppPromptData = {
   W3SECURITY_APP_NAME: {
     name: W3SECURITY_APP_NAME,
-    message: `Name of the Snyk App (visible to users when they install the Snyk App)?`,
+    message: `Name of the w3security App (visible to users when they install the w3security App)?`,
   },
   W3SECURITY_APP_REDIRECT_URIS: {
     name: W3SECURITY_APP_REDIRECT_URIS,
-    message: `Your Snyk App's redirect URIs (comma seprated list. ${chalk.yellowBright(
+    message: `Your w3security App's redirect URIs (comma seprated list. ${chalk.yellowBright(
       ' Ex: https://example1.com,https://example2.com',
     )})?: `,
   },
   W3SECURITY_APP_SCOPES: {
     name: W3SECURITY_APP_SCOPES,
-    message: `Your Snyk App's permission scopes (comma separated list. ${chalk.yellowBright(
+    message: `Your w3security App's permission scopes (comma separated list. ${chalk.yellowBright(
       ' Ex: org.read,org.report.read',
     )})?: `,
   },
   W3SECURITY_APP_ORG_ID: {
     name: W3SECURITY_APP_ORG_ID,
     message:
-      'Please provide the org id under which you want to create your Snyk App: ',
+      'Please provide the org id under which you want to create your w3security App: ',
   },
   W3SECURITY_APP_CONTEXT: {
     name: W3SECURITY_APP_CONTEXT,

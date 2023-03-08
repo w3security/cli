@@ -105,7 +105,7 @@
       ],
       "version": "2.2.0",
       "name": "uglify-js",
-      "note": "Snyk policy in ug-deep@1.0.0 suggests ignoring this issue, with reason: Not used in production"
+      "note": "w3security policy in ug-deep@1.0.0 suggests ignoring this issue, with reason: Not used in production"
     },
     {
       "title": "Regular Expression Denial of Service",

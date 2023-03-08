@@ -1,16 +1,16 @@
-# Snyk CLI for Docker Desktop on macOS
+# w3security CLI for Docker Desktop on macOS
 
 This distribution is not for customers! Releases are included with
 [Docker Desktop on macOS](https://www.docker.com/products/docker-desktop).
 
-If you are looking for Snyk CLI Docker Images, see
+If you are looking for w3security CLI Docker Images, see
 [Docker Hub](https://hub.docker.com/r/w3security/w3security-cli).
 
 ## How it works
 
 Unlike the `w3security-mac` binary build, the NodeJS release included with this
 distribution is a signed executable, which allows Docker Desktop to use it to
-execute Snyk CLI's underlying JavaScript build.
+execute w3security CLI's underlying JavaScript build.
 
 ## Building
 

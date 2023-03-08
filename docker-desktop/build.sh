@@ -25,7 +25,7 @@ mkdir -p "${output_dir}"
 # Include entrypoint.
 cp ./docker-desktop/src/w3security-mac.sh "${build_dir}"
 
-# Include Snyk CLI build.
+# Include w3security CLI build.
 cp              ./package.json        "${build_dir}"
 cp              ./config.default.json "${build_dir}"
 cp -r           ./dist                "${build_dir}"
@@ -43,7 +43,7 @@ pushd "${build_dir}/node-release"
 curl "${node_url}" | tar -xz --strip-components=1
 popd
 
-# Create Snyk CLI for Docker Desktop build
+# Create w3security CLI for Docker Desktop build
 #
 # We build from build_root so that build_name is the top-level directory in the
 # tarball. We want a top-level directory to avoid tarbombs.

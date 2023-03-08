@@ -1,6 +1,6 @@
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromFixture } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 30);
 
@@ -43,7 +43,7 @@ describe('w3security test with patched vulnerabilities', () => {
       await project.readJSON('test-dep-graph-response.json'),
     );
 
-    const { stdout } = await runSnykCLI('test --json', {
+    const { stdout } = await runw3securityCLI('test --json', {
       cwd: project.path(),
       env,
     });

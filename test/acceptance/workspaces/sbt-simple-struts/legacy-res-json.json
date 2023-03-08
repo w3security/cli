@@ -1960,7 +1960,7 @@
   },
   "isPrivate": true,
   "packageManager": "maven",
-  "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\npatch: {}\n",
+  "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\npatch: {}\n",
   "hasUnknownVersions": false,
   "ignoreSettings": null,
   "summary": "31 vulnerable dependency paths",

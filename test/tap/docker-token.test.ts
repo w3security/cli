@@ -192,7 +192,7 @@ test('`w3security test` with docker flag - displays CTA', async (t) => {
     const msg = err.message;
     t.match(
       msg,
-      'For more free scans that keep your images secure, sign up to Snyk at https://dockr.ly/3ePqVcp',
+      'For more free scans that keep your images secure, sign up to w3security at https://dockr.ly/3ePqVcp',
       'displays docker CTA for scan with vulns',
     );
   }
@@ -230,7 +230,7 @@ test('`w3security test` with docker flag - does not display CTA', async (t) => {
     const msg = err.message;
     t.notMatch(
       msg,
-      'For more free scans that keep your images secure, sign up to Snyk at https://dockr.ly/3ePqVcp',
+      'For more free scans that keep your images secure, sign up to w3security at https://dockr.ly/3ePqVcp',
       'does not display docker CTA if API key was used',
     );
   }

@@ -159,7 +159,7 @@ function rebrandHTMLOutput(data: string): string {
   const titleReplaceRegex = new RegExp('(<title>)(.*)(<\\/title>)', 'g');
   data = data.replace(
     titleReplaceRegex,
-    `<title>Snyk IaC drift report</title>`,
+    `<title>w3security IaC drift report</title>`,
   );
 
   // Replace header brand logo

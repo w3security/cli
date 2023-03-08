@@ -7,7 +7,7 @@ import { TestCommandResult } from '../../../../cli/commands/types';
 import {
   formatIacTestFailures,
   formatIacTestSummary,
-  formatSnykIacTestTestData,
+  formatw3securityIacTestTestData,
   getIacDisplayedIssues,
   IaCTestFailure,
   shareResultsTip,
@@ -20,7 +20,7 @@ import {
 } from '../../../../cli/commands/test/iac/local-execution/types';
 import { convertEngineToSarifResults } from './sarif';
 import { CustomError, FormattedCustomError } from '../../../errors';
-import { SnykIacTestError } from './errors';
+import { w3securityIacTestError } from './errors';
 import stripAnsi from 'strip-ansi';
 import * as path from 'path';
 import { getErrorStringCode } from '../../../../cli/commands/test/iac/local-execution/error-utils';
@@ -134,7 +134,7 @@ function buildTextOutput({
 }): string {
   let response = '';
 
-  const testData = formatSnykIacTestTestData(
+  const testData = formatw3securityIacTestTestData(
     scanResult.results,
     projectName,
     scanResult.settings.org,
@@ -229,7 +229,7 @@ export class NoSuccessfulScansError extends FormattedCustomError {
 
   constructor(
     responseData: Omit<ResponseData, 'response'>,
-    errors: SnykIacTestError[],
+    errors: w3securityIacTestError[],
     options: { json?: boolean; sarif?: boolean },
   ) {
     const firstErr = errors[0];
@@ -271,7 +271,7 @@ export class NoSuccessfulScansError extends FormattedCustomError {
 export class NoLoadableInputError extends NoSuccessfulScansError {
   constructor(
     responseData: Omit<ResponseData, 'response'>,
-    errors: SnykIacTestError[],
+    errors: w3securityIacTestError[],
     options: { json?: boolean; sarif?: boolean },
   ) {
     super(responseData, errors, options);

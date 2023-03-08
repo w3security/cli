@@ -424,7 +424,7 @@
     "isPrivate": true,
     "isLicensesEnabled": true,
     "projectId": "f1530918-622e-41c4-8957-7cf8169c6a9f",
-    "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.21.5\nignore: {}\npatch: {}\n",
+    "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.21.5\nignore: {}\npatch: {}\n",
     "ignoreSettings": null,
     "org": "demo-applications",
     "licensesPolicy": {

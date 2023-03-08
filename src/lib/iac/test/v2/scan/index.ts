@@ -4,7 +4,7 @@ import { CustomError } from '../../../../errors';
 import { IaCErrorCodes } from '../../../../../cli/commands/test/iac/local-execution/types';
 import { getErrorStringCode } from '../../../../../cli/commands/test/iac/local-execution/error-utils';
 import * as newDebug from 'debug';
-import { mapSnykIacTestOutputToTestOutput, TestOutput } from './results';
+import { mapw3securityIacTestOutputToTestOutput, TestOutput } from './results';
 import * as os from 'os';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -79,7 +79,7 @@ async function scanWithConfig(
     throw new ScanError(`spawning process: ${child.error}`);
   }
 
-  return mapSnykIacTestOutputToTestOutput(await readJson(outputPath));
+  return mapw3securityIacTestOutputToTestOutput(await readJson(outputPath));
 }
 
 async function readJson(path: string) {

@@ -44,7 +44,7 @@ describe('generatePins', () => {
       ['Pinned transitive from 1.0.0 to 1.1.1'].sort(),
     );
     expect(result.pinnedRequirements).toEqual([
-      'transitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability',
+      'transitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability',
     ]);
   });
 
@@ -72,7 +72,7 @@ describe('generatePins', () => {
       ['Pinned transitive from 1.0.0 to 1.1.1'].sort(),
     );
     expect(result.pinnedRequirements).toEqual([
-      'transitive>=1.1.1 # not directly required, pinned by Snyk to avoid a vulnerability',
+      'transitive>=1.1.1 # not directly required, pinned by w3security to avoid a vulnerability',
     ]);
   });
 });

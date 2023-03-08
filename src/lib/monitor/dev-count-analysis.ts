@@ -1,5 +1,5 @@
 /**
- * This is to count the number of "contributing" developers using Snyk on a given repo.
+ * This is to count the number of "contributing" developers using w3security on a given repo.
  * "Contributing" is defined as having contributed a commit in the last 90 days.
  * This is use only on the `w3security monitor` command as that is used to monitor a project's dependencies in an
  * on-going manner.

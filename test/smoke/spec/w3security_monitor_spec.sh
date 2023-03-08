@@ -1,6 +1,6 @@
 #shellcheck shell=sh
 
-Describe "Snyk monitor command"
+Describe "w3security monitor command"
   Before w3security_login
   After w3security_logout
 

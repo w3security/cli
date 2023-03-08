@@ -6,6 +6,6 @@ labels: ''
 assignees: ''
 ---
 
-[Contact Snyk Support on the web](http://support.w3security.io) or email us at support@w3security.io
+[Contact w3security Support on the web](http://support.w3security.io) or email us at support@w3security.io
 
-**GitHub Issues are not monited by Snyk Support**
+**GitHub Issues are not monited by w3security Support**

@@ -46,7 +46,7 @@ export type AnalyticsPayload = {
   };
 };
 
-export type NoSnykFile = {
+export type Now3securityFile = {
   type: ProtectResultType.NO_W3SECURITY_FILE;
 };
 
@@ -59,4 +59,4 @@ export type AppliedPatches = {
   patchedModules: PatchedModule[];
 };
 
-export type ProtectResult = NoSnykFile | NothingToPatch | AppliedPatches;
+export type ProtectResult = Now3securityFile | NothingToPatch | AppliedPatches;

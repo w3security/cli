@@ -8,9 +8,9 @@
 
 The `w3security code test` command tests for any known security issues using Static Code Analysis.
 
-For more information see [Using Snyk Code via the CLI](../../products/w3security-code/cli-for-w3security-code/).
+For more information see [Using w3security Code via the CLI](../../products/w3security-code/cli-for-w3security-code/).
 
-For instructions on ignoring issues with `w3security code test` see [Excluding directories and files from the Snyk Code CLI test](../../products/w3security-code/cli-for-w3security-code/excluding-directories-and-files-from-the-w3security-code-cli-test.md).
+For instructions on ignoring issues with `w3security code test` see [Excluding directories and files from the w3security Code CLI test](../../products/w3security-code/cli-for-w3security-code/excluding-directories-and-files-from-the-w3security-code-cli-test.md).
 
 ## Exit codes
 
@@ -21,9 +21,9 @@ Possible exit codes and their meaning:
 **2**: failure, try to re-run command\
 **3**: failure, no supported projects detected
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and set variables for connecting with the Snyk API; see [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+You can use environment variables to configure the w3security CLI and set variables for connecting with the w3security API; see [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 
@@ -33,7 +33,7 @@ Use the `-d` option to output the debug logs.
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>`to run Snyk commands tied to a specific organization. The `<ORG_ID>` influences private test limits.
+Specify the `<ORG_ID>`to run w3security commands tied to a specific organization. The `<ORG_ID>` influences private test limits.
 
 If you have multiple organizations, you can set a default from the CLI using:
 
@@ -75,4 +75,4 @@ Use to display the human-readable test output using stdout and at the same time 
 
 ### `--severity-threshold=<low|medium|high|critical>`
 
-Report only vulnerabilities at the specified level or higher. Note that the Snyk Code configuration issues do not currently use the `critical` severity level.
+Report only vulnerabilities at the specified level or higher. Note that the w3security Code configuration issues do not currently use the `critical` severity level.

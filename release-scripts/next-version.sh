@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Checks the latest version of Snyk CLI on npm and decides the next version.
+# Checks the latest version of w3security CLI on npm and decides the next version.
 # Only output the next version to stdout. All other output should go to stderr.
 
 CURRENT_VERSION="$(npm view w3security version)"

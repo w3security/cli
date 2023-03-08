@@ -28,7 +28,7 @@ Object {
       ],
       "tool": Object {
         "driver": Object {
-          "name": "Snyk Open Source",
+          "name": "w3security Open Source",
           "rules": Array [
             Object {
               "fullDescription": Object {

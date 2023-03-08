@@ -257,7 +257,7 @@ describe('Test w3security code', () => {
       w3securityTest('some/path', { code: true, _: [], _doubleDashArgs: [] }),
     ).rejects.toHaveProperty(
       'userMessage',
-      'Snyk Code is not supported for org: enable in Settings > Snyk Code',
+      'w3security Code is not supported for org: enable in Settings > w3security Code',
     );
   });
 
@@ -966,7 +966,7 @@ describe('Test w3security code', () => {
         'test-id',
       ),
     ).rejects.toThrowError(
-      'Missing configuration for Snyk Code Local Engine. Refer to our docs on https://docs.w3security.io/products/w3security-code/deployment-options/w3security-code-local-engine/cli-and-ide to learn more',
+      'Missing configuration for w3security Code Local Engine. Refer to our docs on https://docs.w3security.io/products/w3security-code/deployment-options/w3security-code-local-engine/cli-and-ide to learn more',
     );
   });
 });

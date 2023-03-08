@@ -1,4 +1,4 @@
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import { isCLIV2 } from '../util/isCLIV2';
 import { fakeServer, FakeServer } from '../../../test/acceptance/fake-server';
 import * as path from 'path';
@@ -9,8 +9,8 @@ import {
 import {
   startCommand,
   TestCLI,
-  startSnykCLI,
-} from '../../../test/jest/util/startSnykCLI';
+  startw3securityCLI,
+} from '../../../test/jest/util/startw3securityCLI';
 import { unlink } from 'fs';
 import { execSync } from 'child_process';
 import * as os from 'os';
@@ -135,7 +135,7 @@ async function runCliWithProxy(
     env['KRB5_CONFIG'] = path.join(scriptsPath, KRB5_CONFIG_FILE);
   }
 
-  const cli = await startSnykCLI(temp.join(' '), {
+  const cli = await startw3securityCLI(temp.join(' '), {
     env: {
       ...env,
       W3SECURITY_HTTP_PROTOCOL_UPGRADE: '0',
@@ -161,7 +161,7 @@ jest.setTimeout(1000 * 60 * 1);
 describe('Proxy configuration behavior', () => {
   describe('*_PROXY against HTTPS host', () => {
     it('tries to connect to the HTTPS_PROXY when HTTPS_PROXY is set', async () => {
-      const { code, stderr } = await runSnykCLI(`woof --debug`, {
+      const { code, stderr } = await runw3securityCLI(`woof --debug`, {
         env: {
           ...process.env,
           HTTPS_PROXY: FAKE_HTTP_PROXY,
@@ -177,7 +177,7 @@ describe('Proxy configuration behavior', () => {
     });
 
     it('uses NO_PROXY to avoid connecting to the HTTPS_PROXY that is set', async () => {
-      const { code, stderr } = await runSnykCLI(`woof --debug`, {
+      const { code, stderr } = await runw3securityCLI(`woof --debug`, {
         env: {
           ...process.env,
           NO_PROXY: 'w3security.io',
@@ -193,7 +193,7 @@ describe('Proxy configuration behavior', () => {
     });
 
     it('does not try to connect to the HTTP_PROXY when it is set', async () => {
-      const { code, stderr } = await runSnykCLI(`woof -d`, {
+      const { code, stderr } = await runw3securityCLI(`woof -d`, {
         env: {
           ...process.env,
           HTTP_PROXY: FAKE_HTTP_PROXY,
@@ -210,7 +210,7 @@ describe('Proxy configuration behavior', () => {
 
   describe('*_PROXY against HTTP host', () => {
     it('tries to connect to the HTTP_PROXY when HTTP_PROXY is set', async () => {
-      const { code, stderr } = await runSnykCLI(`woof -d`, {
+      const { code, stderr } = await runw3securityCLI(`woof -d`, {
         env: {
           ...process.env,
           HTTP_PROXY: FAKE_HTTP_PROXY,
@@ -229,7 +229,7 @@ describe('Proxy configuration behavior', () => {
     if (!isCLIV2()) {
       // This scenario should actually work, an http request should directly go through and not hit the proxy if protocol upgrade is disabled.
       it('needle behavior - only HTTPS Proxy is set but HTTP request (without protocol upgrade) fails.', async () => {
-        const { code, stderr } = await runSnykCLI(`woof -d`, {
+        const { code, stderr } = await runw3securityCLI(`woof -d`, {
           env: {
             ...process.env,
             HTTPS_PROXY: FAKE_HTTP_PROXY,

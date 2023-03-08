@@ -22,7 +22,7 @@ const debug = Debug(W3SECURITY_APP_DEBUG);
 export default async function apps(
   ...args0: MethodArgs
 ): Promise<string | undefined | any> {
-  debug('Snyk apps CLI called');
+  debug('w3security apps CLI called');
 
   const { options, paths } = processCommandArgs<ICreateAppOptions>(...args0);
   debug(options, paths);

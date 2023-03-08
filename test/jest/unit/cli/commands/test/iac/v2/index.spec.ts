@@ -6,7 +6,7 @@ import * as scanLib from '../../../../../../../../src/lib/iac/test/v2/scan';
 import * as downloadPolicyEngineLib from '../../../../../../../../src/lib/iac/test/v2/local-cache/policy-engine/download';
 import { test } from '../../../../../../../../src/cli/commands/test/iac/v2/index';
 import { isValidJSONString } from '../../../../../../acceptance/iac/helpers';
-import { SnykIacTestError } from '../../../../../../../../src/lib/iac/test/v2/errors';
+import { w3securityIacTestError } from '../../../../../../../../src/lib/iac/test/v2/errors';
 import {
   FoundIssuesError,
   NoLoadableInputError,
@@ -44,7 +44,7 @@ describe('test', () => {
 
   const scanFixture = JSON.parse(fs.readFileSync(scanFixturePath, 'utf-8'));
   scanFixture.errors = scanFixture.errors.map(
-    (scanError) => new SnykIacTestError(scanError),
+    (scanError) => new w3securityIacTestError(scanError),
   );
 
   const scanWithOnlyErrorsFixture = {
@@ -61,7 +61,7 @@ describe('test', () => {
 
   const scanWithoutLoadableInputsFixture = {
     errors: [
-      new SnykIacTestError({
+      new w3securityIacTestError({
         code: 2114,
         message: 'no loadable input: path/to/test',
         fields: {
@@ -135,15 +135,15 @@ describe('test', () => {
         strCode: 'NO_FILES_TO_SCAN_ERROR',
         innerError: undefined,
         userMessage:
-          "Test Failures\n\n  The Snyk CLI couldn't find any valid IaC configuration files to scan\n  Path: invalid_file.txt",
+          "Test Failures\n\n  The w3security CLI couldn't find any valid IaC configuration files to scan\n  Path: invalid_file.txt",
         formattedUserMessage:
-          "Test Failures\n\n  The Snyk CLI couldn't find any valid IaC configuration files to scan\n  Path: invalid_file.txt",
+          "Test Failures\n\n  The w3security CLI couldn't find any valid IaC configuration files to scan\n  Path: invalid_file.txt",
         json:
           '[\n  {\n    "ok": false,\n    "code": 2114,\n    "error": "",\n    "path": "invalid_file.txt"\n  }\n]',
         jsonStringifiedResults:
           '[\n  {\n    "ok": false,\n    "code": 2114,\n    "error": "",\n    "path": "invalid_file.txt"\n  }\n]',
         sarifStringifiedResults: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-          }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+          }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
         fields: {
           path: 'invalid_file.txt',
         },
@@ -181,9 +181,9 @@ describe('test', () => {
             },
             path: 'path/to/test',
             userMessage:
-              "Test Failures\n\n  The Snyk CLI couldn't find any valid IaC configuration files to scan\n  Path: path/to/test",
+              "Test Failures\n\n  The w3security CLI couldn't find any valid IaC configuration files to scan\n  Path: path/to/test",
             formattedUserMessage:
-              "Test Failures\n\n  The Snyk CLI couldn't find any valid IaC configuration files to scan\n  Path: path/to/test",
+              "Test Failures\n\n  The w3security CLI couldn't find any valid IaC configuration files to scan\n  Path: path/to/test",
             sarifStringifiedResults: expect.stringContaining(
               `"$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"`,
             ),
@@ -259,7 +259,7 @@ describe('test', () => {
           jsonStringifiedResults:
             '[\n  {\n    "ok": false,\n    "code": 2114,\n    "error": "",\n    "path": "invalid_file.txt"\n  }\n]',
           sarifStringifiedResults: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
           fields: {
             path: 'invalid_file.txt',
           },
@@ -364,15 +364,15 @@ describe('test', () => {
           strCode: 'NO_FILES_TO_SCAN_ERROR',
           innerError: undefined,
           userMessage: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
           formattedUserMessage: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
           json: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
           jsonStringifiedResults:
             '[\n  {\n    "ok": false,\n    "code": 2114,\n    "error": "",\n    "path": "invalid_file.txt"\n  }\n]',
           sarifStringifiedResults: `{\n  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",\n  "version": "2.1.0",\n  "runs": [\n    {\n      "originalUriBaseIds": {\n        "PROJECTROOT": {\n          "uri": "${pathToFileURL(path.join(process.cwd(), '/')).href
-            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "Snyk IaC",\n          "fullName": "Snyk Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
+            }",\n          "description": {\n            "text": "The root directory for all project files."\n          }\n        }\n      },\n      "tool": {\n        "driver": {\n          "name": "w3security IaC",\n          "fullName": "w3security Infrastructure as Code",\n          "version": "1.0.0-monorepo",\n          "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",\n          "rules": []\n        }\n      },\n      "automationDetails": {\n        "id": "w3security-iac"\n      },\n      "results": []\n    }\n  ]\n}`,
           fields: {
             path: 'invalid_file.txt',
           },

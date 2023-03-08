@@ -41,7 +41,7 @@ export async function sendAnalytics(result: ProtectResult) {
 
 function allowAnalytics(): boolean {
   try {
-    const w3securityConfigFile = getSnykConfigFilePath();
+    const w3securityConfigFile = getw3securityConfigFilePath();
     if (existsSync(w3securityConfigFile)) {
       const config = JSON.parse(readFileSync(w3securityConfigFile, 'utf-8'));
       if (
@@ -60,7 +60,7 @@ function allowAnalytics(): boolean {
   return true;
 }
 
-function getSnykConfigFilePath(): string {
+function getw3securityConfigFilePath(): string {
   return (
     process.env.W3SECURITY_CONFIG_FILE ||
     path.resolve(os.homedir(), '.config', 'configstore', 'w3security.json')

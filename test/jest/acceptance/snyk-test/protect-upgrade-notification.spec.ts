@@ -1,6 +1,6 @@
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromFixture } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { isCLIV2 } from '../../util/isCLIV2';
 
 jest.setTimeout(1000 * 30);
@@ -41,7 +41,7 @@ describe('analytics module', () => {
       'protect-update-notification/with-package-json-with-w3security-dep',
     );
 
-    const { code, stdout } = await runSnykCLI('test', {
+    const { code, stdout } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });
@@ -77,7 +77,7 @@ describe('analytics module', () => {
     );
 
     const pathToFile = project.path('package-lock.json');
-    const { code, stdout } = await runSnykCLI(`test --file=${pathToFile}`, {
+    const { code, stdout } = await runw3securityCLI(`test --file=${pathToFile}`, {
       // note: not passing in the `cwd` of the project object
       env,
     });
@@ -120,7 +120,7 @@ describe('analytics module', () => {
 
     const pathsStr = paths.join(' ');
 
-    const { code, stdout } = await runSnykCLI(`test ${pathsStr}`, {
+    const { code, stdout } = await runw3securityCLI(`test ${pathsStr}`, {
       // note: not passing in the `cwd` of the project object
       env,
     });
@@ -163,7 +163,7 @@ describe('analytics module', () => {
       'protect-update-notification/with-package-json-without-w3security-dep',
     );
 
-    const { code, stdout } = await runSnykCLI('test', {
+    const { code, stdout } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });

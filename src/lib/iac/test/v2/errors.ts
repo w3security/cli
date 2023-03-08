@@ -11,7 +11,7 @@ const w3securityIacTestErrorsUserMessages = {
   CwdTraversal:
     'Running the scan from outside of the current working directory is not supported',
   NoBundle: 'A rule bundle was not provided',
-  OpenBundle: "The Snyk CLI couldn't open the rules bundle",
+  OpenBundle: "The w3security CLI couldn't open the rules bundle",
   InvalidSeverityThreshold:
     'The provided severity threshold is invalid. The following values are supported: "low", "medium", "high", "critical"',
   Scan: defaultUserMessage,
@@ -29,7 +29,7 @@ const w3securityIacTestErrorsUserMessages = {
   FailedToCompile: defaultUserMessage,
   UnableToReadPath: 'Unable to read path',
   NoLoadableInput:
-    "The Snyk CLI couldn't find any valid IaC configuration files to scan",
+    "The w3security CLI couldn't find any valid IaC configuration files to scan",
   FailedToProcessResults:
     'An error occurred while processing results. Please run the command again with the `-d` flag for more information.',
 };
@@ -57,7 +57,7 @@ export function getErrorUserMessage(code: number, error: string): string {
   return w3securityIacTestErrorsUserMessages[errorName];
 }
 
-export class SnykIacTestError extends CustomError {
+export class w3securityIacTestError extends CustomError {
   public fields: { path: string;[key: string]: string };
 
   constructor(scanError: ScanError) {

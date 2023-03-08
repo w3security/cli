@@ -16,7 +16,7 @@ describe('Fix PR', () => {
     ).toEqual(
       expect.objectContaining<RunCLIResult>({
         code: 0,
-        stdout: expect.stringContaining('Applied Snyk patches'),
+        stdout: expect.stringContaining('Applied w3security patches'),
         stderr: expect.not.stringMatching(/w3security/gi),
       }),
     );

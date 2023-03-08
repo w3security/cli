@@ -90,7 +90,7 @@
   "ok": false,
   "dependencyCount": 1,
   "org": "another-org",
-  "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.19.0\nignore: {}\npatch: {}\n",
+  "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.19.0\nignore: {}\npatch: {}\n",
   "isPrivate": true,
   "licensesPolicy": null,
   "packageManager": "npm",

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export default function about(): void {
-  console.log(`Snyk CLI Open Source Attributions\n\n`);
+  console.log(`w3security CLI Open Source Attributions\n\n`);
   const licenseNoticesArray = JSON.parse(
     fs.readFileSync(path.resolve(__dirname, 'thirdPartyNotice.json'), 'utf8'),
   );

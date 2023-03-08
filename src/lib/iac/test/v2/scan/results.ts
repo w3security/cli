@@ -1,13 +1,13 @@
 import { SEVERITY } from '../../../../w3security-test/common';
 import { IacProjectType } from '../../../constants';
-import { SnykIacTestError } from '../errors';
+import { w3securityIacTestError } from '../errors';
 import * as PolicyEngineTypes from './policy-engine';
 import { IaCErrorCodes } from '../../../../../cli/commands/test/iac/local-execution/types';
 import { UnsupportedEntitlementError } from '../../../../errors/unsupported-entitlement-error';
 import { FailedToGetIacOrgSettingsError } from '../../../../../cli/commands/test/iac/local-execution/org-settings/get-iac-org-settings';
 
-export function mapSnykIacTestOutputToTestOutput(
-  w3securityIacOutput: SnykIacTestOutput,
+export function mapw3securityIacTestOutputToTestOutput(
+  w3securityIacOutput: w3securityIacTestOutput,
 ): TestOutput {
   const entitlementError = w3securityIacOutput.errors?.find(
     (err) => err.code === IaCErrorCodes.EntitlementNotEnabled,
@@ -27,7 +27,7 @@ export function mapSnykIacTestOutputToTestOutput(
     throw new FailedToGetIacOrgSettingsError();
   }
 
-  const errors = w3securityIacOutput.errors?.map((err) => new SnykIacTestError(err));
+  const errors = w3securityIacOutput.errors?.map((err) => new w3securityIacTestError(err));
 
   const errWithoutPath = errors?.find((err) => !err.fields?.path);
 
@@ -44,11 +44,11 @@ export function mapSnykIacTestOutputToTestOutput(
 
 export interface TestOutput {
   results?: Results;
-  errors?: SnykIacTestError[];
+  errors?: w3securityIacTestError[];
   settings: Settings;
 }
 
-export interface SnykIacTestOutput {
+export interface w3securityIacTestOutput {
   results?: Results;
   rawResults?: PolicyEngineTypes.Results;
   errors?: ScanError[];

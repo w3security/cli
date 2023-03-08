@@ -46,7 +46,7 @@ Tested 40 dependencies for known issues, found 3 issues.
 
 Tip: Detected multiple supported manifests (3), use --all-projects to scan all of them at once.
 
-Snyk wasn’t able to auto detect the base image, use \`--file\` option to get base image remediation advice.
+w3security wasn’t able to auto detect the base image, use \`--file\` option to get base image remediation advice.
 Example: $ w3security container test src --file=path/to/Dockerfile
 
 To remove this message in the future, please run \`w3security config set disableSuggestions=true\`"
@@ -130,7 +130,7 @@ Warning: Unable to analyse Dockerfile provided through \`--file\`.
 
 Pro tip: use \`--exclude-base-image-vulns\` to exclude from display Docker base image vulnerabilities.
 
-Snyk found some vulnerabilities in your image applications (Snyk searches for these vulnerabilities by default). See [URL]
+w3security found some vulnerabilities in your image applications (w3security searches for these vulnerabilities by default). See [URL]
 
 To remove these messages in the future, please run \`w3security config set disableSuggestions=true\`"
 `;
@@ -165,7 +165,7 @@ Warning: Unable to analyse Dockerfile provided through \`--file\`.
 
 Pro tip: use \`--exclude-base-image-vulns\` to exclude from display Docker base image vulnerabilities.
 
-Snyk found some vulnerabilities in your image applications (Snyk searches for these vulnerabilities by default). See [URL]
+w3security found some vulnerabilities in your image applications (w3security searches for these vulnerabilities by default). See [URL]
 
 To remove these messages in the future, please run \`w3security config set disableSuggestions=true\`"
 `;

@@ -1,5 +1,5 @@
 import { fakeServer } from '../../acceptance/fake-server';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 
 describe('config', () => {
   let server: ReturnType<typeof fakeServer>;
@@ -33,7 +33,7 @@ describe('config', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
       { env },
     );
@@ -49,7 +49,7 @@ describe('config', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
       { env },
     );
@@ -65,7 +65,7 @@ describe('config', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
       { env },
     );
@@ -82,7 +82,7 @@ describe('config', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
       { env },
     );

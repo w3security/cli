@@ -1,6 +1,6 @@
 import { fakeServer } from '../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../util/createProject';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -34,7 +34,7 @@ describe('OAuth Token', () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
     server.setDepGraphResponse(await project.readJSON('vulns-result.json'));
 
-    const { code } = await runSnykCLI(`test --json`, {
+    const { code } = await runw3securityCLI(`test --json`, {
       cwd: project.path(),
       env,
     });
@@ -55,7 +55,7 @@ describe('OAuth Token', () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
     server.setDepGraphResponse(await project.readJSON('vulns-result.json'));
 
-    const { code } = await runSnykCLI(`monitor --json`, {
+    const { code } = await runw3securityCLI(`monitor --json`, {
       cwd: project.path(),
       env,
     });

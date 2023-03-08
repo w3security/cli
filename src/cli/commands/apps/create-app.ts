@@ -48,7 +48,7 @@ export async function createApp(
   };
 
   try {
-    await spinner('Creating your Snyk App');
+    await spinner('Creating your w3security App');
     const response = await makeRequestRest<ICreateAppResponse>(payload);
     debug(response);
     spinner.clearAll();

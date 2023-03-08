@@ -17,7 +17,7 @@ import {
 } from './types';
 import { analysisProgressUpdate } from './utils';
 import {
-  FeatureNotSupportedBySnykCodeError,
+  FeatureNotSupportedByw3securityCodeError,
   MissingConfigurationError,
 } from './errors';
 import { getProxyForUrl } from 'proxy-from-env';
@@ -167,7 +167,7 @@ function filterIgnoredIssues(codeAnalysis: Log): Log {
 
 function severityToAnalysisSeverity(severity: SEVERITY): AnalysisSeverity {
   if (severity === SEVERITY.CRITICAL) {
-    throw new FeatureNotSupportedBySnykCodeError(SEVERITY.CRITICAL);
+    throw new FeatureNotSupportedByw3securityCodeError(SEVERITY.CRITICAL);
   }
   const severityLevel = {
     low: 1,
@@ -239,7 +239,7 @@ function isLocalCodeEngine(sastSettings: SastSettings): boolean {
 function validateLocalCodeEngineUrl(localCodeEngineUrl: string): void {
   if (localCodeEngineUrl.length === 0) {
     throw new MissingConfigurationError(
-      'Snyk Code Local Engine. Refer to our docs on https://docs.w3security.io/products/w3security-code/deployment-options/w3security-code-local-engine/cli-and-ide to learn more',
+      'w3security Code Local Engine. Refer to our docs on https://docs.w3security.io/products/w3security-code/deployment-options/w3security-code-local-engine/cli-and-ide to learn more',
     );
   }
 }

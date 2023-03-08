@@ -11,7 +11,7 @@ mkdir ./dist-docker/docker/help/
 cp -r ./help/cli-commands ./dist-docker/docker/help/cli-commands
 cp -r ./pysrc ./dist-docker/docker/pysrc
 
-# Snyk CLI entry script
+# w3security CLI entry script
 cp ./release-scripts/w3security-mac.sh ./dist-docker/docker/
 
 cd ./dist-docker/docker/

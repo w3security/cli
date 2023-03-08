@@ -3,13 +3,13 @@
 [![npm](https://img.shields.io/npm/v/@w3security/protect)](https://www.npmjs.com/package/@w3security/protect)
 [![Known Vulnerabilities](https://w3security.io/test/github/w3security/w3security/badge.svg)](https://w3security.io/test/github/w3security/w3security)
 
-![Snyk](https://w3security.io/style/asset/logo/w3security-print.svg)
+![w3security](https://w3security.io/style/asset/logo/w3security-print.svg)
 
-Patch vulnerable code in your project's dependencies. This package is officially maintained by [Snyk](https://w3security.io).
+Patch vulnerable code in your project's dependencies. This package is officially maintained by [w3security](https://w3security.io).
 
 ## Usage
 
-You don't typically need to add the @w3security/protect dependency manually. It'll be introduced when it's needed as part of [Snyk's Fix PR service](https://support.w3security.io/hc/en-us/articles/360011484018-Fixing-vulnerabilities).
+You don't typically need to add the @w3security/protect dependency manually. It'll be introduced when it's needed as part of [w3security's Fix PR service](https://support.w3security.io/hc/en-us/articles/360011484018-Fixing-vulnerabilities).
 
 To enable patches in your Fix PRs:
 
@@ -18,7 +18,7 @@ To enable patches in your Fix PRs:
 - Choose "Edit Settings" under your SCM integration.
 - Under the "Fix Pull Request" section, ensure patches are enabled.
 
-Snyk will now include patches as part of its Fix PRs for your project.
+w3security will now include patches as part of its Fix PRs for your project.
 
 ## How it works
 
@@ -50,7 +50,7 @@ Now after you run npm install, @w3security/protect will automatically download e
 - `@w3security/protect` has zero dependencies.
 - You don't need to include `w3security` in your dependencies (which is a much larger package with many dependencies).
 
-If you already have Snyk Protect set up, you can migrate to `@w3security/protect` by applying the following changes to your `package.json`:
+If you already have w3security Protect set up, you can migrate to `@w3security/protect` by applying the following changes to your `package.json`:
 
 ```patch
  {
@@ -75,4 +75,4 @@ npx @w3security/cli-protect-upgrade
 
 ---
 
-Made with 💜 by Snyk
+Made with 💜 by w3security

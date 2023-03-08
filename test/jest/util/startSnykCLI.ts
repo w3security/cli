@@ -204,10 +204,10 @@ export const startCommand = async (
 };
 
 /**
- * Starts Snyk CLI and provides a test wrapper for performing typical actions
+ * Starts w3security CLI and provides a test wrapper for performing typical actions
  * and assertions.
  */
-export const startSnykCLI = async (
+export const startw3securityCLI = async (
   argsString: string,
   options?: StartCommandOptions,
 ): Promise<TestCLI> => {

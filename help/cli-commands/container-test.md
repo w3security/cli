@@ -8,7 +8,7 @@
 
 The `w3security container test` command tests container images for any known vulnerabilities.
 
-For more information see [Snyk CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
+For more information see [w3security CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
 
 ## Exit codes
 
@@ -19,11 +19,11 @@ Possible exit codes and their meaning:
 **2**: failure, try to re-run command\
 **3**: failure, no supported projects detected
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and set variables for connecting with the Snyk API.
+You can use environment variables to configure the w3security CLI and set variables for connecting with the w3security API.
 
-There are environment variables that apply to the container command; see [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+There are environment variables that apply to the container command; see [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 
@@ -37,7 +37,7 @@ Print the dependency tree before sending it for analysis.
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>` to run Snyk commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
+Specify the `<ORG_ID>` to run w3security commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
 
 If you have multiple organizations, you can set a default from the CLI using:
 
@@ -57,7 +57,7 @@ For more detailed advice, include the path to the Dockerfile for the image.
 
 ### `--project-name=<PROJECT_NAME>`
 
-Specify a custom Snyk project name.
+Specify a custom w3security project name.
 
 ### `--policy-path=<PATH_TO_POLICY_FILE>`
 
@@ -118,7 +118,7 @@ For more information see [Detecting application vulnerabilities in container ima
 
 ### `--nested-jars-depth`
 
-When using `--app-vulns` use the `--nested-jars-depth` option to set how many levels of nested jars Snyk is to unpack. Depth must be a number.
+When using `--app-vulns` use the `--nested-jars-depth` option to set how many levels of nested jars w3security is to unpack. Depth must be a number.
 
 ### `--exclude-base-image-vulns`
 
@@ -154,4 +154,4 @@ Specify a password to use when connecting to a container registry. This is ignor
 
 `$ w3security container test app:latest --file=Dockerfile --policy-path=path/to/.w3security`
 
-For more information and examples see [Advanced Snyk Container CLI usage](https://docs.w3security.io/w3security-container/w3security-cli-for-container-security/advanced-w3security-container-cli-usage)
+For more information and examples see [Advanced w3security Container CLI usage](https://docs.w3security.io/w3security-container/w3security-cli-for-container-security/advanced-w3security-container-cli-usage)

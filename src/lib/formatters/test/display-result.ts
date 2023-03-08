@@ -97,7 +97,7 @@ export function displayResult(
       localPackageTest ||
       options.dev
     )
-      ? '\n\nTip: Snyk only tests production dependencies by default. You can try re-running with the `--dev` flag.'
+      ? '\n\nTip: w3security only tests production dependencies by default. You can try re-running with the `--dev` flag.'
       : '';
 
     const dockerCTA = dockerUserCTA(options);

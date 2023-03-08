@@ -1,5 +1,5 @@
 import { createProject } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 
 jest.setTimeout(1000 * 60);
@@ -40,7 +40,7 @@ describe('trust policies', () => {
       await project.readJSON('test-dep-graph-result.json'),
     );
 
-    const { code, stdout } = await runSnykCLI('test', {
+    const { code, stdout } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });
@@ -59,7 +59,7 @@ describe('trust policies', () => {
       await project.readJSON('test-dep-graph-result-trust-policies.json'),
     );
 
-    const { code, stdout } = await runSnykCLI('test --trust-policies', {
+    const { code, stdout } = await runw3securityCLI('test --trust-policies', {
       cwd: project.path(),
       env,
     });

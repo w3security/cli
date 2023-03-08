@@ -1,8 +1,8 @@
 import { load as loadPolicy } from 'snyk-policy';
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { requireSnykToken } from '../../util/requireSnykToken';
-import { runSnykCLI, runSnykCLIWithArray } from '../../util/runSnykCLI';
+import { requirew3securityToken } from '../../util/requirew3securityToken';
+import { runw3securityCLI, runw3securityCLIWithArray } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -17,7 +17,7 @@ describe('w3security ignore', () => {
       ...process.env,
       W3SECURITY_API: 'http://localhost:' + apiPort + apiPath,
       W3SECURITY_HOST: 'http://localhost:' + apiPort,
-      W3SECURITY_TOKEN: requireSnykToken(),
+      W3SECURITY_TOKEN: requirew3securityToken(),
       W3SECURITY_DISABLE_ANALYTICS: '1',
     };
 
@@ -35,7 +35,7 @@ describe('w3security ignore', () => {
 
   it('creates a policy file with exclude, using default group', async () => {
     const project = await createProjectFromWorkspace('empty');
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts  --policy-path=${project.path()}`,
       {
         cwd: project.path(),
@@ -54,7 +54,7 @@ describe('w3security ignore', () => {
   it('add multiple uniq patterns to the same group', async () => {
     const project = await createProjectFromWorkspace('empty');
 
-    let result = await runSnykCLI(
+    let result = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts  --policy-path=${project.path()}`,
       {
         cwd: project.path(),
@@ -64,7 +64,7 @@ describe('w3security ignore', () => {
 
     expect(result.code).toEqual(0);
 
-    result = await runSnykCLI(
+    result = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts  --policy-path=${project.path()}`,
       {
         cwd: project.path(),
@@ -84,7 +84,7 @@ describe('w3security ignore', () => {
     const project = await createProjectFromWorkspace('empty');
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=code  --policy-path=${project.path()}`,
       { cwd: project.path(), env: env },
     );
@@ -101,17 +101,17 @@ describe('w3security ignore', () => {
   it('update a policy file with exclude, using different groups', async () => {
     const project = await createProjectFromWorkspace('empty');
 
-    await runSnykCLI(
+    await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=global  --policy-path=${project.path()}`,
       { cwd: project.path(), env: env },
     );
 
-    await runSnykCLI(
+    await runw3securityCLI(
       `ignore --file-path=**/vendor/**/*.ts --file-path-group=code  --policy-path=${project.path()}`,
       { cwd: project.path(), env: env },
     );
 
-    await runSnykCLI(
+    await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=code  --policy-path=${project.path()}`,
       { cwd: project.path(), env: env },
     );
@@ -129,7 +129,7 @@ describe('w3security ignore', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=code --reason=unknown-reason --expiry=2099-12-24  --policy-path=${project.path()}`,
       { cwd: project.path(), env: env },
     );
@@ -161,7 +161,7 @@ describe('w3security ignore', () => {
 
   it('updates a policy file for exclude by providing group, expiry and reason', async () => {
     const project = await createProjectFromWorkspace('empty');
-    await runSnykCLI(
+    await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=code`,
       { cwd: project.path(), env: env },
     );
@@ -174,7 +174,7 @@ describe('w3security ignore', () => {
 
     const {
       code,
-    } = await runSnykCLI(
+    } = await runw3securityCLI(
       `ignore --file-path=**/deps/**/*.ts --file-path-group=code --reason=unknown-reason --expiry=2099-12-24`,
       { cwd: project.path(), env: env },
     );
@@ -206,7 +206,7 @@ describe('w3security ignore', () => {
 
   it('creates a policy file using minimal options', async () => {
     const project = await createProjectFromWorkspace('empty');
-    const { code } = await runSnykCLI(`ignore --id=ID`, {
+    const { code } = await runw3securityCLI(`ignore --id=ID`, {
       cwd: project.path(),
       env: env,
     });
@@ -231,7 +231,7 @@ describe('w3security ignore', () => {
 
   it('creates a policy file using provided options', async () => {
     const project = await createProjectFromWorkspace('empty');
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       `ignore --id=ID --reason=REASON --expiry=2017-10-07 --policy-path=${project.path()}`,
       {
         cwd: project.path(),
@@ -272,7 +272,7 @@ describe('w3security ignore', () => {
     const project = await createProjectFromWorkspace('empty');
 
     // Act
-    await runSnykCLIWithArray(
+    await runw3securityCLIWithArray(
       [
         'ignore',
         `--id=${issueId}`,
@@ -286,7 +286,7 @@ describe('w3security ignore', () => {
       },
     );
 
-    await runSnykCLIWithArray(
+    await runw3securityCLIWithArray(
       [
         'ignore',
         `--id=${issueId}`,
@@ -343,7 +343,7 @@ describe('w3security ignore', () => {
     const project = await createProjectFromWorkspace('empty');
 
     // Act
-    await runSnykCLIWithArray(
+    await runw3securityCLIWithArray(
       [
         'ignore',
         `--id=${issueId}`,
@@ -357,7 +357,7 @@ describe('w3security ignore', () => {
       },
     );
 
-    await runSnykCLIWithArray(
+    await runw3securityCLIWithArray(
       [
         'ignore',
         `--id=${issueId}`,
@@ -390,7 +390,7 @@ describe('w3security ignore', () => {
 
   it('fails on missing ID', async () => {
     const project = await createProjectFromWorkspace('empty');
-    const { code, stdout } = await runSnykCLI(`ignore --reason=REASON`, {
+    const { code, stdout } = await runw3securityCLI(`ignore --reason=REASON`, {
       cwd: project.path(),
       env: env,
     });
@@ -403,7 +403,7 @@ describe('w3security ignore', () => {
     const project = await createProjectFromWorkspace('empty');
     server.unauthorizeAction('cliIgnore', 'not allowed');
 
-    const { code, stdout } = await runSnykCLI(`ignore --id=ID`, {
+    const { code, stdout } = await runw3securityCLI(`ignore --id=ID`, {
       cwd: project.path(),
       env,
     });

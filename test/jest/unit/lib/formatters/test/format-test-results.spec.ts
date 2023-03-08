@@ -30,7 +30,7 @@ describe('extractDataToSendFromResults', () => {
       expect(res.stringifiedSarifData).toBe('');
     });
 
-    it('should create Snyk JSON and only Snyk JSON if `--json` is set in the options', () => {
+    it('should create w3security JSON and only w3security JSON if `--json` is set in the options', () => {
       const options = {
         json: true,
       } as Options;
@@ -46,7 +46,7 @@ describe('extractDataToSendFromResults', () => {
       expect(res.stringifiedSarifData).toBe('');
     });
 
-    it('should create Snyk JSON and only Snyk JSON if `--json-file-output` is set in the options', () => {
+    it('should create w3security JSON and only w3security JSON if `--json-file-output` is set in the options', () => {
       const options = {} as Options;
       options['json-file-output'] = 'somefile.json';
       const jsonStringifySpy = jest.spyOn(JSON, 'stringify');
@@ -61,7 +61,7 @@ describe('extractDataToSendFromResults', () => {
       expect(res.stringifiedSarifData).toBe('');
     });
 
-    it('should create Snyk JSON and only Snyk JSON if `--json` and `--json-file-output` are set in the options', () => {
+    it('should create w3security JSON and only w3security JSON if `--json` and `--json-file-output` are set in the options', () => {
       const options = {
         json: true,
       } as Options;
@@ -157,7 +157,7 @@ describe('extractDataToSendFromResults', () => {
         ),
       );
 
-      it('should create grouped Snyk JSON and only grouped Snyk JSON if `--json` and `--group-issues` is set in the options', () => {
+      it('should create grouped w3security JSON and only grouped w3security JSON if `--json` and `--group-issues` is set in the options', () => {
         const options = {
           json: true,
           'group-issues': true,
@@ -180,7 +180,7 @@ describe('extractDataToSendFromResults', () => {
         ).toHaveLength(7);
       });
 
-      it('should create non-grouped Snyk JSON and only Snyk JSON if `--json` is set in the options', () => {
+      it('should create non-grouped w3security JSON and only w3security JSON if `--json` is set in the options', () => {
         const options = {
           json: true,
         } as Options;
@@ -232,7 +232,7 @@ describe('extractDataToSendFromResults', () => {
         ),
       );
 
-      it('should create grouped Snyk JSON for each of the projects in the result if `--json` and `--group-issues` is set in the options', () => {
+      it('should create grouped w3security JSON for each of the projects in the result if `--json` and `--group-issues` is set in the options', () => {
         const options = {
           json: true,
           'group-issues': true,
@@ -258,7 +258,7 @@ describe('extractDataToSendFromResults', () => {
         ).toHaveLength(2);
       });
 
-      it('should create non-grouped Snyk JSON for each of the projects in the result if `--json` is set in the options', () => {
+      it('should create non-grouped w3security JSON for each of the projects in the result if `--json` is set in the options', () => {
         const options = {
           json: true,
         } as Options;
@@ -300,7 +300,7 @@ describe('extractDataToSendFromResults', () => {
       ),
     );
 
-    it('should create Snyk grouped JSON for container image if `--json` and `--group-issues` are set in the options', () => {
+    it('should create w3security grouped JSON for container image if `--json` and `--group-issues` are set in the options', () => {
       const options = {
         json: true,
         docker: true,
@@ -348,7 +348,7 @@ describe('extractDataToSendFromResults', () => {
       ),
     );
 
-    it('should create Snyk grouped JSON for each of the multiple test results if `--json` and `--group-issues` are set in the options', () => {
+    it('should create w3security grouped JSON for each of the multiple test results if `--json` and `--group-issues` are set in the options', () => {
       const options = {
         json: true,
         docker: true,

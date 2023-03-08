@@ -9,7 +9,7 @@ import { AuthFailedError } from '../../../lib/errors';
 import chalk from 'chalk';
 
 const debug = Debug('w3security-fix');
-const w3securityFixFeatureFlag = 'cliSnykFix';
+const w3securityFixFeatureFlag = 'cliw3securityFix';
 
 export async function validateFixCommandIsSupported(
   options: Options & TestOptions,

@@ -54,7 +54,7 @@ const SEPARATOR = '\n-------------------------------------------------------\n';
 const debug = Debug('w3security');
 const appVulnsReleaseWarningMsg = `${theme.icon.WARNING} Important: Beginning January 24th, 2023, application dependencies in container
 images will be scanned by default when using the w3security container test/monitor
-commands. If you are using Snyk in a CI pipeline, action may be required. Read
+commands. If you are using w3security in a CI pipeline, action may be required. Read
 https://w3security.io/blog/securing-container-applications-using-the-w3security-cli/ for
 more info.`;
 

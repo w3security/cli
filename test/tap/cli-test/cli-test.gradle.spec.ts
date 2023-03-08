@@ -48,7 +48,7 @@ export const GradleTests: AcceptanceTests = {
       );
       t.notMatch(
         meta[5],
-        /Local Snyk policy:\s+found/,
+        /Local w3security policy:\s+found/,
         'local policy not displayed',
       );
     },
@@ -87,7 +87,7 @@ export const GradleTests: AcceptanceTests = {
       t.match(meta[4], /Project path:\s+gradle-app/, 'path displayed');
       t.notMatch(
         meta[5],
-        /Local Snyk policy:\s+found/,
+        /Local w3security policy:\s+found/,
         'local policy not displayed',
       );
     },
@@ -269,7 +269,7 @@ export const GradleTests: AcceptanceTests = {
         t.match(meta[5], /Project path:\s+gradle-app/, 'path displayed');
         t.notMatch(
           meta[6],
-          /Local Snyk policy:\s+found/,
+          /Local w3security policy:\s+found/,
           'local policy not displayed',
         );
       }

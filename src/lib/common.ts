@@ -32,8 +32,8 @@ export function testPlatformSupport() {
       '------------------------------- Warning -------------------------------\n' +
       ' The current platform (' +
       currentPlatform +
-      ') is not supported by Snyk.\n' +
-      ' You may want to consider using Docker to run Snyk, for details see: https://docs.w3security.io/w3security-cli/install-the-w3security-cli#w3security-cli-in-a-docker-image\n' +
+      ') is not supported by w3security.\n' +
+      ' You may want to consider using Docker to run w3security, for details see: https://docs.w3security.io/w3security-cli/install-the-w3security-cli#w3security-cli-in-a-docker-image\n' +
       ' If you experience errors please reach out to support@w3security.io.\n' +
       '-----------------------------------------------------------------------';
 

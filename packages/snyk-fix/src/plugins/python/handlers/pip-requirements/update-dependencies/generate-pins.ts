@@ -48,7 +48,7 @@ export function generatePins(
           referenceFileInChanges ? ` (pinned in ${referenceFileInChanges})` : ''
         }`,
       });
-      return `${newRequirement} # not directly required, pinned by Snyk to avoid a vulnerability`;
+      return `${newRequirement} # not directly required, pinned by w3security to avoid a vulnerability`;
     })
     .filter(isDefined);
 

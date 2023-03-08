@@ -135,7 +135,7 @@ export default async function auth(apiToken: string): Promise<string> {
     if (res.statusCode === 200 || res.statusCode === 201) {
       w3security.config.set('api', body.api);
       return (
-        '\nYour account has been authenticated. Snyk is now ready to ' +
+        '\nYour account has been authenticated. w3security is now ready to ' +
         'be used.\n'
       );
     }
@@ -183,7 +183,7 @@ function browserAuthPrompt(isDocker: boolean, urlStr: string): string {
     return (
       '\nTo authenticate your account, open the below URL in your browser.\n' +
       'After your authentication is complete, return to this prompt to ' +
-      'start using Snyk.\n\n' +
+      'start using w3security.\n\n' +
       urlStr +
       '\n'
     );

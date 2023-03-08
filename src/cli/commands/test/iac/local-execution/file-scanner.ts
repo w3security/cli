@@ -70,8 +70,8 @@ export function validateResultFromCustomRules(
       failureReason = `Invalid non-uppercase publicId for custom rule ${violatedPolicy.publicId
         }. Change to ${violatedPolicy.publicId.toUpperCase()}`;
     }
-    const invalidSnykPublicId = violatedPolicy.publicId.startsWith('W3SECURITY-CC-');
-    if (invalidSnykPublicId) {
+    const invalidw3securityPublicId = violatedPolicy.publicId.startsWith('W3SECURITY-CC-');
+    if (invalidw3securityPublicId) {
       failureReason = `Invalid publicId for custom rule ${violatedPolicy.publicId}. Change to a publicId that does not start with W3SECURITY-CC-`;
     }
 

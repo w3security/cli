@@ -1,12 +1,12 @@
 # Reporting Security Issues
 
-We at Snyk value the security community and believe that responsible disclosure of security vulnerabilities in open source packages helps us ensure the security and privacy of the users.
+We at w3security value the security community and believe that responsible disclosure of security vulnerabilities in open source packages helps us ensure the security and privacy of the users.
 
-If you believe you have found a security vulnerability on Snyk, we encourage you to let us know right away. We will investigate all legitimate reports and do our best to quickly fix the problem. Before reporting though, please review our responsible disclosure policy, and those things that should not be reported.
+If you believe you have found a security vulnerability on w3security, we encourage you to let us know right away. We will investigate all legitimate reports and do our best to quickly fix the problem. Before reporting though, please review our responsible disclosure policy, and those things that should not be reported.
 
 Submit your report to security@w3security.io (one issue per report) and respond to the report with any updates. Please do not contact employees directly or through other channels about a report.
 
-Report security bugs in third-party modules to the person or team maintaining the module. You can also report a vulnerability through our [Snyk Vulnerability Disclosure](https://docs.google.com/a/w3security.io/forms/d/e/1FAIpQLSemwgWZ0JgK1ZULKhy9DZCQ5KulbLEldvmokAuRtt-_nrqNlA/viewform) program.
+Report security bugs in third-party modules to the person or team maintaining the module. You can also report a vulnerability through our [w3security Vulnerability Disclosure](https://docs.google.com/a/w3security.io/forms/d/e/1FAIpQLSemwgWZ0JgK1ZULKhy9DZCQ5KulbLEldvmokAuRtt-_nrqNlA/viewform) program.
 
 ### Responsible Disclosure Policy
 

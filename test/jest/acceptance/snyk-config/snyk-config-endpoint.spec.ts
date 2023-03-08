@@ -1,5 +1,5 @@
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 30);
 
@@ -28,7 +28,7 @@ describe('w3security config endpoint', () => {
     };
 
     {
-      const { code, stdout, stderr } = await runSnykCLI(
+      const { code, stdout, stderr } = await runw3securityCLI(
         `config set endpoint=${invalidEndpoint}`,
         runOptions,
       );
@@ -38,7 +38,7 @@ describe('w3security config endpoint', () => {
     }
 
     {
-      const { code, stdout, stderr } = await runSnykCLI(
+      const { code, stdout, stderr } = await runw3securityCLI(
         `config get endpoint`,
         runOptions,
       );
@@ -48,7 +48,7 @@ describe('w3security config endpoint', () => {
     }
 
     {
-      const { code, stdout, stderr } = await runSnykCLI(
+      const { code, stdout, stderr } = await runw3securityCLI(
         `config set endpoint=${validEndpoint}`,
         runOptions,
       );
@@ -62,7 +62,7 @@ describe('w3security config endpoint', () => {
     }
 
     {
-      const { code, stdout, stderr } = await runSnykCLI(
+      const { code, stdout, stderr } = await runw3securityCLI(
         `config get endpoint`,
         runOptions,
       );

@@ -4,7 +4,7 @@ import { CustomError } from './custom-error';
 export class NoSupportedSastFiles extends CustomError {
   private static ERROR_MESSAGE =
     'We found 0 supported files ' +
-    '\nPlease see our documentation for Snyk Code language and framework support\n' +
+    '\nPlease see our documentation for w3security Code language and framework support\n' +
     chalk.underline(
       'https://docs.w3security.io/products/w3security-code/w3security-code-language-and-framework-support',
     );

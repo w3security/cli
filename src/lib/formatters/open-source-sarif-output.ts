@@ -26,7 +26,7 @@ export function createSarifOutputForOpenSource(
     runs: testResults.map(replaceLockfileWithManifest).map((testResult) => ({
       tool: {
         driver: {
-          name: 'Snyk Open Source',
+          name: 'w3security Open Source',
           rules: getRules(testResult),
         },
       },

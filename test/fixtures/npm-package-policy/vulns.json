@@ -4,7 +4,7 @@
     {
       "title": "Cross-site Scripting (XSS) via Data URIs",
       "credit": [
-        "Snyk Security Research Team"
+        "w3security Security Research Team"
       ],
       "creationTime": "2017-01-12T00:00:00.780Z",
       "modificationTime": "2017-01-12T00:00:00.780Z",

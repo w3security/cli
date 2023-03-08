@@ -42,7 +42,7 @@ export const shareResultsTip =
   EOL +
   EOL +
   contentPadding +
-  'New: Share your test results in the Snyk Web UI with the option ' +
+  'New: Share your test results in the w3security Web UI with the option ' +
   colors.title('--report');
 
 export const shareCustomRulesDisclaimer =

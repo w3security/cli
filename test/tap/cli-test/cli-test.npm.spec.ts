@@ -94,7 +94,7 @@ export const NpmTests: AcceptanceTests = {
       );
       t.match(meta[4], /Open source:\s+no/, 'open source displayed');
       t.match(meta[5], /Project path:\s+npm-package-policy/, 'path displayed');
-      t.match(meta[6], /Local Snyk policy:\s+found/, 'local policy displayed');
+      t.match(meta[6], /Local w3security policy:\s+found/, 'local policy displayed');
     },
 
     '`test npm-package` sends pkg info': (params, utils) => async (t) => {

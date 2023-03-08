@@ -85,7 +85,7 @@ describe('formatTestMeta', () => {
       dependencyCount: 8,
       filesystemPolicy: true,
       policy:
-        "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\n# patches apply the minimum changes required to fix a vulnerability\npatch:\n  'npm:qs:20170213':\n    - npm-package-with-git-url > qs:\n        patched: '2018-11-04T12:47:13.696Z'\n",
+        "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\n# patches apply the minimum changes required to fix a vulnerability\npatch:\n  'npm:qs:20170213':\n    - npm-package-with-git-url > qs:\n        patched: '2018-11-04T12:47:13.696Z'\n",
       licensesPolicy: {
         severities: {},
         orgLicenseRules: {

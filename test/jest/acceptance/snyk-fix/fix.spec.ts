@@ -1,5 +1,5 @@
 import { fakeServer } from '../../../acceptance/fake-server';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { createProjectFromWorkspace } from '../../util/createProject';
 
 jest.setTimeout(1000 * 60);
@@ -31,7 +31,7 @@ describe('w3security fix', () => {
 
   it('succeeds when there are no vulns to fix', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
-    const { code, stdout, stderr } = await runSnykCLI('fix', {
+    const { code, stdout, stderr } = await runw3securityCLI('fix', {
       cwd: project.path(),
       env,
     });
@@ -42,7 +42,7 @@ describe('w3security fix', () => {
 
   it('fails when FF is not enabled', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
-    const { code, stdout, stderr } = await runSnykCLI('fix --org=no-flag', {
+    const { code, stdout, stderr } = await runw3securityCLI('fix --org=no-flag', {
       cwd: project.path(),
       env,
     });
@@ -55,7 +55,7 @@ describe('w3security fix', () => {
 
   it('fails when called with --unmanaged', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
-    const { code, stdout, stderr } = await runSnykCLI('fix --unmanaged', {
+    const { code, stdout, stderr } = await runw3securityCLI('fix --unmanaged', {
       cwd: project.path(),
       env,
     });
@@ -66,7 +66,7 @@ describe('w3security fix', () => {
 
   it('fails when called with --docker (deprecated)', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
-    const { code, stdout, stderr } = await runSnykCLI('fix --docker', {
+    const { code, stdout, stderr } = await runw3securityCLI('fix --docker', {
       cwd: project.path(),
       env,
     });
@@ -79,7 +79,7 @@ describe('w3security fix', () => {
 
   it('fails when called with --code', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
-    const { code, stdout, stderr } = await runSnykCLI('fix --code', {
+    const { code, stdout, stderr } = await runw3securityCLI('fix --code', {
       cwd: project.path(),
       env,
     });
@@ -91,7 +91,7 @@ describe('w3security fix', () => {
   it('fails when api requests fail', async () => {
     const project = await createProjectFromWorkspace('no-vulns');
     server.setNextStatusCode(500);
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'fix --org=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
       {
         cwd: project.path(),

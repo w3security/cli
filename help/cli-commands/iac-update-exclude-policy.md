@@ -19,9 +19,9 @@ Possible exit codes and their meaning:
 **0**: success, exclude rules generated successfully\
 **1**: error, something wrong happened during exclude rules generation
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and set variables for connecting with the Snyk API. See [Configure the Snyk CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
+You can use environment variables to configure the w3security CLI and set variables for connecting with the w3security API. See [Configure the w3security CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 

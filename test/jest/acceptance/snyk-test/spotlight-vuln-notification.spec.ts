@@ -1,6 +1,6 @@
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromFixture } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -41,7 +41,7 @@ describe('spotlight vuln notification', () => {
       await project.readJSON('test-dep-graph-response.json'),
     );
 
-    const { code, stdout } = await runSnykCLI('test', {
+    const { code, stdout } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });

@@ -119,7 +119,7 @@
     "isPublic": false,
     "isLicensesEnabled": true,
     "licensesPolicy": null,
-    "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\npatch: {}\n",
+    "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.1\nignore: {}\npatch: {}\n",
     "ignoreSettings": null,
     "org": "test-org"
   },

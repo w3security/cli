@@ -1,6 +1,6 @@
 import { fakeServer } from '../../acceptance/fake-server';
 import { createProjectFromFixture } from '../util/createProject';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import * as path from 'path';
 
 jest.setTimeout(1000 * 30);
@@ -43,7 +43,7 @@ describe('`test` command with `--print-graph` option', () => {
 
   it('works for project with no deps', async () => {
     const project = await createProjectFromFixture('print-graph-no-deps');
-    const { code, stdout } = await runSnykCLI('test --print-graph', {
+    const { code, stdout } = await runw3securityCLI('test --print-graph', {
       cwd: project.path(),
       env,
     });
@@ -90,7 +90,7 @@ describe('`test` command with `--print-graph` option', () => {
     server.setDepGraphResponse(
       await project.readJSON('test-dep-graph-result.json'),
     );
-    const { code, stdout } = await runSnykCLI('test --print-graph', {
+    const { code, stdout } = await runw3securityCLI('test --print-graph', {
       cwd: project.path(),
       env,
     });
@@ -157,7 +157,7 @@ describe('`test` command with `--print-graph` option', () => {
     const project = await createProjectFromFixture(
       'print-graph-multiple-projects',
     );
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       'test --all-projects --print-graph',
       {
         cwd: project.path(),

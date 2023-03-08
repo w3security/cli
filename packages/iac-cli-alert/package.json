@@ -1,7 +1,7 @@
 {
   "name": "@w3security/iac-cli-alert",
   "version": "1.0.0",
-  "description": "Script to check IaC Smoke Test runs on Snyk CLI",
+  "description": "Script to check IaC Smoke Test runs on w3security CLI",
   "main": "dist/index.js",
   "private": true,
   "scripts": {

@@ -354,7 +354,7 @@ function getHumanReadableUnmanaged(analysis: DriftAnalysis): string {
 function getHumanReadableHeader(): string {
   // TODO: driftctl to return number of states and supported resources?
   let output = addLine(
-    chalk.bold('Snyk Scanning Infrastructure As Code Discrepancies...'),
+    chalk.bold('w3security Scanning Infrastructure As Code Discrepancies...'),
   );
   output += '\n';
   output += addLine(

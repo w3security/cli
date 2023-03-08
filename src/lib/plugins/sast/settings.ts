@@ -37,8 +37,8 @@ export async function getSastSettings(options: Options): Promise<SastSettings> {
   if (!sastSettingsResponse.sastEnabled) {
     throw new FeatureNotSupportedForOrgError(
       org,
-      'Snyk Code',
-      'enable in Settings > Snyk Code',
+      'w3security Code',
+      'enable in Settings > w3security Code',
     );
   }
 

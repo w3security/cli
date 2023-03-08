@@ -1,6 +1,6 @@
 #shellcheck shell=sh
 
-Describe "Snyk Code test command"
+Describe "w3security Code test command"
   Before w3security_login
   After w3security_logout
 
@@ -23,7 +23,7 @@ Describe "Snyk Code test command"
       When run w3security code test ../fixtures/sast/shallow_sast_webgoat --sarif
       The status should be failure # issues found
       The output should include '"$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"'
-      The output should include '"name": "SnykCode"'
+      The output should include '"name": "w3securityCode"'
       The result of function check_valid_json should be success
     End
   End

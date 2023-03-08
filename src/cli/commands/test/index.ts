@@ -34,7 +34,7 @@ import { displayResult } from '../../../lib/formatters/test/display-result';
 import * as analytics from '../../../lib/analytics';
 
 import {
-  getPackageJsonPathsContainingSnykDependency,
+  getPackageJsonPathsContainingw3securityDependency,
   getProtectUpgradeWarningForPaths,
 } from '../../../lib/protect-update-notification';
 import {
@@ -51,7 +51,7 @@ const SEPARATOR = '\n-------------------------------------------------------\n';
 
 const appVulnsReleaseWarningMsg = `${theme.icon.WARNING} Important: Beginning January 24th, 2023, application dependencies in container
 images will be scanned by default when using the w3security container test/monitor
-commands. If you are using Snyk in a CI pipeline, action may be required. Read
+commands. If you are using w3security in a CI pipeline, action may be required. Read
 https://w3security.io/blog/securing-container-applications-using-the-w3security-cli/ for
 more info.`;
 
@@ -79,14 +79,14 @@ export default async function test(
   validateTestOptions(options);
   validateCredentials(options);
 
-  const packageJsonPathsWithSnykDepForProtect: string[] = getPackageJsonPathsContainingSnykDependency(
+  const packageJsonPathsWithw3securityDepForProtect: string[] = getPackageJsonPathsContainingw3securityDependency(
     options.file,
     paths,
   );
 
   analytics.add(
     'upgradable-w3security-protect-paths',
-    packageJsonPathsWithSnykDepForProtect.length,
+    packageJsonPathsWithw3securityDepForProtect.length,
   );
 
   // Handles no image arg provided to the container command until
@@ -303,7 +303,7 @@ export default async function test(
         response += chalk.bold.green(summaryMessage);
         response += EOL + EOL;
         response += getProtectUpgradeWarningForPaths(
-          packageJsonPathsWithSnykDepForProtect,
+          packageJsonPathsWithw3securityDepForProtect,
         );
 
         return TestCommandResult.createHumanReadableTestCommandResult(
@@ -338,7 +338,7 @@ export default async function test(
   response += chalk.bold.green(summaryMessage);
   response += EOL + EOL;
   response += getProtectUpgradeWarningForPaths(
-    packageJsonPathsWithSnykDepForProtect,
+    packageJsonPathsWithw3securityDepForProtect,
   );
 
   return TestCommandResult.createHumanReadableTestCommandResult(

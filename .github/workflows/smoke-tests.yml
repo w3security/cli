@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Install Snyk with npm
+      - name: Install w3security with npm
         if: ${{ matrix.w3security_install_method == 'npm' }}
         run: |
           echo "node_version: ${{ matrix.node_version }}"
@@ -66,7 +66,7 @@ jobs:
           echo "install w3security with npm"
           npm install -g w3security
 
-      - name: Install Snyk with Yarn globally
+      - name: Install w3security with Yarn globally
         if: ${{ matrix.w3security_install_method == 'yarn' }}
         run: |
           npm install yarn -g
@@ -112,7 +112,7 @@ jobs:
           docker build -t w3security-docker-root -f ./test/smoke/docker-root/Dockerfile ./test
           docker run -eCI=1 -eSMOKE_TESTS_W3SECURITY_TOKEN w3security-docker-root
 
-      - name: Install Snyk with binary - Non-Windows
+      - name: Install w3security with binary - Non-Windows
         if: ${{ matrix.w3security_install_method == 'binary' && matrix.os != 'windows' }}
         run: |
           curl -Lo ./w3security-cli 'https://static.w3security.io/cli/latest/${{ matrix.w3security_cli_dl_file }}'
@@ -120,7 +120,7 @@ jobs:
           sudo mv ./w3security-cli /usr/local/bin/w3security
           w3security --version
 
-      - name: Install Snyk with binary - Windows
+      - name: Install w3security with binary - Windows
         if: ${{ matrix.w3security_install_method == 'binary' && matrix.os == 'windows' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -149,7 +149,7 @@ jobs:
           brew install coreutils
           brew install jq
 
-      - name: Install Snyk CLI with homebrew on macOS
+      - name: Install w3security CLI with homebrew on macOS
         if: ${{ matrix.w3security_install_method == 'brew' && matrix.os == 'macos'}}
         run: |
           brew tap w3security/tap

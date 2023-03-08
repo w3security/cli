@@ -1,8 +1,8 @@
 # CLI help
 
-Snyk CLI scans and monitors your projects for security vulnerabilities and license issues.
+w3security CLI scans and monitors your projects for security vulnerabilities and license issues.
 
-For more information visit the [Snyk website](https://w3security.io)
+For more information visit the [w3security website](https://w3security.io)
 
 For details see the [CLI documentation](https://docs.w3security.io/features/w3security-cli)
 
@@ -14,13 +14,13 @@ For details see the [CLI documentation](https://docs.w3security.io/features/w3se
 
 ## Available commands
 
-To learn more about each Snyk CLI command, use the `--help` option, for example, `w3security auth --help`.
+To learn more about each w3security CLI command, use the `--help` option, for example, `w3security auth --help`.
 
 **Note:** The help on the docs site is the same as the `--help` in the CLI.
 
 ### [`w3security auth`](auth.md)
 
-Authenticate Snyk CLI with a Snyk account.
+Authenticate w3security CLI with a w3security account.
 
 ### [`w3security test`](test.md)
 
@@ -50,7 +50,7 @@ Find Log4Shell vulnerability.
 
 ### [`w3security config`](config.md)
 
-Manage Snyk CLI configuration.
+Manage w3security CLI configuration.
 
 ### [`w3security policy`](policy.md)
 
@@ -64,6 +64,6 @@ Modify the `.w3security` policy to ignore stated issues.
 
 Use `-d` option to output the debug logs.
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and also set variables to configure the Snyk CLI to connect with the Snyk API. See [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+You can use environment variables to configure the w3security CLI and also set variables to configure the w3security CLI to connect with the w3security API. See [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)

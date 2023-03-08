@@ -212,7 +212,7 @@ export type IaCTestFlags = Pick<
   path?: string;
   // Allows the caller to provide the path to a WASM bundle.
   rules?: string;
-  // Enables Snyk Cloud custom rules
+  // Enables w3security Cloud custom rules
   'custom-rules'?: boolean;
   'cloud-context'?: string;
   'w3security-cloud-environment'?: string;

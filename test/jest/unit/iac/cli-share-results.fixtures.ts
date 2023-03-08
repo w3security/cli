@@ -172,7 +172,7 @@ export const expectedEnvelopeFormatterResultsWithPolicy = expectedEnvelopeFormat
   (result) => {
     return {
       ...result,
-      policy: `# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.
+      policy: `# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:

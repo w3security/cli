@@ -52,7 +52,7 @@ Use the `-d` option to output the debug logs.
 
 ### `--id=<ISSUE_ID>`
 
-Snyk ID for the issue to ignore, omitted if used with `--file-path`; required by other use cases.
+w3security ID for the issue to ignore, omitted if used with `--file-path`; required by other use cases.
 
 ### `--expiry=<EXPIRY>`
 
@@ -132,7 +132,7 @@ $ w3security ignore --file-path='./deps/curl-7.58.0/src/tool_msgs.c' --expiry='2
 
 ### Ignore files or folders using glob expression
 
-Ignore files matching a glob expression by adding them to a specific group. Applies to Snyk Code; does not apply to Snyk Open Source, Container, or Infrastructure as Code.
+Ignore files matching a glob expression by adding them to a specific group. Applies to w3security Code; does not apply to w3security Open Source, Container, or Infrastructure as Code.
 
 ```
 $ w3security ignore --file-path='./**/vendor/**/*.cpp' --file-path-group='global'
@@ -142,5 +142,5 @@ $ w3security ignore --file-path='./**/vendor/**/*.cpp' --file-path-group='global
 
 For more information see:
 
-- [Ignore vulnerabilities using Snyk CLI](https://docs.w3security.io/w3security-cli/test-for-vulnerabilities/ignore-vulnerabilities-using-w3security-cli)
+- [Ignore vulnerabilities using w3security CLI](https://docs.w3security.io/w3security-cli/test-for-vulnerabilities/ignore-vulnerabilities-using-w3security-cli)
 - [IaC ignores using the .w3security policy file](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code/iac-ignores-using-the-.snyk-policy-file)

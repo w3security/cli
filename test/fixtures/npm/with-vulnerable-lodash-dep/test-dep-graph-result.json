@@ -423,7 +423,7 @@
   "meta": {
     "isPrivate": true,
     "isLicensesEnabled": true,
-    "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.21.5\nignore: {}\npatch: {}\n",
+    "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.21.5\nignore: {}\npatch: {}\n",
     "ignoreSettings": null,
     "org": "demo-applications",
     "licensesPolicy": {

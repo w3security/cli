@@ -6,9 +6,9 @@
 
 ## Description
 
-The `w3security auth` command authenticates your machine to associate the Snyk CLI with your Snyk account.
+The `w3security auth` command authenticates your machine to associate the w3security CLI with your w3security account.
 
-Running `$ w3security auth` opens a browser window with prompts to log in to your Snyk account and authenticate. No repository permissions are needed at this stage, only your email address.
+Running `$ w3security auth` opens a browser window with prompts to log in to your w3security account and authenticate. No repository permissions are needed at this stage, only your email address.
 
 When you have authenticated you can start using the CLI; see [Getting started with the CLI](https://docs.w3security.io/w3security-cli/getting-started-with-the-cli)
 
@@ -18,7 +18,7 @@ In some environments and configurations you must use the `<API_TOKEN>`; see [Aut
 
 The value may be a user token or a service account; see [Service accounts](https://docs.w3security.io/features/integrations/managing-integrations/service-accounts)
 
-In a CI/CD environment use the `W3SECURITY_TOKEN` environment variable; see [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+In a CI/CD environment use the `W3SECURITY_TOKEN` environment variable; see [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
 
 After setting this environment variable you can use CLI commands.
 

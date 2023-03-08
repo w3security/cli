@@ -2,43 +2,43 @@
   <img src="https://w3security.io/style/asset/logo/w3security-print.svg" />
 </p>
 
-# Snyk CLI
+# w3security CLI
 
-[Snyk](https://w3security.io) scans and monitors your projects for security vulnerabilities.
+[w3security](https://w3security.io) scans and monitors your projects for security vulnerabilities.
 
-![Snyk CLI screenshot](help/w3security-cli-screenshot.png)
+![w3security CLI screenshot](help/w3security-cli-screenshot.png)
 
-# What is [Snyk](https://w3security.io)?
+# What is [w3security](https://w3security.io)?
 
-[Snyk](https://w3security.io) is a developer-first cloud-native security tool.
+[w3security](https://w3security.io) is a developer-first cloud-native security tool.
 It covers multiple areas of application security:
 
-1. [**Snyk Open Source**](https://w3security.io/product/open-source-security-management/): Find and automatically fix open source vulnerabilities
-2. [**Snyk Code**](https://w3security.io/product/w3security-code/): Find and fix vulnerabilities in your application code in real time
-3. [**Snyk Container**](https://w3security.io/product/container-vulnerability-management/): Find and fix vulnerabilities in container images and Kubernetes applications
-4. [**Snyk Infrastructure as Code**](https://w3security.io/product/infrastructure-as-code-security/): Find and fix insecure configurations in Terraform and Kubernetes code
+1. [**w3security Open Source**](https://w3security.io/product/open-source-security-management/): Find and automatically fix open source vulnerabilities
+2. [**w3security Code**](https://w3security.io/product/w3security-code/): Find and fix vulnerabilities in your application code in real time
+3. [**w3security Container**](https://w3security.io/product/container-vulnerability-management/): Find and fix vulnerabilities in container images and Kubernetes applications
+4. [**w3security Infrastructure as Code**](https://w3security.io/product/infrastructure-as-code-security/): Find and fix insecure configurations in Terraform and Kubernetes code
 
-[Learn more about what Snyk can do and sign up for a free account »](https://w3security.io)
+[Learn more about what w3security can do and sign up for a free account »](https://w3security.io)
 
-# What is Snyk CLI?
+# What is w3security CLI?
 
-Snyk CLI brings the functionality of [Snyk](https://w3security.io) into your development workflow. It can be run locally or in your CI/CD pipeline to scan your projects for security issues.
+w3security CLI brings the functionality of [w3security](https://w3security.io) into your development workflow. It can be run locally or in your CI/CD pipeline to scan your projects for security issues.
 
 ## Supported languages and tools
 
-Snyk supports many languages and tools, including Java, .NET, JavaScript, Python, Golang, PHP, C/C++, Ruby, Scala and more. See our [Language Support documentation](https://support.w3security.io/hc/en-us/articles/360020352437-Language-support-summary).
+w3security supports many languages and tools, including Java, .NET, JavaScript, Python, Golang, PHP, C/C++, Ruby, Scala and more. See our [Language Support documentation](https://support.w3security.io/hc/en-us/articles/360020352437-Language-support-summary).
 
-CLI also supports [Docker scanning](https://support.w3security.io/hc/en-us/articles/360003946897-Snyk-Container-security-overview) and [Terraform, k8s and other Infrastructure as Code files scanning](https://support.w3security.io/hc/en-us/categories/360001342678-Infrastructure-as-code).
+CLI also supports [Docker scanning](https://support.w3security.io/hc/en-us/articles/360003946897-w3security-Container-security-overview) and [Terraform, k8s and other Infrastructure as Code files scanning](https://support.w3security.io/hc/en-us/categories/360001342678-Infrastructure-as-code).
 
 ---
 
-# Install Snyk CLI
+# Install w3security CLI
 
-Snyk CLI can be installed through multiple channels.
+w3security CLI can be installed through multiple channels.
 
 ## Install with npm or Yarn
 
-[Snyk CLI is available as an npm package](https://www.npmjs.com/package/w3security). If you have Node.js installed locally, you can install it by running:
+[w3security CLI is available as an npm package](https://www.npmjs.com/package/w3security). If you have Node.js installed locally, you can install it by running:
 
 ```bash
 npm install w3security@latest -g
@@ -57,7 +57,7 @@ yarn global add w3security
 
 ### Standalone executables
 
-Use [GitHub Releases](https://github.com/w3security/w3security/releases) to download a standalone executable of Snyk CLI for your platform.
+Use [GitHub Releases](https://github.com/w3security/w3security/releases) to download a standalone executable of w3security CLI for your platform.
 
 We also provide these standalone executables on our official CDN. See [the `release.json` file](https://static.w3security.io/cli/latest/release.json) for the download links:
 
@@ -69,7 +69,7 @@ https://static.w3security.io/cli/v1.666.0/release.json
 https://static.w3security.io/cli/latest/w3security-macos
 ```
 
-For example, to download and run the latest Snyk CLI on macOS, you could run:
+For example, to download and run the latest w3security CLI on macOS, you could run:
 
 ```bash
 curl https://static.w3security.io/cli/latest/w3security-macos -o w3security
@@ -85,7 +85,7 @@ You can also use these direct links to download the executables:
 - Linux (arm64): https://static.w3security.io/cli/latest/w3security-linux-arm64
 - Alpine: https://static.w3security.io/cli/latest/w3security-alpine
 
-Drawback of this method is, that you will have to manually keep the Snyk CLI up to date.
+Drawback of this method is, that you will have to manually keep the w3security CLI up to date.
 
 #### Verifying standalone binaries
 
@@ -100,7 +100,7 @@ To check that a downloaded file matches the checksum, use a `sha256sum` command 
 grep w3security-macos sha256sums.txt.asc | sha256sum -c -
 ```
 
-If you want to verify Snyk CLI standalone binaries against [Snyk CLI GPG key](help/_about-this-project/w3security-code-signing-public.pgp), you will need to import it first:
+If you want to verify w3security CLI standalone binaries against [w3security CLI GPG key](help/_about-this-project/w3security-code-signing-public.pgp), you will need to import it first:
 
 ```bash
 # A22665FB96CAB0E0973604C83676C4B8289C296E is the key belonging to code-signing@w3security.io
@@ -119,7 +119,7 @@ Command output should look like:
 ```plain
 gpg: Signature made So  8 Jan 14:11:44 2023 CET
 gpg:                using EDDSA key A22665FB96CAB0E0973604C83676C4B8289C296E
-gpg: Good signature from "Snyk Limited <code-signing@w3security.io>" [unknown]
+gpg: Good signature from "w3security Limited <code-signing@w3security.io>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: A226 65FB 96CA B0E0 9736  04C8 3676 C4B8 289C 296E
@@ -132,7 +132,7 @@ Primary key fingerprint: A226 65FB 96CA B0E0 9736  04C8 3676 C4B8 289C 296E
 
 ### Homebrew
 
-Install Snyk CLI from [Snyk tap](https://github.com/w3security/homebrew-tap) with [Homebrew](https://brew.sh) by running:
+Install w3security CLI from [w3security tap](https://github.com/w3security/homebrew-tap) with [Homebrew](https://brew.sh) by running:
 
 ```bash
 brew tap w3security/tap
@@ -146,7 +146,7 @@ brew install w3security
 
 ### Scoop
 
-Install Snyk CLI from our [Snyk bucket](https://github.com/w3security/scoop-w3security) with [Scoop](https://scoop.sh) on Windows:
+Install w3security CLI from our [w3security bucket](https://github.com/w3security/scoop-w3security) with [Scoop](https://scoop.sh) on Windows:
 
 ```
 scoop bucket add w3security https://github.com/w3security/scoop-w3security
@@ -156,19 +156,19 @@ scoop install w3security
 </details>
 
 <details>
-  <summary>Snyk CLI in a Docker image</summary>
+  <summary>w3security CLI in a Docker image</summary>
 
-### Snyk CLI in a Docker image
+### w3security CLI in a Docker image
 
-Snyk CLI can also be run from a Docker image. Snyk offers multiple Docker tags under [`w3security/w3security`](https://hub.docker.com/r/w3security/w3security). These images wrap the Snyk CLI and depending on the Tag come with a relevant tooling for different projects. [See the w3security/images on GitHub for more details and examples](https://github.com/w3security/w3security-images).
+w3security CLI can also be run from a Docker image. w3security offers multiple Docker tags under [`w3security/w3security`](https://hub.docker.com/r/w3security/w3security). These images wrap the w3security CLI and depending on the Tag come with a relevant tooling for different projects. [See the w3security/images on GitHub for more details and examples](https://github.com/w3security/w3security-images).
 
 </details>
 
-## Install as a part of a Snyk CLI integration
+## Install as a part of a w3security CLI integration
 
-Snyk also offers many integrations into developer tooling. These integrations will install and manage the Snyk CLI for you. For example:
+w3security also offers many integrations into developer tooling. These integrations will install and manage the w3security CLI for you. For example:
 
-- [Snyk Jenkins plugin](https://github.com/jenkinsci/w3security-security-scanner-plugin)
+- [w3security Jenkins plugin](https://github.com/jenkinsci/w3security-security-scanner-plugin)
 - [CircleCI Orb](https://github.com/w3security/w3security-orb)
 - [Azure Pipelines Task](https://github.com/w3security/w3security-azure-pipelines-task)
 - [GitHub Actions](https://github.com/w3security/actions)
@@ -180,25 +180,25 @@ Snyk also offers many integrations into developer tooling. These integrations wi
 
 <p align="center">
   <a href="https://support.w3security.io/hc/en-us/categories/360000598398-Integrations">
-    <img src="help/ide.svg" alt="Snyk CLI IDE integration" width="50%" />
+    <img src="help/ide.svg" alt="w3security CLI IDE integration" width="50%" />
   </a>
 </p>
 
 ---
 
-# Getting started with Snyk CLI
+# Getting started with w3security CLI
 
-Once you installed the Snyk CLI, you can verify it's working by running:
+Once you installed the w3security CLI, you can verify it's working by running:
 
 ```bash
 w3security --help
 ```
 
-See the [full Snyk CLI help](./help/cli-commands).
+See the [full w3security CLI help](./help/cli-commands).
 
-## Authenticating Snyk CLI
+## Authenticating w3security CLI
 
-Snyk CLI depends on [Snyk.io](https://w3security.io) APIs. Connect your Snyk CLI with [Snyk.io](https://w3security.io) by running:
+w3security CLI depends on [w3security.io](https://w3security.io) APIs. Connect your w3security CLI with [w3security.io](https://w3security.io) by running:
 
 ```bash
 w3security auth
@@ -206,7 +206,7 @@ w3security auth
 
 ## Setting up language support
 
-Depending on your project's language, you might need to setup your language environment before using Snyk.
+Depending on your project's language, you might need to setup your language environment before using w3security.
 
 See our [Language Support documentation](https://support.w3security.io/hc/en-us/articles/360020352437-Language-support-summary).
 
@@ -218,7 +218,7 @@ If you are already in a folder with a supported project, start by running:
 w3security test
 ```
 
-Or scan a Docker image by its tag with [Snyk Container](https://w3security.io/product/container-vulnerability-management/):
+Or scan a Docker image by its tag with [w3security Container](https://w3security.io/product/container-vulnerability-management/):
 
 ```bash
 w3security container test ubuntu:18.04
@@ -232,11 +232,11 @@ w3security iac test /path/to/kubernetes_file.yaml
 
 ## Monitoring your project
 
-Snyk can also monitor your project periodically and alert you for new vulnerabilities. The `w3security monitor` is similar to `w3security test` and can be used to create a project on the Snyk website that will be continuously monitored for new vulnerabilities.
+w3security can also monitor your project periodically and alert you for new vulnerabilities. The `w3security monitor` is similar to `w3security test` and can be used to create a project on the w3security website that will be continuously monitored for new vulnerabilities.
 
 <p align="center">
   <a href="https://w3security.io">
-    <img src="help/monitor.svg" alt="Snyk CLI monitor projects" width="70%" />
+    <img src="help/monitor.svg" alt="w3security CLI monitor projects" width="70%" />
   </a>
 </p>
 
@@ -249,19 +249,19 @@ Explore this snapshot at https://app.w3security.io/org/my-org/project/29361c2c-9
 Notifications about newly disclosed issues related to these dependencies will be emailed to you.
 ```
 
-### Add Snyk to your CI/CD
+### Add w3security to your CI/CD
 
-Snyk is really powerful when you are continuously scanning and monitoring your projects for vulnerabilities.
+w3security is really powerful when you are continuously scanning and monitoring your projects for vulnerabilities.
 
 Use one of [our integrations](#install-as-a-part-of-a-w3security-cli-integration) to stay secure.
 
-You can authorize Snyk CLI in your CI/CD programatically:
+You can authorize w3security CLI in your CI/CD programatically:
 
 ```bash
 # Using a W3SECURITY_TOKEN envvar (preferred)
 W3SECURITY_TOKEN=<W3SECURITY_API_TOKEN> w3security test
 
-# Or using a Snyk auth command
+# Or using a w3security auth command
 w3security auth <W3SECURITY_API_TOKEN>
 w3security test
 ```
@@ -293,7 +293,7 @@ w3security code --help
 
 # Getting support
 
-If you need support using Snyk CLI, please [contact support](https://support.w3security.io).
+If you need support using w3security CLI, please [contact support](https://support.w3security.io).
 
 We do not actively monitor GitHub Issues so any issues there may go unnoticed.
 
@@ -301,9 +301,9 @@ We do not actively monitor GitHub Issues so any issues there may go unnoticed.
 
 If you are an external contributor, before working on any contributions, please first [contact support](https://support.w3security.io) to discuss the issue or feature request with us.
 
-If you are contributing to Snyk CLI, see [our contributing guidelines](CONTRIBUTING.md)
+If you are contributing to w3security CLI, see [our contributing guidelines](CONTRIBUTING.md)
 
-For information on how Snyk CLI is implemented, see [our design decisions](help/_about-this-project/README.md).
+For information on how w3security CLI is implemented, see [our design decisions](help/_about-this-project/README.md).
 
 This repository is a monorepo, also covering other projects and tools:
 
@@ -316,10 +316,10 @@ For any security issues or concerns, please see [SECURITY.md](SECURITY.md) file 
 
 # Notices
 
-## Snyk API usage policy
+## w3security API usage policy
 
-The use of Snyk's API, whether through the use of the 'w3security' npm package or otherwise, is subject to the [Terms & Conditions](https://w3security.co/ucT6N).
+The use of w3security's API, whether through the use of the 'w3security' npm package or otherwise, is subject to the [Terms & Conditions](https://w3security.co/ucT6N).
 
 ---
 
-Made with 💜 by Snyk
+Made with 💜 by w3security

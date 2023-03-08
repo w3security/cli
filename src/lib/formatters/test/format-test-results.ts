@@ -112,7 +112,7 @@ export function extractDataToSendFromResults(
 
   return {
     stdout: dataToSend, // this is for the human-readable stdout output and is set even if --json or --sarif is set
-    stringifiedData, // this will be used to display either the Snyk or SARIF format JSON to stdout if --json or --sarif is set
+    stringifiedData, // this will be used to display either the w3security or SARIF format JSON to stdout if --json or --sarif is set
     stringifiedJsonData, // this will be used for the --json-file-output=<file.json> option
     stringifiedSarifData, // this will be used for the --sarif-file-output=<file.json> option
   };
@@ -247,7 +247,7 @@ export function getDisplayedOutput(
 
 export function dockerUserCTA(options) {
   if (options.isDockerUser) {
-    return '\n\nFor more free scans that keep your images secure, sign up to Snyk at https://dockr.ly/3ePqVcp';
+    return '\n\nFor more free scans that keep your images secure, sign up to w3security at https://dockr.ly/3ePqVcp';
   }
   return '';
 }
@@ -275,7 +275,7 @@ function getDockerSuggestionText(
   // dockerfile flag tip for base image
   if (!options.file && !result?.docker?.baseImage) {
     tips.push(
-      `Snyk wasn’t able to auto detect the base image, use \`--file\` option to get base image remediation advice.
+      `w3security wasn’t able to auto detect the base image, use \`--file\` option to get base image remediation advice.
 Example: $ w3security container test ${options.path} --file=path/to/Dockerfile`,
     );
   }
@@ -283,7 +283,7 @@ Example: $ w3security container test ${options.path} --file=path/to/Dockerfile`,
   // disable-app-vulns flag tip
   if (options.docker && result.targetFile && result.uniqueCount > 0) {
     tips.push(
-      'Snyk found some vulnerabilities in your image applications (Snyk searches for these vulnerabilities by default). See https://w3security.co/app-vulns for more information.',
+      'w3security found some vulnerabilities in your image applications (w3security searches for these vulnerabilities by default). See https://w3security.co/app-vulns for more information.',
     );
   }
 

@@ -1,6 +1,6 @@
 import { fakeServer } from '../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../util/createProject';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -34,7 +34,7 @@ describe('test --json-file-output', () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
     server.setDepGraphResponse(await project.readJSON('vulns-result.json'));
 
-    const { code, stdout } = await runSnykCLI(`test --json`, {
+    const { code, stdout } = await runw3securityCLI(`test --json`, {
       cwd: project.path(),
       env,
     });
@@ -50,7 +50,7 @@ describe('test --json-file-output', () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
     server.setDepGraphResponse(await project.readJSON('vulns-result.json'));
 
-    const { code, stdout } = await runSnykCLI(`test`, {
+    const { code, stdout } = await runw3securityCLI(`test`, {
       cwd: project.path(),
       env,
     });
@@ -66,7 +66,7 @@ describe('test --json-file-output', () => {
     const project = await createProjectFromWorkspace('fail-on/no-fixable');
     server.setDepGraphResponse(await project.readJSON('vulns-result.json'));
 
-    const { code, stdout } = await runSnykCLI(`test --json`, {
+    const { code, stdout } = await runw3securityCLI(`test --json`, {
       cwd: project.path(),
       env,
     });
@@ -81,7 +81,7 @@ describe('test --json-file-output', () => {
     const project = await createProjectFromWorkspace('no-vulns');
     const outputPath = 'json-file-output.json';
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test --json-file-output=${outputPath}`,
       {
         cwd: project.path(),
@@ -98,7 +98,7 @@ describe('test --json-file-output', () => {
     const project = await createProjectFromWorkspace('no-vulns');
     const outputPath = 'json-file-output.json';
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test --json --json-file-output=${outputPath}`,
       {
         cwd: project.path(),

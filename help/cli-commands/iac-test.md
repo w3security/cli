@@ -10,7 +10,7 @@ The `w3security iac test` command tests for any known security issue.
 
 For a list of related commands see the [w3security iac](iac.md) help; `iac --help`
 
-For more information see [Snyk CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
+For more information see [w3security CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
 
 ## Exit codes
 
@@ -21,9 +21,9 @@ Possible exit codes and their meaning:
 **2**: failure, try to re-run command\
 **3**: failure, no supported projects detected
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and set variables for connecting with the Snyk API. See [Configure the Snyk CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
+You can use environment variables to configure the w3security CLI and set variables for connecting with the w3security API. See [Configure the w3security CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 
@@ -41,7 +41,7 @@ Example: `--detection-depth=3` limits search to the specified directory (or the 
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>` to run Snyk commands tied to a specific organization. The `<ORG_ID>` influences private test limits.
+Specify the `<ORG_ID>` to run w3security commands tied to a specific organization. The `<ORG_ID>` influences private test limits.
 
 If you have multiple organizations, you can set a default from the CLI using:
 
@@ -87,7 +87,7 @@ Save test output in SARIF format directly to the \<OUTPUT_FILE_PATH> file, regar
 
 This is especially useful if you want to display the human-readable test output using stdout and at the same time save the SARIF format output to a file.
 
-Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `iac test` command fails. For instructions on how to proceed see [Editing project attributes from the Snyk CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
+Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `iac test` command fails. For instructions on how to proceed see [Editing project attributes from the w3security CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
 
 ### `--project-business-criticality=<BUSINESS_CRITICALITY>[,<BUSINESS_CRITICALITY>]...>`
 
@@ -145,9 +145,9 @@ Set or override the remote URL for the repository.&#x20;
 
 ### `--report`
 
-**NEW** option: Share results with the Snyk Web UI.
+**NEW** option: Share results with the w3security Web UI.
 
-This creates a project in your Snyk account with a snapshot of the current configuration issues. After using this option, log in to the Snyk website and view your projects to see the monitor.
+This creates a project in your w3security account with a snapshot of the current configuration issues. After using this option, log in to the w3security website and view your projects to see the monitor.
 
 Example: `$ w3security iac test --report`
 
@@ -157,9 +157,9 @@ Note: This option cannot be used in combination with the `--rules` option.
 
 Use this dedicated option for Custom Rules scanning to enable the IaC scans to use a custom rules bundle generated with the `w3security-iac-rules` SDK. See [`w3security-iac-rules` SDK](https://github.com/w3security/w3security-iac-rules#readme)
 
-This option cannot be used if the custom rules settings were configured with the Snyk UI. Default: If the `--rules` option is not specified, scan the configuration files using the internal Snyk rules only.
+This option cannot be used if the custom rules settings were configured with the w3security UI. Default: If the `--rules` option is not specified, scan the configuration files using the internal w3security rules only.
 
-Example: Scan the configuration files using custom rules and internal Snyk rules.
+Example: Scan the configuration files using custom rules and internal w3security rules.
 
 `--rules=bundle.tar.gz`
 
@@ -210,7 +210,7 @@ Example:
 
 ### `--w3security-cloud-environment=<ENVIRONMENT_ID>`
 
-Use the last scan from your Snyk Cloud Environment to suppress issues. For more information, see [Adding cloud context to your IaC test](https://docs.w3security.io/products/w3security-infrastructure-as-code/integrated-infrastructure-as-code/adding-cloud-context-to-your-iac-test)
+Use the last scan from your w3security Cloud Environment to suppress issues. For more information, see [Adding cloud context to your IaC test](https://docs.w3security.io/products/w3security-infrastructure-as-code/integrated-infrastructure-as-code/adding-cloud-context-to-your-iac-test)
 
 This option is only supported for Integrated IaC (Limited Availability).
 
@@ -230,7 +230,7 @@ Example:
 
 ## Examples for w3security iac test command
 
-For more information see [Snyk CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
+For more information see [w3security CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
 
 ### Test a CloudFormation file
 

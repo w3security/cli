@@ -8,7 +8,7 @@
 
 The `w3security container` commands test and continuously monitor container images for vulnerabilities.
 
-For more information see [Snyk CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
+For more information see [w3security CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
 
 ## `w3security container` commands and the help docs
 

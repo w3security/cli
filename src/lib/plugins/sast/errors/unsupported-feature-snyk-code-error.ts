@@ -1,6 +1,6 @@
 import { CustomError } from '../../../errors/custom-error';
 
-export class FeatureNotSupportedBySnykCodeError extends CustomError {
+export class FeatureNotSupportedByw3securityCodeError extends CustomError {
   public readonly feature: string;
 
   constructor(feature: string, additionalUserHelp = '') {

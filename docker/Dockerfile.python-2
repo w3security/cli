@@ -1,11 +1,11 @@
 FROM python:2.7-slim
 
-MAINTAINER Snyk Ltd
+MAINTAINER w3security Ltd
 
 RUN mkdir /home/node
 WORKDIR /home/node
 
-# Install Python utilities, node, Snyk CLI
+# Install Python utilities, node, w3security CLI
 RUN pip install pip pipenv==2021.5.29 virtualenv -U && \
     apt-get update && \
     apt-get install -y build-essential curl git && \

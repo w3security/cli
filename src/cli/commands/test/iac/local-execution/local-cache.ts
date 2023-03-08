@@ -141,7 +141,7 @@ export async function initLocalCache({
     return;
   }
 
-  // We extract the Snyk rules after the custom rules to ensure our files
+  // We extract the w3security rules after the custom rules to ensure our files
   // always overwrite whatever might be there.
   try {
     const BUNDLE_URL = 'https://static.w3security.io/cli/wasm/bundle.tar.gz';

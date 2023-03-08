@@ -1,4 +1,4 @@
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import { RunCommandResult } from '../util/runCommand';
 
 jest.setTimeout(1000 * 60);
@@ -9,7 +9,7 @@ describe('Parallel CLI execution', () => {
 
     const singleTestResult: Promise<RunCommandResult>[] = [];
     for (let i = 0; i < numberOfParallelExecutions; i++) {
-      singleTestResult.push(runSnykCLI(`woof -d`));
+      singleTestResult.push(runw3securityCLI(`woof -d`));
     }
 
     for (let i = 0; i < numberOfParallelExecutions; i++) {

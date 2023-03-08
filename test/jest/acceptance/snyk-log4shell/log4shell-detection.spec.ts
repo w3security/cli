@@ -1,5 +1,5 @@
 import { createProjectFromFixture } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -18,7 +18,7 @@ describe('log4shell command', () => {
       'unmanaged-log4j-fixture/vulnerable',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });
@@ -60,7 +60,7 @@ We recommend fixing this vulnerability by upgrading to a later version. To learn
       'unmanaged-log4j-fixture/vulnerable-mixed-extensions',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });
@@ -91,7 +91,7 @@ We highly recommend fixing this vulnerability. If it cannot be fixed by upgradin
       'unmanaged-log4j-fixture/not-vulnerable',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });
@@ -112,7 +112,7 @@ No known vulnerable version of Log4J was detected
       'unmanaged-log4j-fixture/vulnerable-nested',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });
@@ -144,7 +144,7 @@ We highly recommend fixing this vulnerability. If it cannot be fixed by upgradin
       'unmanaged-log4j-fixture/no-jar',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });
@@ -172,7 +172,7 @@ We highly recommend fixing this vulnerability. If it cannot be fixed by upgradin
       'unmanaged-log4j-fixture/vulnerable-dos',
     );
 
-    const { code, stdout } = await runSnykCLI('log4shell', {
+    const { code, stdout } = await runw3securityCLI('log4shell', {
       cwd: project.path(),
       env,
     });

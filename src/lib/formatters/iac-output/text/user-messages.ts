@@ -4,13 +4,13 @@ import { colors } from './utils';
 /**
  * Displayed as the title of the test output.
  */
-export const iacTestTitle = colors.info.bold('Snyk Infrastructure as Code');
+export const iacTestTitle = colors.info.bold('w3security Infrastructure as Code');
 
 /**
  * Progress indication message while files are tested.
  */
 export const spinnerMessage = colors.info(
-  'Snyk testing Infrastructure as Code configuration issues.',
+  'w3security testing Infrastructure as Code configuration issues.',
 );
 
 /**
@@ -29,7 +29,7 @@ export const customRulesMessage = colors.info(
  * Message for using custom rules.
  */
 export const customRulesReportMessage = colors.info(
-  "Please note that your custom rules will not be sent to the Snyk platform, and will not be available on the project's page.",
+  "Please note that your custom rules will not be sent to the w3security platform, and will not be available on the project's page.",
 );
 
 /**

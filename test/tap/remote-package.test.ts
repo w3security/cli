@@ -177,7 +177,7 @@ test('test for existing remote package with dev-deps only', async (t) => {
 
     t.deepEqual(
       lastLine,
-      'Tip: Snyk only tests production dependencies by default. You can try re-running with the `--dev` flag.',
+      'Tip: w3security only tests production dependencies by default. You can try re-running with the `--dev` flag.',
       'tip text as expected',
     );
   } catch (error) {

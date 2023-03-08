@@ -1,5 +1,5 @@
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 
 jest.setTimeout(1000 * 60);
@@ -40,7 +40,7 @@ describe('w3security test --yarn-workspaces (mocked server only)', () => {
       'yarn-workspace-out-of-sync',
     );
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --yarn-workspaces',
       {
         cwd: project.path(),
@@ -60,7 +60,7 @@ describe('w3security test --yarn-workspaces (mocked server only)', () => {
       'yarn-workspace-out-of-sync',
     );
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --yarn-workspaces --strict-out-of-sync=false',
       {
         cwd: project.path(),
@@ -76,7 +76,7 @@ describe('w3security test --yarn-workspaces (mocked server only)', () => {
   test('`test empty --yarn-workspaces`', async () => {
     const project = await createProjectFromWorkspace('empty');
 
-    const { code, stdout, stderr } = await runSnykCLI(
+    const { code, stdout, stderr } = await runw3securityCLI(
       'test --yarn-workspaces',
       {
         cwd: project.path(),

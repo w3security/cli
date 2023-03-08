@@ -1,11 +1,11 @@
 import * as path from 'path';
 import * as pun from '../../../../src/lib/protect-update-notification';
 
-describe('getPackageJsonPathsContainingSnykDependency', () => {
+describe('getPackageJsonPathsContainingw3securityDependency', () => {
   describe('with --file option used', () => {
     it('returns empty array when the given path does end with `package.json` or `package-lock.json`', () => {
       expect(
-        pun.getPackageJsonPathsContainingSnykDependency('/path/to/pom.xml', [
+        pun.getPackageJsonPathsContainingw3securityDependency('/path/to/pom.xml', [
           '/dont-care',
         ]),
       ).toEqual([]);
@@ -13,7 +13,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
 
     it('returns empty array when the given path ends with `package.json` but the file does not actually exit', () => {
       expect(
-        pun.getPackageJsonPathsContainingSnykDependency(
+        pun.getPackageJsonPathsContainingw3securityDependency(
           '/path/to/package.json',
           ['/dont-care'],
         ),
@@ -26,7 +26,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
         '../../../fixtures/protect-update-notification/no-package-json/package.json',
       );
       expect(
-        pun.getPackageJsonPathsContainingSnykDependency(p, ['/dont-care']),
+        pun.getPackageJsonPathsContainingw3securityDependency(p, ['/dont-care']),
       ).toEqual([]);
     });
 
@@ -36,7 +36,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
         '../../../fixtures/protect-update-notification/with-package-json-with-w3security-dep/package.json',
       );
       expect(
-        pun.getPackageJsonPathsContainingSnykDependency(p, ['/dont-care']),
+        pun.getPackageJsonPathsContainingw3securityDependency(p, ['/dont-care']),
       ).toEqual([p]);
     });
   });
@@ -44,7 +44,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
   describe('no --file option used', () => {
     it('returns empty list when no paths are passed', () => {
       expect(
-        pun.getPackageJsonPathsContainingSnykDependency(undefined, []),
+        pun.getPackageJsonPathsContainingw3securityDependency(undefined, []),
       ).toEqual([]);
     });
 
@@ -55,7 +55,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
           '../../../fixtures/protect-update-notification/no-package-json',
         );
         expect(
-          pun.getPackageJsonPathsContainingSnykDependency(undefined, [p]),
+          pun.getPackageJsonPathsContainingw3securityDependency(undefined, [p]),
         ).toEqual([]);
       });
 
@@ -65,7 +65,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
           '../../../fixtures/protect-update-notification/with-package-json-without-w3security-dep',
         );
         expect(
-          pun.getPackageJsonPathsContainingSnykDependency(undefined, [p]),
+          pun.getPackageJsonPathsContainingw3securityDependency(undefined, [p]),
         ).toEqual([]);
       });
 
@@ -75,7 +75,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
           '../../../fixtures/protect-update-notification/with-package-json-with-w3security-dep',
         );
         expect(
-          pun.getPackageJsonPathsContainingSnykDependency(undefined, [p]),
+          pun.getPackageJsonPathsContainingw3securityDependency(undefined, [p]),
         ).toEqual([path.resolve(p, 'package.json')]);
       });
     });
@@ -95,7 +95,7 @@ describe('getPackageJsonPathsContainingSnykDependency', () => {
         ];
 
         expect(
-          pun.getPackageJsonPathsContainingSnykDependency(undefined, paths),
+          pun.getPackageJsonPathsContainingw3securityDependency(undefined, paths),
         ).toEqual(
           expect.arrayContaining([
             path.resolve(

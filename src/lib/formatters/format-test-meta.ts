@@ -62,7 +62,7 @@ export function formatTestMeta(
 
     if (legacyRes.filesystemPolicy) {
       meta.push(
-        chalk.bold(rightPadWithSpaces('Local Snyk policy: ', padToLength)) +
+        chalk.bold(rightPadWithSpaces('Local w3security policy: ', padToLength)) +
         chalk.green('found'),
       );
       if (
@@ -71,7 +71,7 @@ export function formatTestMeta(
       ) {
         meta.push(
           chalk.bold(
-            rightPadWithSpaces('Local Snyk policy ignored: ', padToLength),
+            rightPadWithSpaces('Local w3security policy ignored: ', padToLength),
           ) + chalk.red('yes'),
         );
       }

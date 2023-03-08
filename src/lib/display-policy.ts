@@ -8,7 +8,7 @@ export async function display(policy) {
 
   let res =
     chalk.bold(
-      'Current Snyk policy, read from ' + policy.__filename + ' file',
+      'Current w3security policy, read from ' + policy.__filename + ' file',
     ) + '\n';
   res += 'Modified: ' + policy.__modified + '\n';
   res += 'Created:  ' + policy.__created + '\n';

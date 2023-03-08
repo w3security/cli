@@ -3,7 +3,7 @@
 Gem::Specification.new do |spec|
   spec.name          = "ruby-gem"
   spec.version       = "0.1.0"
-  spec.authors       = ["Snyk"]
+  spec.authors       = ["w3security"]
   spec.email         = ["w3security@w3security.io"]
 
   spec.summary       = "Example Gemspec"

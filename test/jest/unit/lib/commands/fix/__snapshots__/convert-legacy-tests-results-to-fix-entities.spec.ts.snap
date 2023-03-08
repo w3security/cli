@@ -13,7 +13,7 @@ Array [
         "type": "npm",
       },
       "name": "shallow-goof",
-      "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.
+      "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.
 version: v1.19.0
 ignore: {}
 patch: {}
@@ -94,7 +94,7 @@ Array [
         "type": "npm",
       },
       "name": "shallow-goof",
-      "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.
+      "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.
 version: v1.19.0
 ignore: {}
 patch: {}
@@ -203,7 +203,7 @@ Array [
         "type": "pip",
       },
       "name": "pip-app",
-      "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.
+      "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.
 version: v1.19.0
 ignore: {}
 patch: {}

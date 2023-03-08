@@ -75,7 +75,7 @@ export class FlagError extends CustomError {
 export class IntegratedFlagError extends CustomError {
   constructor(key: string, org: string) {
     const flag = getFlagName(key);
-    const msg = `Flag "${flag}" is only supported when using Integrated IaC. To enable it for your organisation "${org}", please contact Snyk support.`;
+    const msg = `Flag "${flag}" is only supported when using Integrated IaC. To enable it for your organisation "${org}", please contact w3security support.`;
     super(msg);
     this.code = IaCErrorCodes.FlagError;
     this.strCode = getErrorStringCode(this.code);
@@ -84,13 +84,13 @@ export class IntegratedFlagError extends CustomError {
 }
 
 export class FeatureFlagError extends CustomError {
-  constructor(key: string, featureFlag: string, hasSnykPreview?: boolean) {
+  constructor(key: string, featureFlag: string, hasw3securityPreview?: boolean) {
     const flag = getFlagName(key);
     let msg;
-    if (hasSnykPreview) {
-      msg = `Flag "${flag}" is only supported if feature flag '${featureFlag}' is enabled. The feature flag can be enabled via Snyk Preview if you are on the Enterprise Plan`;
+    if (hasw3securityPreview) {
+      msg = `Flag "${flag}" is only supported if feature flag '${featureFlag}' is enabled. The feature flag can be enabled via w3security Preview if you are on the Enterprise Plan`;
     } else {
-      msg = `Flag "${flag}" is only supported if feature flag "${featureFlag}" is enabled. To enable it, please contact Snyk support.`;
+      msg = `Flag "${flag}" is only supported if feature flag "${featureFlag}" is enabled. To enable it, please contact w3security support.`;
     }
     super(msg);
     this.code = IaCErrorCodes.FeatureFlagError;

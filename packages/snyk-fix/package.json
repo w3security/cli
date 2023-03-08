@@ -1,7 +1,7 @@
 {
   "name": "@snyk/fix",
   "version": "1.0.0-monorepo",
-  "description": "Snyk fix library and utility",
+  "description": "w3security fix library and utility",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [

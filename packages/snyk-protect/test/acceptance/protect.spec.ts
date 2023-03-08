@@ -49,7 +49,7 @@ describe('@w3security/protect', () => {
         ),
       ).toBe(true);
 
-      expect(log).toHaveBeenCalledWith('Applied Snyk patches.');
+      expect(log).toHaveBeenCalledWith('Applied w3security patches.');
       expect(postJsonSpy).toHaveBeenCalledTimes(1);
       expect(postJsonSpy.mock.calls[0][1]).toEqual({
         data: {
@@ -115,7 +115,7 @@ describe('@w3security/protect', () => {
         ),
       ).toBe(true);
 
-      expect(log).toHaveBeenCalledWith('Applied Snyk patches.');
+      expect(log).toHaveBeenCalledWith('Applied w3security patches.');
       expect(postJsonSpy).toHaveBeenCalledTimes(1);
       expect(postJsonSpy.mock.calls[0][1]).toEqual({
         data: {
@@ -174,7 +174,7 @@ describe('@w3security/protect', () => {
         ),
       ).toBe(true);
 
-      expect(log).toHaveBeenCalledWith('Applied Snyk patches.');
+      expect(log).toHaveBeenCalledWith('Applied w3security patches.');
       expect(postJsonSpy).toHaveBeenCalledTimes(1);
       expect(postJsonSpy.mock.calls[0][1]).toEqual({
         data: {
@@ -265,14 +265,14 @@ describe('@w3security/protect', () => {
   describe('does not send analytics if analytics is disabled', () => {
     describe('via w3security.json file', () => {
       let tempConfigFolder: string;
-      let tempSnykConfigFile: string;
+      let tempw3securityConfigFile: string;
 
       beforeAll(() => {
         tempConfigFolder = fse.mkdtempSync(
           path.resolve(os.tmpdir(), `snyk-config-`),
         );
-        tempSnykConfigFile = path.resolve(tempConfigFolder, 'w3security.json');
-        process.env.W3SECURITY_CONFIG_FILE = tempSnykConfigFile;
+        tempw3securityConfigFile = path.resolve(tempConfigFolder, 'w3security.json');
+        process.env.W3SECURITY_CONFIG_FILE = tempw3securityConfigFile;
       });
 
       afterAll(() => {
@@ -282,7 +282,7 @@ describe('@w3security/protect', () => {
 
       it('when disable-analytics equals "1" (as a string)', async () => {
         fse.writeFileSync(
-          tempSnykConfigFile,
+          tempw3securityConfigFile,
           JSON.stringify({ 'disable-analytics': '1' }),
           'utf-8',
         );
@@ -296,7 +296,7 @@ describe('@w3security/protect', () => {
 
       it('when disable-analytics equals 1 (as a number)', async () => {
         fse.writeFileSync(
-          tempSnykConfigFile,
+          tempw3securityConfigFile,
           JSON.stringify({ 'disable-analytics': 1 }),
           'utf-8',
         );
@@ -399,7 +399,7 @@ describe('@w3security/protect', () => {
       });
 
       expect(code).toBe(0);
-      expect(stdout).toContain('Applied Snyk patches.');
+      expect(stdout).toContain('Applied w3security patches.');
 
       const lodashStatAfter = await fse.promises.stat(lodashPath);
       expect(lodashStatAfter.mtimeMs).toBe(lodashStatInital.mtimeMs); // file not touched
@@ -427,7 +427,7 @@ describe('@w3security/protect', () => {
       });
 
       expect(code).toBe(0);
-      expect(stdout).toContain('Applied Snyk patches.');
+      expect(stdout).toContain('Applied w3security patches.');
 
       const lodashStatAfter = await fse.promises.stat(lodashPath);
       expect(lodashStatAfter.mtimeMs).toBe(lodashStatInital.mtimeMs); // file not touched

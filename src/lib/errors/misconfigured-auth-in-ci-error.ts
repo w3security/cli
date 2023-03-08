@@ -2,7 +2,7 @@ import { CustomError } from './custom-error';
 
 export function MisconfiguredAuthInCI() {
   const errorMsg =
-    'Snyk is missing auth token in order to run inside CI. You must include ' +
+    'w3security is missing auth token in order to run inside CI. You must include ' +
     'your API token as an environment value: `W3SECURITY_TOKEN=12345678`';
 
   const error = new CustomError(errorMsg);

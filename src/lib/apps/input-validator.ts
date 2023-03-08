@@ -23,7 +23,7 @@ export function validateAllURL(input: string): string | boolean {
 
 /**
  * Custom validation logic which takes in consideration
- * creation of Snyk Apps and thus allows localhost.com
+ * creation of w3security Apps and thus allows localhost.com
  * as a valid URL.
  * @param {String} input of URI/URL value to validate using
  * regex

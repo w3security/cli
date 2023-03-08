@@ -166,7 +166,7 @@ export enum SEVERITY {
 /* End Remediation Data
  */
 
-/* Snyk fix types
+/* w3security fix types
  * Types for concepts introduced as part of this lib
  */
 

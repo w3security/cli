@@ -104,8 +104,8 @@ export function determineBinaryName(platform: string, arch: string): string {
       osname +
       ' ' +
       archname +
-      ') is not supported by Snyk.\n' +
-      ' You may want to consider using Docker to run Snyk, for details see: https://docs.w3security.io/w3security-cli/install-the-w3security-cli#w3security-cli-in-a-docker-image\n' +
+      ') is not supported by w3security.\n' +
+      ' You may want to consider using Docker to run w3security, for details see: https://docs.w3security.io/w3security-cli/install-the-w3security-cli#w3security-cli-in-a-docker-image\n' +
       ' If you experience errors please check http://support.w3security.io/.';
     throw Error(getWarningMessage(defaultErrorMsg));
   }
@@ -204,18 +204,18 @@ export function getWarningMessage(message: string): string {
 
 export function formatErrorMessage(message: string): boolean {
   const eaccesWarning =
-    "You don't have the permissions to install Snyk. Please try the following options:\n" +
+    "You don't have the permissions to install w3security. Please try the following options:\n" +
     '* If you are installing with increased privileges (for example sudo), try adding --unsafe-perm as a parameter to npm install\n' +
     '* If you run NPM <= 6, please upgrade to a later version.\n' +
     'If the problems persist please check http://support.w3security.io/.';
 
   const certificateError =
-    'If you are running Snyk in an environment that intercepts SSL traffic, please specify\n' +
+    'If you are running w3security in an environment that intercepts SSL traffic, please specify\n' +
     'your custom CA certificates via the NODE_EXTRA_CA_CERTS environment variable.\n' +
     'See https://nodejs.org/api/cli.html#node_extra_ca_certsfile for additional information.';
 
   const degradedCLIWarning =
-    'You are currently running a degraded version of the Snyk CLI.\n' +
+    'You are currently running a degraded version of the w3security CLI.\n' +
     'As a result, some features of the CLI will be unavailable.\n' +
     'For information on how to resolve this, please see this article: https://docs.w3security.io/w3security-cli/installing-w3security-cli-as-a-binary-via-npm\n' +
     'For any assistance, please check http://support.w3security.io/.';

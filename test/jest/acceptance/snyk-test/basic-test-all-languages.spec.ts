@@ -1,5 +1,5 @@
 import { createProjectFromWorkspace } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 import { runCommand } from '../../util/runCommand';
 import { isDontSkipTestsEnabled } from '../../util/isDontSkipTestsEnabled';
@@ -54,7 +54,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
       console.warn("Please ensure to install 'go' to run this test.");
     }
 
-    const { code } = await runSnykCLI('test', {
+    const { code } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });
@@ -81,7 +81,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
     );
     expect(pipResult.code).toEqual(0);
 
-    const { code } = await runSnykCLI('test -d --command=' + pythonCommand, {
+    const { code } = await runw3securityCLI('test -d --command=' + pythonCommand, {
       cwd: project.path(),
       env,
     });
@@ -92,7 +92,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
   test('run `w3security test` on a gradle project', async () => {
     const project = await createProjectFromWorkspace('gradle-app');
 
-    const { code } = await runSnykCLI('test -d', {
+    const { code } = await runw3securityCLI('test -d', {
       cwd: project.path(),
       env,
     });
@@ -103,7 +103,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
   test('run `w3security test` on a cocoapods project', async () => {
     const project = await createProjectFromWorkspace('cocoapods-app');
 
-    const { code } = await runSnykCLI('test -d', {
+    const { code } = await runw3securityCLI('test -d', {
       cwd: project.path(),
       env,
     });
@@ -114,7 +114,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
   test('run `w3security test` on a maven project', async () => {
     const project = await createProjectFromWorkspace('maven-app');
 
-    const { code } = await runSnykCLI('test -d', {
+    const { code } = await runw3securityCLI('test -d', {
       cwd: project.path(),
       env,
     });
@@ -125,7 +125,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
   test('run `w3security test` on a nuget project', async () => {
     const project = await createProjectFromWorkspace('nuget-app-2');
 
-    const { code } = await runSnykCLI('test -d', {
+    const { code } = await runw3securityCLI('test -d', {
       cwd: project.path(),
       env,
     });
@@ -142,7 +142,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
     if (prerequisite.code == 0 || dontSkip) {
       const project = await createProjectFromWorkspace('hex-app');
 
-      const { code } = await runSnykCLI('test -d', {
+      const { code } = await runw3securityCLI('test -d', {
         cwd: project.path(),
         env,
       });
@@ -162,7 +162,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
     if (prerequisite.code == 0 || dontSkip) {
       const project = await createProjectFromWorkspace('composer-app');
 
-      const { code } = await runSnykCLI('test -d', {
+      const { code } = await runw3securityCLI('test -d', {
         cwd: project.path(),
         env,
       });
@@ -182,7 +182,7 @@ describe('`w3security test` of basic projects for each language/ecosystem', () =
     if (prerequisite.code == 0 || dontSkip) {
       const project = await createProjectFromWorkspace('sbt-app');
 
-      const { code } = await runSnykCLI('test -d', {
+      const { code } = await runw3securityCLI('test -d', {
         cwd: project.path(),
         env,
       });

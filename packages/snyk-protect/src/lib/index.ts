@@ -95,7 +95,7 @@ async function protect(projectFolderPath: string) {
     });
   });
 
-  console.log('Applied Snyk patches.');
+  console.log('Applied w3security patches.');
 
   sendAnalytics({
     type: ProtectResultType.APPLIED_PATCHES,

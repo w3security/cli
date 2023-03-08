@@ -1,10 +1,10 @@
 import * as path from 'path';
 import { fakeServer } from '../../../acceptance/fake-server';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 describe('container test projects behavior with --app-vulns, --file and --exclude-base-image-vulns flags', () => {
   it('should find nothing when only vulns are in base image', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-app-alpine-and-debug.tar --exclude-app-vulns --json --exclude-base-image-vulns`,
     );
 
@@ -13,7 +13,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
     expect(code).toEqual(0);
   }, 10000);
   it('should find all vulns including app vulns', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --json --experimental`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -25,7 +25,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
     expect(code).toEqual(1);
   }, 10000);
   it('should find nothing when app-vulns are explicitly disabled', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --json --exclude-app-vulns`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -38,7 +38,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
   it('should find nothing on conflicting app-vulns flags', async () => {
     // if both flags are set, --exclude-app-vulns should take precedence and
     // disable it.
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --json --app-vulns --exclude-app-vulns --experimental`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -50,7 +50,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
   }, 10000);
 
   it('should show app vulns tip when available', async () => {
-    const { stdout } = await runSnykCLI(
+    const { stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar`,
     );
 
@@ -58,7 +58,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
   }, 10000);
 
   it('should find all vulns without experimental flag', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --json`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -76,7 +76,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
       'test/fixtures/container-projects/Dockerfile-vulns',
     );
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --exclude-app-vulns --json --file=${dockerfilePath} --exclude-base-image-vulns`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -91,7 +91,7 @@ describe('container test projects behavior with --app-vulns, --file and --exclud
       'test/fixtures/container-projects/Dockerfile-vulns',
     );
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-packages-and-app-vulns.tar --json --file=${dockerfilePath} --exclude-base-image-vulns`,
     );
     const jsonOutput = JSON.parse(stdout);
@@ -136,7 +136,7 @@ describe('container test projects behavior with --json flag', () => {
   });
 
   it('returns a json with the --experimental flags', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test docker-archive:test/fixtures/container-projects/os-app-alpine-and-debug.tar --json --experimental`,
       {
         env,

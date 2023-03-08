@@ -1,4 +1,4 @@
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { FakeServer, fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../../util/createProject';
 import { isCLIV2 } from '../../util/isCLIV2';
@@ -8,7 +8,7 @@ jest.setTimeout(1000 * 60);
 test('returns value in one line', async () => {
   const expectedToken = 'my-test-token';
 
-  const { code, stdout } = await runSnykCLI('config get api', {
+  const { code, stdout } = await runw3securityCLI('config get api', {
     env: {
       ...process.env,
       W3SECURITY_CFG_API: expectedToken,
@@ -57,7 +57,7 @@ describe('w3security config set endpoint', () => {
 
     // set endpoint
     const endpoint = 'http://127.0.0.1:' + server.getPort() + baseApi;
-    const resultconfigSet = await runSnykCLI(
+    const resultconfigSet = await runw3securityCLI(
       'config set endpoint=' + endpoint + ' -d',
       {
         env: env,
@@ -68,7 +68,7 @@ describe('w3security config set endpoint', () => {
     // run a tests against the endpoint
     const project = await createProjectFromWorkspace('npm-package');
 
-    const resultTest = await runSnykCLI(
+    const resultTest = await runw3securityCLI(
       'test --debug --org=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
       {
         cwd: project.path(),
@@ -84,7 +84,7 @@ describe('w3security config set endpoint', () => {
 
     if (isCLIV2()) {
       // generate an sbom against the endpoint
-      const resultSBOM = await runSnykCLI(
+      const resultSBOM = await runw3securityCLI(
         `sbom --experimental --debug --org aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee --format cyclonedx1.4+json`,
         {
           env: env,
@@ -98,6 +98,6 @@ describe('w3security config set endpoint', () => {
       expect(requestCount2).toBeGreaterThan(requestCount1);
     }
 
-    await runSnykCLI('config unset endpoint');
+    await runw3securityCLI('config unset endpoint');
   });
 });

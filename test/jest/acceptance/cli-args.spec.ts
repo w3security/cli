@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { UnsupportedOptionCombinationError } from '../../../src/lib/errors/unsupported-option-combination-error';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import { fakeServer } from '../../acceptance/fake-server';
 import { createProject } from '../util/createProject';
 import * as os from 'os';
@@ -40,7 +40,7 @@ describe('cli args', () => {
   });
 
   test('w3security test command should fail when --file is not specified correctly', async () => {
-    const { code, stdout } = await runSnykCLI(`test --file package-lock.json`, {
+    const { code, stdout } = await runw3securityCLI(`test --file package-lock.json`, {
       env,
     });
     expect(stdout).toMatch(
@@ -50,7 +50,7 @@ describe('cli args', () => {
   });
 
   test('w3security version command should show cli version', async () => {
-    const { code, stdout } = await runSnykCLI(`--version`, {
+    const { code, stdout } = await runw3securityCLI(`--version`, {
       env,
     });
     expect(stdout).toMatch(/[0-9]+\.[0-9]+\.[0-9]+/);
@@ -58,7 +58,7 @@ describe('cli args', () => {
   });
 
   test('w3security test command should fail when --packageManager is not specified correctly', async () => {
-    const { code, stdout } = await runSnykCLI(`test --packageManager=hello`, {
+    const { code, stdout } = await runw3securityCLI(`test --packageManager=hello`, {
       env,
     });
     expect(stdout).toMatch('Unsupported package manager');
@@ -66,7 +66,7 @@ describe('cli args', () => {
   });
 
   test('w3security test command should fail when iac --file is specified', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `iac test --file=./test/acceptance/workspaces/iac-kubernetes/multi-file.yaml`,
       {
         env,
@@ -78,7 +78,7 @@ describe('cli args', () => {
   });
 
   test('w3security test multiple paths with --project-name=NAME', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test pathA pathB --project-name=NAME`,
       {
         env,
@@ -91,7 +91,7 @@ describe('cli args', () => {
   });
 
   test('w3security test --file=file.sln --project-name=NAME', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test --file=file.sln --project-name=NAME`,
       {
         env,
@@ -105,7 +105,7 @@ describe('cli args', () => {
   });
 
   test('w3security test --file=blah --scan-all-unmanaged', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test --file=blah --scan-all-unmanaged`,
       {
         env,
@@ -125,7 +125,7 @@ describe('cli args', () => {
     'all-sub-projects',
   ].forEach((arg) => {
     test(`test using --${arg} and --yarn-workspaces displays error message`, async () => {
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `test --${arg} --yarn-workspaces`,
         {
           env,
@@ -138,7 +138,7 @@ describe('cli args', () => {
     });
 
     test(`monitor using --${arg} and --yarn-workspaces displays error message`, async () => {
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `monitor --${arg} --yarn-workspaces`,
         {
           env,
@@ -160,7 +160,7 @@ describe('cli args', () => {
     'yarn-workspaces',
   ].forEach((arg) => {
     test(`test using --${arg} and --all-projects displays error message`, async () => {
-      const { code, stdout } = await runSnykCLI(`test --${arg} --all-projects`);
+      const { code, stdout } = await runw3securityCLI(`test --${arg} --all-projects`);
       expect(stdout).toMatch(
         `The following option combination is not currently supported: ${arg} + all-projects`,
       );
@@ -168,7 +168,7 @@ describe('cli args', () => {
     });
 
     test(`monitor using --${arg} and --all-projects displays error message`, async () => {
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `monitor --${arg} --all-projects`,
         {
           env,
@@ -182,7 +182,7 @@ describe('cli args', () => {
   });
 
   test('w3security test --exclude without --all-project displays error message', async () => {
-    const { code, stdout } = await runSnykCLI(`test --exclude=test`, {
+    const { code, stdout } = await runw3securityCLI(`test --exclude=test`, {
       env,
     });
     expect(stdout).toMatch(
@@ -192,7 +192,7 @@ describe('cli args', () => {
   });
 
   test('w3security test --exclude without any value displays error message', async () => {
-    const { code, stdout } = await runSnykCLI(`test --all-projects --exclude`, {
+    const { code, stdout } = await runw3securityCLI(`test --all-projects --exclude`, {
       env,
     });
     expect(stdout).toMatch(
@@ -203,7 +203,7 @@ describe('cli args', () => {
 
   test('w3security test --exclude=path/to/dir displays error message', async () => {
     const exclude = path.normalize('path/to/dir');
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `test --all-projects --exclude=${exclude}`,
       {
         env,
@@ -230,7 +230,7 @@ describe('cli args', () => {
     'woof',
   ].forEach((command) => {
     test(`${command} not allowed with --json-file-output`, async () => {
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `${command} --json-file-output`,
         {
           env,
@@ -244,7 +244,7 @@ describe('cli args', () => {
   });
 
   test('project attributes are implemented --project{-business-criticality, -lifecycle, -environment}', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `monitor --project-business-criticality`,
       {
         env,
@@ -257,7 +257,7 @@ describe('cli args', () => {
   });
 
   test('w3security monitor --project-tags is implemented', async () => {
-    const { code, stdout } = await runSnykCLI(`monitor --project-tags`, {
+    const { code, stdout } = await runw3securityCLI(`monitor --project-tags`, {
       env,
     });
     expect(stdout).toMatch(
@@ -267,7 +267,7 @@ describe('cli args', () => {
   });
 
   test('w3security container monitor --project-tags is implemented', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container monitor alpine --project-tags`,
       {
         env,
@@ -288,7 +288,7 @@ describe('cli args', () => {
 
   optionsToTest.forEach((option) => {
     test('w3security test --json-file-output no value produces error message', async () => {
-      const { code, stdout } = await runSnykCLI(`test ${option}`, {
+      const { code, stdout } = await runw3securityCLI(`test ${option}`, {
         env,
       });
       expect(stdout).toMatch(
@@ -299,7 +299,7 @@ describe('cli args', () => {
   });
 
   test('iac test with flags not allowed with --sarif', async () => {
-    const { code, stdout } = await runSnykCLI(`iac test --sarif --json`, {
+    const { code, stdout } = await runw3securityCLI(`iac test --sarif --json`, {
       env,
     });
     expect(stdout).toMatch(
@@ -311,7 +311,7 @@ describe('cli args', () => {
   });
 
   test('container test with flags not allowed with --sarif', async () => {
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test  --sarif --json`,
       {
         env,
@@ -332,7 +332,7 @@ describe('cli args', () => {
     "--sarif-file-output=''",
   ].forEach((option) => {
     test('w3security test --sarif-file-output no value produces error message', async () => {
-      const { code, stdout } = await runSnykCLI(`test ${option}`, {
+      const { code, stdout } = await runw3securityCLI(`test ${option}`, {
         env,
       });
       expect(stdout).toMatch(
@@ -347,7 +347,7 @@ describe('cli args', () => {
     const jsonPath = 'w3security-direct-json-test-output.json';
     const sarifPath = 'w3security-direct-sarif-test-output.json';
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test hello-world --file=Dockerfile --sarif-file-output=${sarifPath} --json-file-output=${jsonPath}`,
       {
         env,
@@ -368,7 +368,7 @@ describe('cli args', () => {
     const project = await createProject('docker');
     const sarifPath = 'w3security-direct-sarif-test-output.json';
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test hello-world --sarif --file=Dockerfile --sarif-file-output=${sarifPath}`,
       {
         env,
@@ -386,7 +386,7 @@ describe('cli args', () => {
     const project = await createProject('docker');
     const sarifPath = 'w3security-direct-sarif-test-output.json';
 
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       `container test hello-world --file=Dockerfile --sarif-file-output=${sarifPath}`,
       {
         env,
@@ -403,7 +403,7 @@ describe('cli args', () => {
     const project = await createProject('docker');
     const sarifPath = 'w3security-direct-sarif-test-output.json';
 
-    const { code, stdout } = await runSnykCLI(
+    const { code, stdout } = await runw3securityCLI(
       `container test hello-world --json --file=Dockerfile --sarif-file-output=${sarifPath}`,
       {
         env,
@@ -425,7 +425,7 @@ describe('cli args', () => {
     test('container test --file=Dockerfile --exclude-base-image-vulns returns exit code 0', async () => {
       const project = await createProject('docker');
 
-      const { code, stdout } = await runSnykCLI(
+      const { code, stdout } = await runw3securityCLI(
         `container test alpine:3.12.0 --json --file=Dockerfile.alpine-3.12.0 --exclude-base-image-vulns`,
         {
           env,

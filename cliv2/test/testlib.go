@@ -63,7 +63,7 @@ func LaunchAsProccess(t *testing.T, args []string) *ProcessOutput {
 
 type TestProject struct {
 	TestDirectoryPath string
-	SnykCliPath       string
+	w3securityCliPath       string
 	CacheDirPath      string
 }
 
@@ -74,14 +74,14 @@ func SetupTestProject(t *testing.T) *TestProject {
 	w3securityCLIFilename := path.Base(w3securityCLIPath)
 	tempDirForTest := t.TempDir()
 
-	targetSnykCLIPath := path.Join(tempDirForTest, w3securityCLIFilename)
-	t.Log("targetSnykCLIPath:", targetSnykCLIPath)
-	err := copyFile(w3securityCLIPath, targetSnykCLIPath)
+	targetw3securityCLIPath := path.Join(tempDirForTest, w3securityCLIFilename)
+	t.Log("targetw3securityCLIPath:", targetw3securityCLIPath)
+	err := copyFile(w3securityCLIPath, targetw3securityCLIPath)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	err = os.Chmod(targetSnykCLIPath, 0755)
+	err = os.Chmod(targetw3securityCLIPath, 0755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,7 +94,7 @@ func SetupTestProject(t *testing.T) *TestProject {
 
 	testProject := TestProject{
 		TestDirectoryPath: tempDirForTest,
-		SnykCliPath:       targetSnykCLIPath,
+		w3securityCliPath:       targetw3securityCLIPath,
 		CacheDirPath:      cacheDirPath,
 	}
 
@@ -117,9 +117,9 @@ func SetupTestProjectWithFixture(t *testing.T, fixturePath string) *TestProject 
 
 func (tp *TestProject) LaunchCLI(t *testing.T, args []string) *ProcessOutput {
 	t.Log("TestDirectoryPath:", tp.TestDirectoryPath)
-	t.Log("SnykCliPath:", tp.SnykCliPath)
+	t.Log("w3securityCliPath:", tp.w3securityCliPath)
 
-	cmd := exec.Command(tp.SnykCliPath, args...)
+	cmd := exec.Command(tp.w3securityCliPath, args...)
 	cmd.Dir = tp.TestDirectoryPath
 	cmd.Env = append(
 		os.Environ(),

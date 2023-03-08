@@ -1,11 +1,11 @@
 #shellcheck shell=sh
 
-Describe "Snyk CLI Authorization"
+Describe "w3security CLI Authorization"
   After w3security_logout
 
   It "fails when run in CI without token set"
     When run w3security auth
-    The output should include "Snyk is missing auth token in order to run inside CI"
+    The output should include "w3security is missing auth token in order to run inside CI"
     The status should be failure
     # TODO: unusable with our current docker issues
     The stderr should equal ""
@@ -48,7 +48,7 @@ Describe "Snyk CLI Authorization"
 
   It "updates config file if given legit token"
     When run w3security auth "${SMOKE_TESTS_W3SECURITY_TOKEN}"
-    The output should include "Your account has been authenticated. Snyk is now ready to be used."
+    The output should include "Your account has been authenticated. w3security is now ready to be used."
     The status should be success
     # TODO: unusable with our current docker issues
     The stderr should equal ""

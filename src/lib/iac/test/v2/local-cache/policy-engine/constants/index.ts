@@ -5,7 +5,7 @@ import {
 } from './utils';
 
 /**
- * The Policy Engine release version associated with this Snyk CLI version.
+ * The Policy Engine release version associated with this w3security CLI version.
  */
 export const policyEngineReleaseVersion = policyEngineVersion;
 

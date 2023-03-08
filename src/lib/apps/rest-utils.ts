@@ -67,7 +67,7 @@ export function handleRestError(error: any): void {
  * converts them into a readible string
  */
 function errorsToDisplayString(errRes: IRestErrorResponse): string {
-  const resString = `Uh oh! an error occurred while trying to create the Snyk App.
+  const resString = `Uh oh! an error occurred while trying to create the w3security App.
 Please run the command with '--debug' or '-d' to get more information`;
   if (!errRes.errors) return resString;
   errRes.errors.forEach((e) => {
@@ -87,7 +87,7 @@ Please run the command with '--debug' or '-d' to get more information`;
     const meta = metaString || '-';
     const source = sourceString || '-';
 
-    return `Uh oh! an error occured while trying to create the Snyk App.
+    return `Uh oh! an error occured while trying to create the w3security App.
 
 Error Description:\t${e.detail}
 Request Status:\t${e.status}
@@ -109,7 +109,7 @@ export function handleCreateAppRes(res: ICreateAppResponse): string {
     access_token_ttl_seconds,
   } = res.data.attributes;
 
-  return `Snyk App created successfully!
+  return `w3security App created successfully!
 Please ensure you save the following details:
 
 App Name: ${name}

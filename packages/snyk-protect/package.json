@@ -1,7 +1,7 @@
 {
   "name": "@w3security/protect",
   "version": "1.0.0-monorepo",
-  "description": "Snyk protect library and utility",
+  "description": "w3security protect library and utility",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [

@@ -153,10 +153,10 @@
   },
   "errors": [
     {
-      "name": "SnykIacTestError",
+      "name": "w3securityIacTestError",
       "code": 2114,
       "strCode": "NO_LOADABLE_INPUT",
-      "userMessage": "The Snyk CLI couldn't find any valid IaC configuration files to scan",
+      "userMessage": "The w3security CLI couldn't find any valid IaC configuration files to scan",
       "fields": {
         "path": "invalid_file.txt"
       }

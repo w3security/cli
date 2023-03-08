@@ -30,7 +30,7 @@ describe('iac test text output', () => {
     const dirPath = './iac/terraform';
     const { stdout } = await run(`w3security iac test ${dirPath}`);
 
-    expect(stdout).toContain('Snyk Infrastructure as Code');
+    expect(stdout).toContain('w3security Infrastructure as Code');
   });
 
   it('should show the spinner message', async () => {
@@ -38,7 +38,7 @@ describe('iac test text output', () => {
     const { stdout } = await run(`w3security iac test ${dirPath}`);
 
     expect(stdout).toContain(
-      'Snyk testing Infrastructure as Code configuration issues.',
+      'w3security testing Infrastructure as Code configuration issues.',
     );
   });
 

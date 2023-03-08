@@ -1,5 +1,5 @@
 import { fakeServer, FakeServer } from '../../../acceptance/fake-server';
-import { startSnykCLI, TestCLI } from '../../util/startSnykCLI';
+import { startw3securityCLI, TestCLI } from '../../util/startw3securityCLI';
 
 describe('w3security-apps: create app', () => {
   let server: FakeServer;
@@ -51,7 +51,7 @@ describe('w3security-apps: create app', () => {
    */
   describe('experimental flag', () => {
     it('should throw error without the experimental flag', async () => {
-      cli = await startSnykCLI('apps create');
+      cli = await startw3securityCLI('apps create');
       await expect(cli).toDisplay(
         `All 'apps' commands are only accessible behind the '--experimental' flag.`,
       );
@@ -65,10 +65,10 @@ describe('w3security-apps: create app', () => {
    */
   describe('help', () => {
     it('should print the apps helps document when apps subcommand invalid', async () => {
-      cli = await startSnykCLI('apps invalid');
+      cli = await startw3securityCLI('apps invalid');
       // Check for first line to confirm help docs were indeed printed
       await expect(cli).toDisplay(
-        'Snyk Apps are integrations that extend the functionality of the Snyk platform',
+        'w3security Apps are integrations that extend the functionality of the w3security platform',
       );
     });
   });
@@ -80,12 +80,12 @@ describe('w3security-apps: create app', () => {
    */
   describe('interactive mode', () => {
     it('should prompt for app name and print error if not provided', async () => {
-      cli = await startSnykCLI('apps create --interactive --experimental', {
+      cli = await startw3securityCLI('apps create --interactive --experimental', {
         env,
       });
       // Assert for first question that is the name and error when no name provided
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
 
       await expect(cli).not.toDisplay('Please enter something');
@@ -94,59 +94,59 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should prompt for redirect uris and print error if not provided', async () => {
-      cli = await startSnykCLI('apps create --interactive --experimental', {
+      cli = await startw3securityCLI('apps create --interactive --experimental', {
         env,
       });
 
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
       await cli.answer(testData.appName);
 
       // Assert if URI validator is working or not
       await expect(cli).toDisplay(
-        "Your Snyk App's redirect URIs (comma seprated list.",
+        "Your w3security App's redirect URIs (comma seprated list.",
       );
       await cli.answer('something#invalid');
       await expect(cli).toDisplay('something#invalid is not a valid URL');
     });
 
     it('should prompt for scopes and print error if not provided', async () => {
-      cli = await startSnykCLI('apps create --interactive --experimental', {
+      cli = await startw3securityCLI('apps create --interactive --experimental', {
         env,
       });
 
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
       await cli.answer(testData.appName);
 
       await expect(cli).toDisplay(
-        "Your Snyk App's redirect URIs (comma seprated list.",
+        "Your w3security App's redirect URIs (comma seprated list.",
       );
       await cli.answer(testData.redirectURIs);
       // Assert
-      await expect(cli).toDisplay("Your Snyk App's permission scopes");
+      await expect(cli).toDisplay("Your w3security App's permission scopes");
       await cli.answer('');
       await expect(cli).toDisplay('Please enter something');
     });
 
     it('should prompt for org id and print error if not provided', async () => {
-      cli = await startSnykCLI('apps create --interactive --experimental', {
+      cli = await startw3securityCLI('apps create --interactive --experimental', {
         env,
       });
 
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
       await cli.answer(testData.appName);
 
       await expect(cli).toDisplay(
-        "Your Snyk App's redirect URIs (comma seprated list.",
+        "Your w3security App's redirect URIs (comma seprated list.",
       );
       await cli.answer(testData.redirectURIs);
 
-      await expect(cli).toDisplay("Your Snyk App's permission scopes");
+      await expect(cli).toDisplay("Your w3security App's permission scopes");
       await cli.answer(testData.scopes);
 
       // Assert
@@ -156,21 +156,21 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should create app with user provided data (interactive mode)', async () => {
-      cli = await startSnykCLI('apps create --interactive --experimental', {
+      cli = await startw3securityCLI('apps create --interactive --experimental', {
         env,
       });
 
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
       await cli.answer(testData.appName);
 
       await expect(cli).toDisplay(
-        "Your Snyk App's redirect URIs (comma seprated list.",
+        "Your w3security App's redirect URIs (comma seprated list.",
       );
       await cli.answer(testData.redirectURIs);
 
-      await expect(cli).toDisplay("Your Snyk App's permission scopes");
+      await expect(cli).toDisplay("Your w3security App's permission scopes");
       await cli.answer(testData.scopes);
 
       await expect(cli).toDisplay('Please provide the org id under which');
@@ -180,7 +180,7 @@ describe('w3security-apps: create app', () => {
       await cli.answer('');
 
       // Assert
-      await expect(cli).toDisplay('Snyk App created successfully!');
+      await expect(cli).toDisplay('w3security App created successfully!');
       await expect(cli).toDisplay(testData.appName);
       await expect(cli).toDisplay(testData.redirectURIs);
       await expect(cli).toDisplay(testData.scopes);
@@ -189,12 +189,12 @@ describe('w3security-apps: create app', () => {
 
     // Interactive mode with flag shortcut (-i)
     it('should prompt users for input with flag shortcut (-i)', async () => {
-      cli = await startSnykCLI('apps create -i --experimental', {
+      cli = await startw3securityCLI('apps create -i --experimental', {
         env,
       });
       // Assert for first question that is the name if presented all is working as expected
       await expect(cli).toDisplay(
-        'Name of the Snyk App (visible to users when they install the Snyk App)?',
+        'Name of the w3security App (visible to users when they install the w3security App)?',
       );
     });
   });
@@ -204,7 +204,7 @@ describe('w3security-apps: create app', () => {
    */
   describe('scriptable mode', () => {
     it('should throw error when org id not provided', async () => {
-      cli = await startSnykCLI(
+      cli = await startw3securityCLI(
         `apps create --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
         { env },
       );
@@ -216,7 +216,7 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should throw error when app name not provided', async () => {
-      const cli = await startSnykCLI(
+      const cli = await startw3securityCLI(
         `apps create --org=${testData.orgId} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
         { env },
       );
@@ -228,7 +228,7 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should throw error when redirect uris not provided', async () => {
-      cli = await startSnykCLI(
+      cli = await startw3securityCLI(
         `apps create --org=${testData.orgId} --name=${testData.appName} --scopes=${testData.scopes} --experimental`,
         { env },
       );
@@ -240,7 +240,7 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should throw error when scopes not provided', async () => {
-      cli = await startSnykCLI(
+      cli = await startw3securityCLI(
         `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --experimental`,
         { env },
       );
@@ -251,7 +251,7 @@ describe('w3security-apps: create app', () => {
     });
 
     it('throws an error when an invalid context is provided', async () => {
-      cli = await startSnykCLI(
+      cli = await startw3securityCLI(
         `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --context=foobar --experimental`,
         { env },
       );
@@ -262,12 +262,12 @@ describe('w3security-apps: create app', () => {
     });
 
     it('should create app with user provided data', async () => {
-      cli = await startSnykCLI(
+      cli = await startw3securityCLI(
         `apps create --org=${testData.orgId} --name=${testData.appName} --redirect-uris=${testData.redirectURIs} --scopes=${testData.scopes} --experimental`,
         { env },
       );
       // Assert
-      await expect(cli).toDisplay('Snyk App created successfully!');
+      await expect(cli).toDisplay('w3security App created successfully!');
       await expect(cli).toDisplay(testData.appName);
       await expect(cli).toDisplay(testData.redirectURIs);
       await expect(cli).toDisplay(testData.scopes);

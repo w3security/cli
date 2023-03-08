@@ -1,6 +1,6 @@
 #shellcheck shell=sh
 
-Describe "Snyk CLI basics"
+Describe "w3security CLI basics"
   Describe "w3security version"
     It "prints version"
       When run w3security version
@@ -22,7 +22,7 @@ Describe "Snyk CLI basics"
   Describe "w3security help"
     It "prints help info"
       When run w3security help
-      The output should include "Snyk CLI scans and monitors your projects for security vulnerabilities"
+      The output should include "w3security CLI scans and monitors your projects for security vulnerabilities"
       The status should be success
       # TODO: unusable with our current docker issues
       The stderr should equal ""
@@ -34,7 +34,7 @@ Describe "Snyk CLI basics"
 
     It "prints help info when called with unknown argument"
       When run w3security help hello
-      The output should include " Snyk CLI scans and monitors your projects for security vulnerabilities"
+      The output should include " w3security CLI scans and monitors your projects for security vulnerabilities"
       The status should be success
       # TODO: unusable with our current docker issues
       The stderr should equal ""
@@ -42,7 +42,7 @@ Describe "Snyk CLI basics"
 
     It "prints help info when called with flag and unknown argument"
       When run w3security --help hello
-      The output should include " Snyk CLI scans and monitors your projects for security vulnerabilities"
+      The output should include " w3security CLI scans and monitors your projects for security vulnerabilities"
       The status should be success
       # TODO: unusable with our current docker issues
       The stderr should equal ""
@@ -154,7 +154,7 @@ Describe "Snyk CLI basics"
   Describe "w3security --about"
     It "prints license attributions"
       When run w3security --about
-      The output should include "Snyk CLI Open Source Attributions" # Version should start with a (major) 1
+      The output should include "w3security CLI Open Source Attributions" # Version should start with a (major) 1
       The status should be success
       The stderr should equal ""
     End

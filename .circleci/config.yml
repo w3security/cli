@@ -319,7 +319,7 @@ jobs:
           working_directory: ./test/fixtures/basic-npm
           command: npm install
       - run:
-          name: Installing Snyk CLI
+          name: Installing w3security CLI
           command: |
             sudo ln -s << parameters.test_w3security_command >> /usr/local/bin/w3security
             w3security --version
@@ -492,7 +492,7 @@ jobs:
           npm_global_sudo: << parameters.npm_global_sudo >>
           node_version: << parameters.node_version >>
       - run:
-          name: Configuring Snyk CLI
+          name: Configuring w3security CLI
           command: node ./bin/w3security config set "api=${W3SECURITY_API_KEY}"
       - run:
           name: Running unit tests
@@ -511,7 +511,7 @@ jobs:
       - install_sdks_linux
       - setup_npm
       - run:
-          name: Configuring Snyk CLI
+          name: Configuring w3security CLI
           command: node ./bin/w3security config set "api=${W3SECURITY_API_KEY}"
       - run:
           name: Running Tap tests
@@ -653,7 +653,7 @@ jobs:
           when: on_fail
 
   #
-  # Snyk CLI v2 Jobs
+  # w3security CLI v2 Jobs
   #
   v2-lint:
     executor: linux
@@ -1170,7 +1170,7 @@ workflows:
               only:
                 - master
       #
-      # Snyk CLI v2 Workflow Jobs
+      # w3security CLI v2 Workflow Jobs
       #
       - v2-lint:
           name: v2 / Lint

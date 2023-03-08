@@ -1,6 +1,6 @@
 FROM node:14-slim
 
-MAINTAINER Snyk Ltd
+MAINTAINER w3security Ltd
 
 # Install Docker
 RUN apt-get update && \

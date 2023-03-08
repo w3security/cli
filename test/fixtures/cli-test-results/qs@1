@@ -4,7 +4,7 @@
     {
       "title": "Prototype Override Protection Bypass",
       "credit": [
-        "Snyk Security Research Team"
+        "w3security Security Research Team"
       ],
       "moduleName": "qs",
       "packageName": "qs",

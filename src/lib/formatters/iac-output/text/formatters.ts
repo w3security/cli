@@ -86,12 +86,12 @@ function formatScanResultsNewOutput(
   return newFormattedResults;
 }
 
-export function formatSnykIacTestTestData(
+export function formatw3securityIacTestTestData(
   w3securityIacTestScanResult: Results | undefined,
   projectName: string,
   orgName: string,
 ): IacTestData {
-  const resultsBySeverity = formatSnykIacTestScanResultNewOutput(
+  const resultsBySeverity = formatw3securityIacTestScanResultNewOutput(
     w3securityIacTestScanResult,
   );
 
@@ -163,7 +163,7 @@ function countFiles(results?: Results): number {
   return 0;
 }
 
-function formatSnykIacTestScanResultNewOutput(
+function formatw3securityIacTestScanResultNewOutput(
   w3securityIacTestScanResult: Results | undefined,
 ): FormattedOutputResultsBySeverity {
   const resultsBySeverity = {} as FormattedOutputResultsBySeverity;
@@ -175,7 +175,7 @@ function formatSnykIacTestScanResultNewOutput(
       }
 
       resultsBySeverity[vulnerability.severity]!.push({
-        issue: formatSnykIacTestScanVulnerability(vulnerability),
+        issue: formatw3securityIacTestScanVulnerability(vulnerability),
         targetFile: vulnerability.resource.file,
         projectType: vulnerability.resource.kind,
       });
@@ -185,7 +185,7 @@ function formatSnykIacTestScanResultNewOutput(
   return resultsBySeverity;
 }
 
-function formatSnykIacTestScanVulnerability(
+function formatw3securityIacTestScanVulnerability(
   vulnerability: Vulnerability,
 ): Issue {
   const resolve = extractResolve(vulnerability);

@@ -8,7 +8,7 @@
 
 The `w3security iac` commands find and report security issues in Infrastructure as Code files; detect, track, and alert on infrastructure drift and unmanaged resources; and create a .driftigore file.
 
-For more information see [Snyk CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
+For more information see [w3security CLI for Infrastructure as Code](https://docs.w3security.io/products/w3security-infrastructure-as-code/w3security-cli-for-infrastructure-as-code)
 
 ## `w3security iac` commands and the help docs
 

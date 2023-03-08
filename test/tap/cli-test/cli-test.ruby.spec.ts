@@ -189,7 +189,7 @@ export const RubyTests: AcceptanceTests = {
       t.match(meta[5], /Project path:\s+ruby-app/, 'path displayed');
       t.notMatch(
         meta[5],
-        /Local Snyk policy:\s+found/,
+        /Local w3security policy:\s+found/,
         'local policy not displayed',
       );
     },
@@ -234,7 +234,7 @@ export const RubyTests: AcceptanceTests = {
         );
         t.notMatch(
           meta[5],
-          /Local Snyk policy:\s+found/,
+          /Local w3security policy:\s+found/,
           'local policy not displayed',
         );
       }

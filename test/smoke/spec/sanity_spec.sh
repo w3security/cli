@@ -5,8 +5,8 @@
   we should have a sanity test in place to test them
 '
 
-Describe "Snyk CLI"
-  It "have Snyk CLI available"
+Describe "w3security CLI"
+  It "have w3security CLI available"
     When run which w3security
     The output should include "/w3security"
     The status should be success

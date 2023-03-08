@@ -6,11 +6,11 @@ const analytics = require('../analytics');
 const { FormattedCustomError } = require('./formatted-custom-error');
 
 const errors = {
-  connect: 'Check your network connection, failed to connect to Snyk API',
-  endpoint: 'The Snyk API is not available on ' + config.API,
+  connect: 'Check your network connection, failed to connect to w3security API',
+  endpoint: 'The w3security API is not available on ' + config.API,
   auth: 'Unauthorized: please ensure you are logged in using `w3security auth`',
   oldw3security:
-    'You have an alpha format Snyk policy file in this directory. ' +
+    'You have an alpha format w3security policy file in this directory. ' +
     'Please remove it.',
   notfound: 'The package could not be found or does not exist',
   patchfail: 'Failed to apply patch against %s',
@@ -97,7 +97,7 @@ module.exports.message = function (error) {
       // means it's a code error
       message =
         'An unknown error occurred. Please run with `-d` and include full trace ' +
-        'when reporting to Snyk';
+        'when reporting to w3security';
       analytics.add('unknown-error-code', JSON.stringify(error));
     } else {
       // should be one of ours

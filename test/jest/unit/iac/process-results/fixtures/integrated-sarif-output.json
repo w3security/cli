@@ -13,8 +13,8 @@
       },
       "tool": {
         "driver": {
-          "name": "Snyk IaC",
-          "fullName": "Snyk Infrastructure as Code",
+          "name": "w3security IaC",
+          "fullName": "w3security Infrastructure as Code",
           "version": "1.0.0-monorepo",
           "informationUri": "https://docs.w3security.io/products/w3security-infrastructure-as-code",
           "rules": [

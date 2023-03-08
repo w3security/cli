@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { fakeServer, FakeServer } from '../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../util/createProject';
 import { getFixturePath } from '../util/getFixturePath';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import { isCLIV2 } from '../util/isCLIV2';
 import * as os from 'os';
 
@@ -67,7 +67,7 @@ describe('https', () => {
   describe('expired certificate', () => {
     it('rejects connections', async () => {
       const project = await createProjectFromWorkspace('npm-package');
-      const { code, stdout } = await runSnykCLI('test', {
+      const { code, stdout } = await runw3securityCLI('test', {
         cwd: project.path(),
         env,
       });
@@ -82,7 +82,7 @@ describe('https', () => {
 
     it('accepts connections using --insecure', async () => {
       const project = await createProjectFromWorkspace('npm-package');
-      const { code } = await runSnykCLI('test --insecure', {
+      const { code } = await runw3securityCLI('test --insecure', {
         cwd: project.path(),
         env,
       });

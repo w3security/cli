@@ -32,7 +32,7 @@ export function getIssueLevel(
 export function getTool(testResult): sarif.Tool {
   const tool: sarif.Tool = {
     driver: {
-      name: 'Snyk Container',
+      name: 'w3security Container',
       rules: [],
     },
   };

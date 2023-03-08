@@ -1,4 +1,4 @@
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromWorkspace } from '../../util/createProject';
 
@@ -35,7 +35,7 @@ describe('--target-reference', () => {
 
   it('forwards value to monitor endpoint', async () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       'monitor --target-reference=test-target-ref',
       {
         env,
@@ -60,7 +60,7 @@ describe('--target-reference', () => {
 
   it('forwards value to test endpoint', async () => {
     const project = await createProjectFromWorkspace('fail-on/no-vulns');
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       'test --target-reference=test-target-ref',
       {
         env,

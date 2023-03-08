@@ -4,7 +4,7 @@
   "description": "A test fixture",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Snyk/w3security-todo-list-demo-app/"
+    "url": "https://github.com/w3security/w3security-todo-list-demo-app/"
   },
   "dependencies": {
     "tap": "11.1.3"

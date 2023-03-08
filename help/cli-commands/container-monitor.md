@@ -8,7 +8,7 @@
 
 The `w3security container monitor` command captures the container image layers and dependencies and monitor for vulnerabilities on [w3security.io](https://w3security.io)
 
-For more information see [Snyk CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
+For more information see [w3security CLI for container security](https://docs.w3security.io/products/w3security-container/w3security-cli-for-container-security)
 
 ## Exit codes
 
@@ -18,11 +18,11 @@ Possible exit codes and their meaning:
 **2**: failure, try to re-run command\
 **3**: failure, no supported projects detected
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables to configure the Snyk CLI and set variables for connecting with the Snyk API.
+You can use environment variables to configure the w3security CLI and set variables for connecting with the w3security API.
 
-There are environment variables that apply to the container command; see [Configure the Snyk CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
+There are environment variables that apply to the container command; see [Configure the w3security CLI](https://docs.w3security.io/features/w3security-cli/configure-the-w3security-cli)
 
 ## Debug
 
@@ -32,7 +32,7 @@ Use the `-d` option to output the debug logs.
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>` to run Snyk commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
+Specify the `<ORG_ID>` to run w3security commands tied to a specific organization. The `<ORG_ID>` influences some features availability and private test limits.
 
 If you have multiple organizations, you can set a default from the CLI using:
 
@@ -52,7 +52,7 @@ For more detailed advice, include the path to the Dockerfile for the image.
 
 ### `--project-name=<PROJECT_NAME>`
 
-Specify a custom Snyk project name.
+Specify a custom w3security project name.
 
 ### `--policy-path=<PATH_TO_POLICY_FILE>`
 
@@ -64,7 +64,7 @@ Print results on the console as a JSON data structure.
 
 Example: `$ w3security container test --json`
 
-Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `monitor` command fails. For instructions on how to proceed see [Editing project attributes from the Snyk CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
+Note: If you use an option that sets project attributes and your role lacks permission to edit project attributes the `monitor` command fails. For instructions on how to proceed see [Editing project attributes from the w3security CLI](https://docs.w3security.io/features/user-and-group-management/managing-users-and-permissions/managing-permissions#editing-project-attributes-from-the-w3security-cli)
 
 ### `--project-environment=<ENVIRONMENT>[,<ENVIRONMENT>]...>`
 
@@ -120,7 +120,7 @@ For more information see [Detecting application vulnerabilities in container ima
 
 ### `--nested-jars-depth`
 
-When using `--app-vulns` use the `--nested-jars-depth` option to set how many levels of nested jars Snyk is to unpack. Depth must be a number.
+When using `--app-vulns` use the `--nested-jars-depth` option to set how many levels of nested jars w3security is to unpack. Depth must be a number.
 
 ### `--exclude-base-image-vulns`
 

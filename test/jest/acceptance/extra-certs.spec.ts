@@ -1,4 +1,4 @@
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import * as fs from 'fs';
 import { runCommand } from '../util/runCommand';
 import { fakeServer } from '../../../test/acceptance/fake-server';
@@ -11,7 +11,7 @@ if (isCLIV2()) {
 jest.setTimeout(1000 * 60 * 1);
 describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
   it('using a not existing file', async () => {
-    const { code } = await runSnykCLI(`woof --debug`, {
+    const { code } = await runw3securityCLI(`woof --debug`, {
       env: {
         ...process.env,
         NODE_EXTRA_CA_CERTS: 'doesntexist.crt',
@@ -27,7 +27,7 @@ describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
     writeStream.write('Hello World');
     writeStream.end();
 
-    const { code } = await runSnykCLI(`woof --debug`, {
+    const { code } = await runw3securityCLI(`woof --debug`, {
       env: {
         ...process.env,
         NODE_EXTRA_CA_CERTS: filename,
@@ -61,7 +61,7 @@ describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
     await server.listenWithHttps(port, { cert: certPem, key: keyPem });
 
     // invoke WITHOUT additional certificate set => fails
-    const res1 = await runSnykCLI(`test --debug`, {
+    const res1 = await runw3securityCLI(`test --debug`, {
       env: {
         ...process.env,
         W3SECURITY_API: W3SECURITY_API,
@@ -70,7 +70,7 @@ describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
     });
 
     // invoke WITH additional certificate set => succeeds
-    const res2 = await runSnykCLI(`test --debug`, {
+    const res2 = await runw3securityCLI(`test --debug`, {
       env: {
         ...process.env,
         NODE_EXTRA_CA_CERTS: 'cliv2/mytestcert.crt',
@@ -83,7 +83,7 @@ describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
     let res4 = { code: 0 };
     if (isCLIV2()) {
       // invoke WITHOUT additional certificate set => succeeds
-      res3 = await runSnykCLI(
+      res3 = await runw3securityCLI(
         `sbom --experimental --debug --org aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee --format cyclonedx1.4+json`,
         {
           env: {
@@ -95,7 +95,7 @@ describe('Extra CA certificates specified with `NODE_EXTRA_CA_CERTS`', () => {
       );
 
       // invoke WITH additional certificate set => succeeds
-      res4 = await runSnykCLI(
+      res4 = await runw3securityCLI(
         `sbom --experimental --debug --org aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee --format cyclonedx1.4+json`,
         {
           env: {

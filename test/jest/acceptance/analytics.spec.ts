@@ -3,7 +3,7 @@ import {
   createProjectFromFixture,
   createProjectFromWorkspace,
 } from '../util/createProject';
-import { runSnykCLI } from '../util/runSnykCLI';
+import { runw3securityCLI } from '../util/runw3securityCLI';
 import { isCLIV2 } from '../util/isCLIV2';
 
 jest.setTimeout(1000 * 30);
@@ -41,7 +41,7 @@ describe('analytics module', () => {
 
   it('sends analytics for `w3security test` with no vulns found', async () => {
     const project = await createProjectFromWorkspace('npm-package');
-    const { code } = await runSnykCLI('test --debug', {
+    const { code } = await runw3securityCLI('test --debug', {
       cwd: project.path(),
       env,
     });
@@ -118,7 +118,7 @@ describe('analytics module', () => {
       await project.readJSON('test-dep-graph-result.json'),
     );
 
-    const { code } = await runSnykCLI('test', {
+    const { code } = await runw3securityCLI('test', {
       cwd: project.path(),
       env,
     });
@@ -198,7 +198,7 @@ describe('analytics module', () => {
 
   it('sends correct analytics data a bad command', async () => {
     const project = await createProjectFromWorkspace('npm-package');
-    const { code } = await runSnykCLI('random-nonsense-command --some-option', {
+    const { code } = await runw3securityCLI('random-nonsense-command --some-option', {
       cwd: project.path(),
       env,
     });
@@ -273,7 +273,7 @@ describe('analytics module', () => {
       'npm/with-vulnerable-lodash-dep',
     );
 
-    const { code } = await runSnykCLI(
+    const { code } = await runw3securityCLI(
       'test --org=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
       {
         cwd: project.path(),
@@ -347,7 +347,7 @@ describe('analytics module', () => {
 
   it('sends analytics data a bad command', async () => {
     const project = await createProjectFromWorkspace('npm-package');
-    const { code } = await runSnykCLI('', {
+    const { code } = await runw3securityCLI('', {
       cwd: project.path(),
       env,
     });
@@ -408,7 +408,7 @@ describe('analytics module', () => {
 
   it('sends analytics data with basic check only', async () => {
     const project = await createProjectFromWorkspace('npm-package');
-    const { code } = await runSnykCLI('', {
+    const { code } = await runw3securityCLI('', {
       cwd: project.path(),
       env,
     });
@@ -449,7 +449,7 @@ describe('analytics module', () => {
 
   it('uses OAUTH token if set', async () => {
     const project = await createProjectFromWorkspace('npm-package');
-    const { code } = await runSnykCLI('test woof', {
+    const { code } = await runw3securityCLI('test woof', {
       cwd: project.path(),
       env: {
         ...env,
@@ -467,7 +467,7 @@ describe('analytics module', () => {
   });
 
   it("won't send analytics if disable analytics is set", async () => {
-    const { code } = await runSnykCLI(`version`, {
+    const { code } = await runw3securityCLI(`version`, {
       env: {
         ...env,
         W3SECURITY_DISABLE_ANALYTICS: '1',

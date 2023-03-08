@@ -1,17 +1,17 @@
 import { CLI_BIN_PATH } from './constants';
 import { runCommand, RunCommandOptions, RunCommandResult } from './runCommand';
 
-const runSnykCLI = async (
+const runw3securityCLI = async (
   argsString: string,
   options?: RunCommandOptions,
 ): Promise<RunCommandResult> => {
-  return runSnykCLIWithArray(
+  return runw3securityCLIWithArray(
     argsString.split(' ').filter((v) => !!v),
     options,
   );
 };
 
-const runSnykCLIWithArray = async (
+const runw3securityCLIWithArray = async (
   args: string[],
   options?: RunCommandOptions,
 ): Promise<RunCommandResult> => {
@@ -21,4 +21,4 @@ const runSnykCLIWithArray = async (
   return await runCommand('node', [CLI_BIN_PATH, ...args], options);
 };
 
-export { runSnykCLI, runSnykCLIWithArray };
+export { runw3securityCLI, runw3securityCLIWithArray };

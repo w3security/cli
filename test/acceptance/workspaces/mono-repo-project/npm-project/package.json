@@ -5,7 +5,7 @@
   "homepage": "https://w3security.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Snyk/w3security-todo-list-demo-app/"
+    "url": "https://github.com/w3security/w3security-todo-list-demo-app/"
   },
   "scripts": {
     "start": "node app.js",

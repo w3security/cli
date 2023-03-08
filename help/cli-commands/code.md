@@ -8,7 +8,7 @@
 
 The `w3security code` command finds security issues using Static Code Analysis.
 
-For more information see [CLI for Snyk Code](https://docs.w3security.io/w3security-code/cli-for-w3security-code)
+For more information see [CLI for w3security Code](https://docs.w3security.io/w3security-code/cli-for-w3security-code)
 
 ## `w3security code` command and the help docs
 

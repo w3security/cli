@@ -1,5 +1,5 @@
 import * as os from 'os';
-import { startSnykCLI, TestCLI } from '../../util/startSnykCLI';
+import { startw3securityCLI, TestCLI } from '../../util/startw3securityCLI';
 
 describe('w3security container', () => {
   if (os.platform() === 'win32') {
@@ -21,7 +21,7 @@ describe('w3security container', () => {
   });
 
   it('finds dependencies in rpm sqlite databases', async () => {
-    cli = await startSnykCLI(
+    cli = await startw3securityCLI(
       'container test amazonlinux:2022.0.20220504.1 --print-deps',
     );
     await expect(cli).toDisplay(`yum @ 4.9.0`, { timeout: 20 * 1000 });

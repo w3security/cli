@@ -2,7 +2,7 @@
 
 ## Usage
 
-**Note:** This feature is available in Snyk CLI version v1.876.0 or greater.
+**Note:** This feature is available in w3security CLI version v1.876.0 or greater.
 
 `w3security iac describe [<OPTIONS>]`
 
@@ -26,9 +26,9 @@ Possible exit codes and their meaning:
 **1**: drifts or unmanaged resources found\
 **2**: failure
 
-## Configure the Snyk CLI
+## Configure the w3security CLI
 
-You can use environment variables and set variables for connecting with the Snyk API; see [Configure the Snyk CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
+You can use environment variables and set variables for connecting with the w3security API; see [Configure the w3security CLI](https://docs.w3security.io/w3security-cli/configure-the-w3security-cli)
 
 ## Configure the Terraform provider
 
@@ -58,7 +58,7 @@ Scan both managed and unmanaged resources.
 
 ### `--org=<ORG_ID>`
 
-Specify the `<ORG_ID>` to run Snyk commands tied to a specific organization. Overrides the default `<ORG_ID>` that is the current preferred organization in your [Account settings](https://app.w3security.io/account)
+Specify the `<ORG_ID>` to run w3security commands tied to a specific organization. Overrides the default `<ORG_ID>` that is the current preferred organization in your [Account settings](https://app.w3security.io/account)
 
 Note that you can also use `--org=<orgslugname>`. The `ORG_ID` works in both the CLI and the API. The organization slug name works in the CLI, but not in the API.
 
@@ -152,7 +152,7 @@ The `iac describe` command ignores service-linked resources by default (like ser
 
 ### `--ignore-policy`
 
-Ignore all set policies, the current policy in the `.w3security` file, org level ignores, and the project policy in the Snyk Web UI.
+Ignore all set policies, the current policy in the `.w3security` file, org level ignores, and the project policy in the w3security Web UI.
 
 ### `--policy-path=<PATH_TO_POLICY_FILE>`
 

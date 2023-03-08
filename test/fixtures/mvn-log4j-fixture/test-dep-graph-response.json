@@ -42,7 +42,7 @@
           "Chen Zhaojun of Alibaba Cloud Security Team"
         ],
         "cvssScore": 10,
-        "description": "## Overview\n\n[org.apache.logging.log4j:log4j-core](http://logging.apache.org/log4j/1.2/) is a logging library for Java.\n\n\nAffected versions of this package are vulnerable to Arbitrary Code Execution.\nApache Log4j2 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.\r\n\r\nFrom log4j 2.15.0, this behavior has been disabled by default. \r\n\r\n**Note**: `org.apache.logging.log4j:log4j-api` was originally deemed vulnerable, but Apache maintainers have since [clarified](https://issues.apache.org/jira/browse/LOG4J2-3201) that this only affects `org.apache.logging.log4j:log4j-core`.\n\n## Remediation\n\nUpgrade `org.apache.logging.log4j:log4j-core` to version 2.15.0 or higher.\n\n\nFor further remediation options, please refer to the [Log4Shell Remediation Cheat Sheet](https://w3security.io/blog/log4shell-remediation-cheat-sheet/).\n\nClick [here](https://w3security.io/blog/find-fix-log4shell-quickly-w3security/) for a guide on how to scan your projects for this vulnerability.\n\n## References\n\n- [Apache Jira Issues](https://issues.apache.org/jira/browse/LOG4J2-3198)\n\n- [Apache Jira Issues](https://issues.apache.org/jira/browse/LOG4J2-3201)\n\n- [Apache Security Advisory](https://logging.apache.org/log4j/2.x/security.html)\n\n- [GitHub PR](https://github.com/apache/logging-log4j2/pull/608)\n\n- [PoC](https://github.com/tangxiaofeng7/apache-log4j-poc)\n\n- [Snyk Blog and Vulnerability Breakdown](https://w3security.io/blog/log4j-rce-log4shell-vulnerability-cve-2021-4428/)\n",
+        "description": "## Overview\n\n[org.apache.logging.log4j:log4j-core](http://logging.apache.org/log4j/1.2/) is a logging library for Java.\n\n\nAffected versions of this package are vulnerable to Arbitrary Code Execution.\nApache Log4j2 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.\r\n\r\nFrom log4j 2.15.0, this behavior has been disabled by default. \r\n\r\n**Note**: `org.apache.logging.log4j:log4j-api` was originally deemed vulnerable, but Apache maintainers have since [clarified](https://issues.apache.org/jira/browse/LOG4J2-3201) that this only affects `org.apache.logging.log4j:log4j-core`.\n\n## Remediation\n\nUpgrade `org.apache.logging.log4j:log4j-core` to version 2.15.0 or higher.\n\n\nFor further remediation options, please refer to the [Log4Shell Remediation Cheat Sheet](https://w3security.io/blog/log4shell-remediation-cheat-sheet/).\n\nClick [here](https://w3security.io/blog/find-fix-log4shell-quickly-w3security/) for a guide on how to scan your projects for this vulnerability.\n\n## References\n\n- [Apache Jira Issues](https://issues.apache.org/jira/browse/LOG4J2-3198)\n\n- [Apache Jira Issues](https://issues.apache.org/jira/browse/LOG4J2-3201)\n\n- [Apache Security Advisory](https://logging.apache.org/log4j/2.x/security.html)\n\n- [GitHub PR](https://github.com/apache/logging-log4j2/pull/608)\n\n- [PoC](https://github.com/tangxiaofeng7/apache-log4j-poc)\n\n- [w3security Blog and Vulnerability Breakdown](https://w3security.io/blog/log4j-rce-log4shell-vulnerability-cve-2021-4428/)\n",
         "disclosureTime": "2021-12-10T10:02:55Z",
         "exploit": "High",
         "fixedIn": [
@@ -97,7 +97,7 @@
             "url": "https://github.com/tangxiaofeng7/apache-log4j-poc"
           },
           {
-            "title": "Snyk Blog and Vulnerability Breakdown",
+            "title": "w3security Blog and Vulnerability Breakdown",
             "url": "https://w3security.io/blog/log4j-rce-log4shell-vulnerability-cve-2021-4428/"
           }
         ],
@@ -133,7 +133,7 @@
   "meta": {
     "isPrivate": true,
     "isLicensesEnabled": true,
-    "policy": "# Snyk (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.22.2\nignore: {}\npatch: {}\n",
+    "policy": "# w3security (https://w3security.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.22.2\nignore: {}\npatch: {}\n",
     "ignoreSettings": null,
     "org": "demo-applications",
     "licensesPolicy": {

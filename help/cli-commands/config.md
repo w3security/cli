@@ -6,7 +6,7 @@
 
 ## Description
 
-The `w3security config` command manages your local Snyk CLI config file, a JSON file located at `$XDG_CONFIG_HOME` or `~/.config` followed by `configstore/w3security.json`
+The `w3security config` command manages your local w3security CLI config file, a JSON file located at `$XDG_CONFIG_HOME` or `~/.config` followed by `configstore/w3security.json`
 
 Example: `~/.config/configstore/w3security.json`
 
@@ -38,7 +38,7 @@ Remove all config values.
 
 ### `api`
 
-API token to use when calling Snyk API.
+API token to use when calling w3security API.
 
 ### `endpoint`
 

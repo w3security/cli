@@ -311,7 +311,7 @@ export const GenericTests: AcceptanceTests = {
 
         t.match(res.message, 'for known vulnerabilities', 'found results');
 
-        t.match(res.message, 'Local Snyk policy: found', 'found policy file');
+        t.match(res.message, 'Local w3security policy: found', 'found policy file');
       }
     },
 

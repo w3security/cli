@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as analytics from '../../../../../../../../src/lib/analytics';
 import * as fs from 'fs';
 
-import { SnykIacTestOutput } from '../../../../../../../../src/lib/iac/test/v2/scan/results';
+import { w3securityIacTestOutput } from '../../../../../../../../src/lib/iac/test/v2/scan/results';
 import {
   addIacAnalytics,
   IacAnalytics,
@@ -21,7 +21,7 @@ jest.mock(
 );
 
 describe('computeIacAnalytics', () => {
-  const w3securityIacTestOutputFixture: SnykIacTestOutput = JSON.parse(
+  const w3securityIacTestOutputFixture: w3securityIacTestOutput = JSON.parse(
     fs.readFileSync(
       path.join(
         __dirname,

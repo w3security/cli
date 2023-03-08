@@ -1,5 +1,5 @@
 /*
-  We are collecting Snyk CLI usage in our official integrations
+  We are collecting w3security CLI usage in our official integrations
 
   We distinguish them by either:
   - Setting W3SECURITY_INTEGRATION_NAME or W3SECURITY_INTEGRATION_VERSION in environment when CLI is run

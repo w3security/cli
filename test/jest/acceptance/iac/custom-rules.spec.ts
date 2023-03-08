@@ -93,7 +93,7 @@ describe('iac test --rules', () => {
       );
 
       expect(stdout).toContain(
-        "Please note that your custom rules will not be sent to the Snyk platform, and will not be available on the project's page.",
+        "Please note that your custom rules will not be sent to the w3security platform, and will not be available on the project's page.",
       );
     });
 
@@ -105,7 +105,7 @@ describe('iac test --rules', () => {
       );
 
       expect(stdout).not.toContain(
-        "Please note that your custom rules will not be sent to the Snyk platform, and will not be available on the project's page.",
+        "Please note that your custom rules will not be sent to the w3security platform, and will not be available on the project's page.",
       );
     });
 
@@ -120,7 +120,7 @@ describe('iac test --rules', () => {
           );
 
           expect(stdout).not.toContain(
-            "Please note that your custom rules will not be sent to the Snyk platform, and will not be available on the project's page.",
+            "Please note that your custom rules will not be sent to the w3security platform, and will not be available on the project's page.",
           );
         });
       },

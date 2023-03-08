@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { fakeServer } from '../../../acceptance/fake-server';
 import { createProjectFromFixture } from '../../util/createProject';
-import { runSnykCLI } from '../../util/runSnykCLI';
+import { runw3securityCLI } from '../../util/runw3securityCLI';
 
 jest.setTimeout(1000 * 60);
 
@@ -50,7 +50,7 @@ describe('`w3security test` with `--file=`', () => {
         path.join(project.path(), 'package-lock.json'),
       );
 
-      const { stdout } = await runSnykCLI(`test --file=${relPath}`, {
+      const { stdout } = await runw3securityCLI(`test --file=${relPath}`, {
         cwd,
         env,
       });
@@ -70,7 +70,7 @@ describe('`w3security test` with `--file=`', () => {
 
       const absPath = path.resolve(project.path(), 'package-lock.json');
 
-      const { stdout } = await runSnykCLI(`test --file=${absPath}`, {
+      const { stdout } = await runw3securityCLI(`test --file=${absPath}`, {
         cwd: __dirname,
         env,
       });
@@ -96,7 +96,7 @@ describe('`w3security test` with `--file=`', () => {
         path.join(project.path(), 'package-lock.json'),
       );
 
-      const { stdout } = await runSnykCLI(`test --file=${relPath}`, {
+      const { stdout } = await runw3securityCLI(`test --file=${relPath}`, {
         cwd,
         env,
       });
@@ -123,7 +123,7 @@ describe('`w3security test` with `--file=`', () => {
 
       const absPath = path.resolve(project.path(), 'package-lock.json');
 
-      const { stdout } = await runSnykCLI(`test --file=${absPath}`, {
+      const { stdout } = await runw3securityCLI(`test --file=${absPath}`, {
         cwd: __dirname,
         env,
       });
