@@ -2794,9 +2794,9 @@
             }
           },
           {
-            "id": "w3security-tree@1.0.0",
+            "id": "snyk-tree@1.0.0",
             "info": {
-              "name": "w3security-tree",
+              "name": "snyk-tree",
               "version": "1.0.0"
             }
           },
@@ -7463,8 +7463,8 @@
               }
             },
             {
-              "nodeId": "w3security-tree@1.0.0",
-              "pkgId": "w3security-tree@1.0.0",
+              "nodeId": "snyk-tree@1.0.0",
+              "pkgId": "snyk-tree@1.0.0",
               "deps": [
                 {
                   "nodeId": "archy@1.0.0"
@@ -7523,7 +7523,7 @@
                   "nodeId": "w3security-resolve@1.0.1"
                 },
                 {
-                  "nodeId": "w3security-tree@1.0.0"
+                  "nodeId": "snyk-tree@1.0.0"
                 },
                 {
                   "nodeId": "w3security-try-require@1.3.1"
@@ -7770,7 +7770,7 @@
                   "nodeId": "snyk-sbt-plugin@2.11.0"
                 },
                 {
-                  "nodeId": "w3security-tree@1.0.0"
+                  "nodeId": "snyk-tree@1.0.0"
                 },
                 {
                   "nodeId": "w3security-try-require@1.3.1"
@@ -10334,9 +10334,9 @@
         }
       },
       {
-        "id": "w3security-tree@1.0.0",
+        "id": "snyk-tree@1.0.0",
         "info": {
-          "name": "w3security-tree",
+          "name": "snyk-tree",
           "version": "1.0.0"
         }
       },
@@ -15003,8 +15003,8 @@
           }
         },
         {
-          "nodeId": "w3security-tree@1.0.0",
-          "pkgId": "w3security-tree@1.0.0",
+          "nodeId": "snyk-tree@1.0.0",
+          "pkgId": "snyk-tree@1.0.0",
           "deps": [
             {
               "nodeId": "archy@1.0.0"
@@ -15063,7 +15063,7 @@
               "nodeId": "w3security-resolve@1.0.1"
             },
             {
-              "nodeId": "w3security-tree@1.0.0"
+              "nodeId": "snyk-tree@1.0.0"
             },
             {
               "nodeId": "w3security-try-require@1.3.1"
@@ -15310,7 +15310,7 @@
               "nodeId": "snyk-sbt-plugin@2.11.0"
             },
             {
-              "nodeId": "w3security-tree@1.0.0"
+              "nodeId": "snyk-tree@1.0.0"
             },
             {
               "nodeId": "w3security-try-require@1.3.1"

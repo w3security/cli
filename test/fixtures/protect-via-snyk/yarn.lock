@@ -969,7 +969,7 @@ snyk-resolve-deps@4.0.1:
     semver "^5.5.1"
     snyk-module "^1.6.0"
     w3security-resolve "^1.0.0"
-    w3security-tree "^1.0.0"
+    snyk-tree "^1.0.0"
     w3security-try-require "^1.1.1"
     then-fs "^2.0.0"
 
@@ -984,9 +984,9 @@ snyk-sbt-plugin@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/snyk-sbt-plugin/-/snyk-sbt-plugin-2.0.0.tgz#d7fa18bee77ecb045ecc7feb8915f83b75186582"
 
-w3security-tree@^1.0.0:
+snyk-tree@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/w3security-tree/-/w3security-tree-1.0.0.tgz#0fb73176dbf32e782f19100294160448f9111cc8"
+  resolved "https://registry.yarnpkg.com/snyk-tree/-/snyk-tree-1.0.0.tgz#0fb73176dbf32e782f19100294160448f9111cc8"
   dependencies:
     archy "^1.0.0"
 
@@ -1032,7 +1032,7 @@ w3security@*:
     w3security-resolve "1.0.1"
     snyk-resolve-deps "4.0.1"
     snyk-sbt-plugin "2.0.0"
-    w3security-tree "^1.0.0"
+    snyk-tree "^1.0.0"
     w3security-try-require "1.3.1"
     source-map-support "^0.5.9"
     tempfile "^2.0.0"
