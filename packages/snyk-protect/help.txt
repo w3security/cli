@@ -1,0 +1,18 @@
+$ w3security-protect --help
+
+NAME
+  @w3security/protect - Patch vulnerable code in your project's dependencies.
+
+DESCRIPTION
+  You don't typically need to add the @w3security/protect dependency manually.
+  For more information on how to setup and use @w3security/protect, visit:
+    https://github.com/w3security/w3security/tree/master/packages/w3security-protect
+
+SYNOPSIS
+  w3security-protect [<options>]
+
+OPTIONS
+  --help
+    Display this help text.
+  --version
+    Display the current version.

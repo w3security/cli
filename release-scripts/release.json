@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0-monorepo",
+  "assets": {
+    "w3security-alpine": {
+      "url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-alpine",
+      "sha256": "w3security-alpine-sha256",
+      "sha256Url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-alpine.sha256"
+    },
+    "w3security-linux": {
+      "url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-linux",
+      "sha256": "w3security-linux-sha256",
+      "sha256Url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-linux.sha256"
+    },
+    "w3security-linux-arm64": {
+      "url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-linux-arm64",
+      "sha256": "w3security-linux-arm64-sha256",
+      "sha256Url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-linux-arm64.sha256"
+    },
+    "w3security-macos": {
+      "url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-macos",
+      "sha256": "w3security-macos-sha256",
+      "sha256Url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-macos.sha256"
+    },
+    "w3security-win.exe": {
+      "url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-win.exe",
+      "sha256": "w3security-win.exe-sha256",
+      "sha256Url": "https://static.w3security.io/cli/v1.0.0-monorepo/w3security-win.exe.sha256"
+    }
+  },
+  "schemaVersion": 1
+}

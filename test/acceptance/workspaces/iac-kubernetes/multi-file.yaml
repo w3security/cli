@@ -1,0 +1,103 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: w3securityy-service
+  labels:
+    app.kubernetes.io/name: w3securityy-service
+    helm.sh/chart: w3securityy-service-0.1.0
+    app.kubernetes.io/instance: w3securityy-service
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: w3securityy-service
+    app.kubernetes.io/instance: w3securityy-service
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: w3securityy-deployment
+  labels:
+    app.kubernetes.io/name: w3securityy
+    helm.sh/chart: w3securityy-0.1.0
+    app.kubernetes.io/instance: w3securityy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: w3securityy
+      app.kubernetes.io/instance: w3securityy
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: w3securityy
+        app.kubernetes.io/instance: w3securityy
+    spec:
+#       hostPID: true
+      containers:
+        - name: w3securityy1
+          image: "orka/w3securityy1:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            # limits:
+              # cpu: 100
+              # memory: 100
+          securityContext:
+            privileged: true
+            capabilities:
+              drop:
+                - all
+#               add:
+#                 - CAP_SYS_ADMIN
+        - name: w3securityy2
+          image: "orka/w3securityy2:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            # limits:
+              # cpu: 100
+              # memory: 100
+          securityContext:
+            privileged: true
+            capabilities:
+              drop:
+                - ALL
+#               add:
+#                 - CAP_SYS_ADMIN
+      volumes:
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock  

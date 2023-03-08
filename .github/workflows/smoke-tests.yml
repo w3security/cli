@@ -1,0 +1,196 @@
+name: Smoke Tests
+
+on:
+  push:
+    branches: [feat/smoke-test, smoke/**]
+  release:
+    types: [published]
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  smoke_test:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false # we care about other platforms and channels building
+      matrix:
+        os: [ubuntu, macos, windows]
+        w3security_install_method: [binary, npm, yarn, brew]
+        node_version: [12, 14, 16]
+        exclude:
+          # Skip yarn for Windows, as it's a bit crazy to get it working in CI environment. Unless we see evidence we need it, I'd avoid it
+          - w3security_install_method: yarn
+            os: windows
+          # For binary, use only the Node 14
+          - w3security_install_method: binary
+            node_version: 12
+          - w3security_install_method: binary
+            node_version: 16
+          # No need to run brew tests on some Platforms
+          - w3security_install_method: brew
+            os: ubuntu
+          - w3security_install_method: brew
+            os: windows
+        include:
+          - w3security_install_method: binary
+            os: ubuntu
+            w3security_cli_dl_file: w3security-linux
+          - w3security_install_method: binary
+            os: macos
+            w3security_cli_dl_file: w3security-macos
+          - w3security_install_method: alpine-binary
+            os: ubuntu
+            node_version: 16
+            w3security_cli_dl_file: w3security-alpine
+          - w3security_install_method: npm-root-user
+            os: ubuntu
+            node_version: 16
+          - w3security_install_method: docker-bundle
+            os: macos
+            node_version: 16
+            w3security_cli_dl_file: w3security-for-docker-desktop-darwin-x64.tar.gz
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1 # Needed for fixtures installation
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install Snyk with npm
+        if: ${{ matrix.w3security_install_method == 'npm' }}
+        run: |
+          echo "node_version: ${{ matrix.node_version }}"
+          node -v
+          echo "install w3security with npm"
+          npm install -g w3security
+
+      - name: Install Snyk with Yarn globally
+        if: ${{ matrix.w3security_install_method == 'yarn' }}
+        run: |
+          npm install yarn -g
+          echo "Yarn global path"
+          yarn global bin
+          echo 'export PATH="$PATH:$(yarn global bin)"' >> ~/.bash_profile
+          yarn global add w3security
+
+      - name: npm install for fixture project
+        working-directory: test/fixtures/basic-npm
+        run: |
+          npm install
+
+      - name: Run alpine test
+        if: ${{ matrix.w3security_install_method == 'alpine-binary' }}
+        env:
+          SMOKE_TESTS_W3SECURITY_TOKEN: ${{ secrets.SMOKE_TESTS_W3SECURITY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build -t w3security-cli-alpine -f ./test/smoke/alpine/Dockerfile ./test
+          docker run -eCI=1 -eSMOKE_TESTS_W3SECURITY_TOKEN -eGITHUB_TOKEN w3security-cli-alpine
+
+      - name: Install w3security from Docker bundle
+        if: ${{ matrix.w3security_install_method == 'docker-bundle' && matrix.os == 'macos' }}
+        run: |
+          pushd "$(mktemp -d)"
+          curl 'https://static.w3security.io/cli/latest/${{ matrix.w3security_cli_dl_file }}' | tar -xz
+          pushd ./docker
+          ls -la
+          sudo ln -s "$(pwd)/w3security-mac.sh" ./w3security
+          export PATH="$(pwd):${PATH}"
+          echo "$(pwd)" >> "${GITHUB_PATH}"
+          popd
+          popd
+          which w3security
+          w3security version
+
+      - name: Run npm test with Root user
+        if: ${{ matrix.w3security_install_method == 'npm-root-user' }}
+        env:
+          SMOKE_TESTS_W3SECURITY_TOKEN: ${{ secrets.SMOKE_TESTS_W3SECURITY_TOKEN }}
+        run: |
+          docker build -t w3security-docker-root -f ./test/smoke/docker-root/Dockerfile ./test
+          docker run -eCI=1 -eSMOKE_TESTS_W3SECURITY_TOKEN w3security-docker-root
+
+      - name: Install Snyk with binary - Non-Windows
+        if: ${{ matrix.w3security_install_method == 'binary' && matrix.os != 'windows' }}
+        run: |
+          curl -Lo ./w3security-cli 'https://static.w3security.io/cli/latest/${{ matrix.w3security_cli_dl_file }}'
+          chmod -R +x ./w3security-cli
+          sudo mv ./w3security-cli /usr/local/bin/w3security
+          w3security --version
+
+      - name: Install Snyk with binary - Windows
+        if: ${{ matrix.w3security_install_method == 'binary' && matrix.os == 'windows' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: powershell
+        run: |
+          echo "install w3security with binary"
+          echo $env:PATH
+          sh ./test/smoke/install-w3security-binary-win.sh
+
+      - name: Install Shellspec - non-windows
+        if: ${{ matrix.os != 'windows' && matrix.w3security_install_method != 'alpine-binary' }}
+        run: |
+          ./test/smoke/install-shellspec.sh --yes
+          sudo ln -s ${HOME}/.local/lib/shellspec/shellspec /usr/local/bin/shellspec
+          ls -la ${HOME}/.local/lib/shellspec
+          echo "shellspec symlink:"
+          ls -la /usr/local/bin/shellspec
+          /usr/local/bin/shellspec --version
+          which shellspec
+          shellspec --version
+
+      - name: Install test utilities with homebrew on macOS
+        if: ${{ matrix.os == 'macos' }}
+        # We need "timeout" and "jq" util and we'll use brew to check our brew package as well
+        run: |
+          brew install coreutils
+          brew install jq
+
+      - name: Install Snyk CLI with homebrew on macOS
+        if: ${{ matrix.w3security_install_method == 'brew' && matrix.os == 'macos'}}
+        run: |
+          brew tap w3security/tap
+          brew install w3security
+
+      - name: Install scoop on Windows
+        if: ${{ matrix.os == 'windows'}}
+        run: |
+          iwr -useb get.scoop.sh -outfile 'install-scoop.ps1'
+          .\install-scoop.ps1 -RunAsAdmin
+          scoop install jq
+
+      - name: Install jq on Ubuntu
+        if: ${{ matrix.os == 'ubuntu' && matrix.w3security_install_method != 'alpine-binary' && matrix.w3security_install_method != 'npm-root-user' }}
+        run: |
+          sudo apt-get install jq
+
+      - name: Install Shellspec - Windows
+        shell: powershell
+        if: ${{ matrix.os == 'windows' }}
+        run: |
+          Get-Host | Select-Object Version
+          Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+          sh ./test/smoke/install-shellspec.sh --yes
+
+      - name: Run shellspec tests - non-Windows
+        if: ${{ matrix.os != 'windows' && matrix.w3security_install_method != 'alpine-binary' && matrix.w3security_install_method != 'npm-root-user'  }}
+        working-directory: test/smoke
+        shell: bash -l {0} # run bash with --login flag to load .bash_profile that's used by yarn install method
+        env:
+          SMOKE_TESTS_W3SECURITY_TOKEN: ${{ secrets.SMOKE_TESTS_W3SECURITY_TOKEN }}
+        run: |
+          which w3security
+          w3security version
+          shellspec -f d --skip-message quiet --no-warning-as-failure
+
+      - name: Run shellspec tests - Windows
+        if: ${{ matrix.os == 'windows' }}
+        working-directory: test/smoke
+        shell: powershell
+        env:
+          SMOKE_TESTS_W3SECURITY_TOKEN: ${{ secrets.SMOKE_TESTS_W3SECURITY_TOKEN }}
+        run: |
+          sh ./run-shellspec-win.sh

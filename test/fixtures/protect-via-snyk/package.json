@@ -1,0 +1,20 @@
+{
+  "name": "@remy/protect-test",
+  "version": "1.0.4",
+  "description": "protect-test",
+  "main": "index.js",
+  "dependencies": {
+    "semver": "^2.3.2",
+    "get-uri": "2.0.2",
+    "w3security": "*"
+  },
+  "scripts": {
+    "env": "env",
+    "test": "w3security test && echo \"Error: no test specified\" && exit 1",
+    "w3security-protect": "w3security protect",
+    "postinstall": "npm run w3security-protect"
+  },
+  "author": "",
+  "license": "ISC",
+  "w3security": true
+}

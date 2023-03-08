@@ -1,0 +1,1347 @@
+version: '2.1'
+
+orbs:
+  # https://circleci.com/developer/orbs/orb/circleci/windows
+  win: circleci/windows@2.4.1
+  # https://circleci.com/developer/orbs/orb/circleci/aws-cli
+  aws-cli: circleci/aws-cli@2.0.3
+  # https://circleci.com/developer/orbs/orb/circleci/github-cli
+  gh: circleci/github-cli@2.1.0
+  # https://circleci.com/developer/orbs/orb/circleci/go
+  go: circleci/go@1.7.1
+
+parameters:
+  node_version:
+    type: string
+    # https://circleci.com/developer/images/image/cimg/node
+    default: '16.16.0'
+  npm_version:
+    type: string
+    # match whatever's bundled with node_version
+    default: '8.1.2'
+  aws_version:
+    type: string
+    # https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
+    default: '2.4.12'
+  gh_version:
+    type: string
+    # https://github.com/cli/cli/releases
+    default: '2.7.0'
+  go_version:
+    type: string
+    # https://go.dev/doc/devel/release
+    default: '1.19.4'
+  mitmproxy_version:
+    type: string
+    # https://go.dev/doc/devel/release
+    default: '7.0.4'
+
+executors:
+  alpine:
+    docker:
+      - image: alpine:3.17
+  docker-node:
+    parameters:
+      node_version:
+        type: string
+        default: << pipeline.parameters.node_version >>
+    docker:
+      - image: cimg/node:<< parameters.node_version >>
+    # Using RAM Disk. https://circleci.com/docs/2.0/executor-types/#ram-disks
+    working_directory: /mnt/ramdisk/w3security
+  linux:
+    machine:
+      # https://circleci.com/developer/machine/image/ubuntu-2004
+      image: ubuntu-2004:2022.04.1
+  linux-arm64:
+    machine:
+      # https://circleci.com/docs/2.0/arm-resources/
+      image: ubuntu-2004:2022.04.1
+    resource_class: arm.medium
+  macos:
+    macos:
+      # https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
+      xcode: '13.3.0'
+
+commands:
+  setup_npm:
+    parameters:
+      node_version:
+        type: string
+        default: << pipeline.parameters.node_version >>
+      npm_version:
+        type: string
+        default: << pipeline.parameters.npm_version >>
+      npm_cache_directory:
+        type: string
+        default: /mnt/ramdisk/.npm
+      npm_global_sudo:
+        type: boolean
+        default: false
+      npm_install:
+        type: boolean
+        default: false
+    steps:
+      - restore_cache:
+          name: Restoring npm cache
+          keys:
+            - npm-cache-v2-{{ arch }}-node<< parameters.node_version >>-npm<< parameters.npm_version >>-{{ checksum "package-lock.json" }}
+      - when:
+          condition:
+            not: << parameters.npm_global_sudo >>
+          steps:
+            run:
+              name: Installing npm
+              command: npm install -g npm@<< parameters.npm_version >>
+      - when:
+          condition: << parameters.npm_global_sudo >>
+          steps:
+            run:
+              name: Installing npm
+              command: sudo npm install -g npm@<< parameters.npm_version >>
+      - run:
+          name: Configuring npm
+          command: |
+            npm config set '//registry.npmjs.org/:_authToken' '${NPM_TOKEN}'
+            npm config set cache << parameters.npm_cache_directory >>
+            npm config set prefer-offline true
+      - when:
+          condition: << parameters.npm_install >>
+          steps:
+            - run:
+                name: Installing project dependencies
+                command: npm ci
+            - save_cache:
+                name: Saving npm cache
+                key: npm-cache-v2-{{ arch }}-node<< parameters.node_version >>-npm<< parameters.npm_version >>-{{ checksum "package-lock.json" }}
+                paths:
+                  - << parameters.npm_cache_directory >>
+  install_sdks_windows:
+    steps:
+      - run:
+          name: Removing pre-installed NodeJS
+          command: |
+            $current_node_version = node --version
+            nvm uninstall $current_node_version
+      - restore_cache:
+          name: Restoring Chocolatey cache
+          keys:
+            - chocolatey-cache-v2-{{ arch }}-{{ checksum ".circleci/chocolatey.config" }}
+      - run:
+          name: Installing SDKs
+          command: choco install .circleci/chocolatey.config --no-progress
+      - save_cache:
+          name: Saving Chocolatey cache
+          key: chocolatey-cache-v2-{{ arch }}-{{ checksum ".circleci/chocolatey.config" }}
+          paths:
+            - ~\AppData\Local\Temp\chocolatey
+  install_sdks_unix:
+    steps:
+      - restore_cache:
+          name: Restoring SDKMAN install cache
+          keys:
+            - sdkman-install-cache-v3-{{ arch }}-{{ checksum ".circleci/vendor/sdkman-install.sh" }}
+      - run:
+          name: Installing SDKMAN
+          # The install script comes from https://get.sdkman.io/?rcupdate=false
+          # We need to disable rcupdate as CircleCI uses a different setup.
+          command: |
+            ./.circleci/vendor/sdkman-install.sh
+            echo -e '\nsource "${HOME}/.sdkman/bin/sdkman-init.sh"' >> $BASH_ENV
+            source $BASH_ENV
+      - save_cache:
+          name: Saving SDKMAN install cache
+          key: sdkman-install-cache-v3-{{ arch }}-{{ checksum ".circleci/vendor/sdkman-install.sh" }}
+          paths:
+            - ~/.sdkman
+      - restore_cache:
+          name: Restoring SDKMAN archive cache
+          keys:
+            - sdkman-archive-cache-v3-{{ arch }}-{{ checksum ".circleci/install-sdks-unix.sh" }}
+      - run:
+          name: Installing SDKs
+          command: sudo ./.circleci/install-sdks-unix.sh
+      - save_cache:
+          name: Saving SDKMAN archive cache
+          key: sdkman-archive-cache-v3-{{ arch }}-{{ checksum ".circleci/install-sdks-unix.sh" }}
+          paths:
+            - ~/.sdkman/archives
+      - aws-cli/install:
+          version: << pipeline.parameters.aws_version >>
+  install_sdks_linux:
+    steps:
+      - run:
+          name: Installing Python
+          command: |
+            sudo apt update
+            sudo apt install python3 python3-pip python-is-python3
+      - install_sdks_unix
+  install_sdks_macos:
+    steps:
+      - run:
+          name: Installing golang
+          command: |
+            brew install go gradle python elixir composer gradle@6 maven sbt
+      - aws-cli/install:
+          version: << pipeline.parameters.aws_version >>
+  install_shellspec_dependencies:
+    steps:
+      - run:
+          name: Installing ShellSpec
+          command: |
+            ./test/smoke/install-shellspec.sh --yes
+            sudo ln -s ${HOME}/.local/lib/shellspec/shellspec /usr/local/bin/shellspec
+  start_proxy_linux:
+    steps:
+      - run:
+          name: Create and import proxy certificate
+          working_directory: ./cliv2
+          command: |
+            go run cmd/make-cert/main.go test-corp-proxy
+            sudo cp test-corp-proxy.crt /usr/local/share/ca-certificates
+            sudo update-ca-certificates
+      - restore_cache:
+          name: Restoring mitmproxy install cache
+          key: mitmproxy-install-cache-{{ arch }}-<< pipeline.parameters.mitmproxy_version >>
+      - run:
+          name: Install mitmproxy
+          command: |
+            if ! test -f mitmproxy.tar.gz; then
+              curl -Lo mitmproxy.tar.gz https://snapshots.mitmproxy.org/<< pipeline.parameters.mitmproxy_version >>/mitmproxy-<< pipeline.parameters.mitmproxy_version >>-linux.tar.gz
+            fi
+            sudo tar -xvzf mitmproxy.tar.gz -C /usr/local/bin
+      - save_cache:
+          name: Saving mitmproxy install cache
+          key: mitmproxy-install-cache-{{ arch }}-<< pipeline.parameters.mitmproxy_version >>
+          paths:
+            - mitmproxy.tar.gz
+      - run:
+          name: Start proxy
+          background: true
+          working_directory: ./cliv2
+          command: mitmdump --certs *=test-corp-proxy.pem
+      - run:
+          name: Wait for proxy
+          working_directory: ./cliv2
+          command: |
+            curl -I --verbose --retry 6 --retry-delay 5 --retry-connrefused http://localhost:8080
+            curl -I --verbose --proxy http://localhost:8080 "${W3SECURITY_API}"
+  start_proxy_windows:
+    steps:
+      - run:
+          name: Create and import proxy certificate
+          working_directory: ./cliv2
+          command: |
+            go run cmd/make-cert/main.go test-corp-proxy
+            Import-Certificate -FilePath test-corp-proxy.crt -CertStoreLocation Cert:\LocalMachine\Root
+      - run:
+          name: Start proxy
+          background: true
+          working_directory: ./cliv2
+          command: mitmdump --certs *=test-corp-proxy.pem
+      - run:
+          name: Wait for proxy
+          shell: bash.exe
+          working_directory: ./cliv2
+          command: |
+            curl -I --verbose --retry 6 --retry-delay 5 --retry-connrefused http://localhost:8080
+            curl -I --verbose --proxy http://localhost:8080 "${W3SECURITY_API}"
+
+jobs:
+  install:
+    executor: docker-node
+    steps:
+      - checkout
+      - setup_npm:
+          npm_install: true
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+            - packages/*/node_modules
+  lint:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - run:
+          name: Linting project
+          command: npm run lint
+  build:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - run:
+          name: Building project
+          command: |
+            make pre-build
+            npm run build:prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist/
+            - packages/*/dist
+            - pysrc
+            - ts-binary-wrapper/
+  version:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - run:
+          name: Deciding version
+          command: make binary-releases/version
+      - persist_to_workspace:
+          root: .
+          paths:
+            - binary-releases/version
+  regression-test:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_linux
+      - install_shellspec_dependencies
+      - setup_npm
+      - run:
+          name: Installing test fixture dependencies
+          working_directory: ./test/fixtures/basic-npm
+          command: npm install
+      - run:
+          name: Installing Snyk CLI
+          command: |
+            sudo ln -s << parameters.test_w3security_command >> /usr/local/bin/w3security
+            w3security --version
+      - run:
+          name: Running ShellSpec tests
+          working_directory: ./test/smoke
+          command: |
+            echo "Checkout the README in test/smoke folder for more details about this step"
+            unset W3SECURITY_API
+            unset W3SECURITY_API_KEY
+            shellspec -f d -e REGRESSION_TEST=1
+  test-windows:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: win/default
+    working_directory: C:\Users\circleci\w3security
+    steps:
+      - run:
+          name: Configuring Git
+          command: git config --global core.autocrlf false
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_windows
+      - setup_npm:
+          npm_install: true # reinstalling as workspace node_modules is for linux
+          npm_cache_directory: ~\AppData\Local\npm-cache
+      - run:
+          name: Configuring artifact
+          command: << parameters.test_w3security_command >> config set "api=$env:W3SECURITY_API_KEY"
+      - run:
+          name: Testing artifact
+          command: npm run test:acceptance -- --selectProjects w3security
+          environment:
+            TEST_W3SECURITY_COMMAND: << parameters.test_w3security_command >>
+  test-macos:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: macos
+    working_directory: /Users/distiller/w3security
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_macos
+      - setup_npm:
+          npm_install: true # reinstalling as workspace node_modules is for linux
+          npm_cache_directory: /Users/distiller/.npm
+      - run:
+          name: Configuring artifact
+          command: << parameters.test_w3security_command >> config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Testing artifact
+          command: npm run test:acceptance -- --selectProjects w3security
+          environment:
+            TEST_W3SECURITY_COMMAND: << parameters.test_w3security_command >>
+            TEST_W3SECURITY_DONT_SKIP_ANYTHING: 1
+  test-alpine:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: alpine
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Installing Node.js + other test dependencies
+          command: |
+            apk add --update nodejs npm bash maven git go gradle python3 py3-pip elixir composer
+      - setup_npm:
+          npm_cache_directory: /home/circleci/.npm
+          npm_global_sudo: false
+      - run:
+          name: Configuring artifact
+          command: << parameters.test_w3security_command >> config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Testing artifact
+          command: npm run test:acceptance -- --selectProjects w3security
+          environment:
+            TEST_W3SECURITY_COMMAND: << parameters.test_w3security_command >>
+  test-linux:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_linux
+      - run:
+          name: Installing Node.js
+          command: |
+            sudo apt update
+            sudo apt install nodejs npm golang gradle python3 python3-pip elixir composer
+      - setup_npm:
+          npm_cache_directory: /home/circleci/.npm
+          npm_global_sudo: true
+      - run:
+          name: Configuring artifact
+          command: << parameters.test_w3security_command >> config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Testing artifact
+          command: npm run test:acceptance -- --selectProjects w3security
+          environment:
+            TEST_W3SECURITY_COMMAND: << parameters.test_w3security_command >>
+            TEST_W3SECURITY_DONT_SKIP_ANYTHING: 1
+  test-linux-arm64:
+    parameters:
+      test_w3security_command:
+        type: string
+    executor: linux-arm64
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_linux
+      - run:
+          name: Installing Node.js
+          command: |
+            sudo apt update
+            sudo apt install nodejs npm golang gradle python3 python3-pip elixir composer
+      - setup_npm:
+          npm_cache_directory: /home/circleci/.npm
+          npm_global_sudo: true
+      - run:
+          name: Configuring artifact
+          command: << parameters.test_w3security_command >> config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Testing artifact
+          command: npm run test:acceptance -- --selectProjects w3security
+          environment:
+            TEST_W3SECURITY_COMMAND: << parameters.test_w3security_command >>
+            TEST_W3SECURITY_DONT_SKIP_ANYTHING: 1
+  test-jest:
+    parameters:
+      node_version:
+        type: string
+      npm_global_sudo:
+        type: boolean
+    executor:
+      name: docker-node
+      node_version: << parameters.node_version >>
+    environment:
+      TEMP: /mnt/ramdisk/tmp
+    steps:
+      - run:
+          name: Creating temporary directory
+          command: mkdir /mnt/ramdisk/tmp
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_linux
+      - go/install:
+          version: << pipeline.parameters.go_version >>
+      - run:
+          name: Installing test dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install gradle python3 python3-pip elixir composer
+      - setup_npm:
+          npm_global_sudo: << parameters.npm_global_sudo >>
+          node_version: << parameters.node_version >>
+      - run:
+          name: Configuring Snyk CLI
+          command: node ./bin/w3security config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Running unit tests
+          command: npm run test:unit
+      - run:
+          name: Running acceptance tests
+          command: npm run test:acceptance
+
+  test-tap:
+    executor: docker-node
+    parallelism: 2
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_linux
+      - setup_npm
+      - run:
+          name: Configuring Snyk CLI
+          command: node ./bin/w3security config set "api=${W3SECURITY_API_KEY}"
+      - run:
+          name: Running Tap tests
+          command: |
+            npx tap -Rspec --timeout=300 --node-arg=-r --node-arg=ts-node/register \
+              $(circleci tests glob "test/tap/*.test.*" | circleci tests split)
+
+  build-artifact:
+    parameters:
+      artifact:
+        type: string
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - when:
+          condition:
+            equal: ['w3security-win.exe', << parameters.artifact >>]
+          steps:
+            run:
+              name: Installing osslsigncode
+              command: |
+                sudo apt update
+                sudo apt install osslsigncode
+      - run:
+          name: Building artifact
+          command: make binary-releases/<< parameters.artifact >>
+      - persist_to_workspace:
+          root: .
+          paths:
+            - binary-releases/<< parameters.artifact >>
+            - binary-releases/<< parameters.artifact >>.sha256
+  prepare-release:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - run:
+          name: Copy Windows cliv2 binaries to binary-releases staging area
+          command: |
+            ls -la cliv2/bin
+            cp cliv2/bin/w3security-win.exe binary-releases/w3security-win.exe
+            cp cliv2/bin/w3security-win.exe.sha256 binary-releases/w3security-win.exe.sha256
+      - run:
+          name: Copy macOS cliv2 binaries to binary-releases staging area
+          command: |
+            ls -la cliv2/bin
+            cp cliv2/bin/w3security-macos binary-releases/w3security-macos
+            cp cliv2/bin/w3security-macos.sha256 binary-releases/w3security-macos.sha256
+      - run:
+          name: Copy linux cliv2 binaries to binary-releases staging area
+          command: |
+            ls -la cliv2/bin
+            cp cliv2/bin/w3security-linux binary-releases/w3security-linux
+            cp cliv2/bin/w3security-linux.sha256 binary-releases/w3security-linux.sha256
+      - run:
+          name: Copy linux arm64 cliv2 binaries to binary-releases staging area
+          command: |
+            ls -la cliv2/bin
+            cp cliv2/bin/w3security-linux-arm64 binary-releases/w3security-linux-arm64
+            cp cliv2/bin/w3security-linux-arm64.sha256 binary-releases/w3security-linux-arm64.sha256
+      - run:
+          name: Making TS-Binary-Wrapper (w3security.tgz)
+          command: make binary-releases/w3security.tgz
+      - run:
+          name: Signing all shasums
+          command: make binary-releases/sha256sums.txt.asc
+      - run:
+          name: Making release.json
+          command: make binary-releases/release.json
+      - run:
+          name: Making release notes
+          command: make binary-releases/RELEASE_NOTES.md
+      - store_artifacts:
+          path: ./binary-releases
+      - run:
+          name: Validating artifacts
+          command: ./release-scripts/validate-checksums.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - binary-releases
+  pre-release:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - aws-cli/install:
+          version: << pipeline.parameters.aws_version >>
+      - run:
+          name: Pre-Publishing
+          command: make release-pre
+      - run:
+          name: Handling failed release
+          command: ./release-scripts/handle-failed-release.sh
+          when: on_fail
+
+  test-release:
+    parameters:
+      executor:
+        type: string
+    executor: << parameters.executor >>
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Validating NPM artifacts
+          command: bash ./release-scripts/validate-npm-artifacts.sh
+      - run:
+          name: Handling failed release
+          command: bash ./release-scripts/handle-failed-release.sh
+          when: on_fail
+
+  release:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_npm
+      - gh/setup:
+          token: GH_TOKEN
+          version: << pipeline.parameters.gh_version >>
+      - aws-cli/install:
+          version: << pipeline.parameters.aws_version >>
+      - run:
+          name: Publishing
+          command: make release-final
+      - run:
+          name: Handling failed release
+          command: ./release-scripts/handle-failed-release.sh
+          when: on_fail
+
+  #
+  # Snyk CLI v2 Jobs
+  #
+  v2-lint:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - go/install:
+          version: << pipeline.parameters.go_version >>
+      - run:
+          name: Lint
+          working_directory: ./cliv2
+          command: make lint
+
+  v2-unit-test:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - go/install:
+          version: << pipeline.parameters.go_version >>
+      - restore_cache:
+          key: go-unit-test-{{ arch }}-{{ checksum "cliv2/go.sum" }}
+      - run:
+          name: Run unit tests
+          working_directory: ./cliv2
+          command: make configure whiteboxtest
+      - save_cache:
+          key: go-unit-test-{{ arch }}-{{ checksum "cliv2/go.sum" }}
+          paths: [/home/circleci/go/pkg/mod]
+
+  v2-build-artifact:
+    parameters:
+      go_os:
+        type: string
+      go_arch:
+        type: string
+      c_compiler:
+        type: string
+        default: ''
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - go/install:
+          version: << pipeline.parameters.go_version >>
+      - restore_cache:
+          key: go-build-{{ arch }}-{{ checksum "cliv2/go.sum" }}
+      - run: sudo apt-get install musl-tools
+      - run:
+          name: Build << parameters.go_os >>/<< parameters.go_arch >>
+          working_directory: ./cliv2
+          environment:
+            CC: << parameters.c_compiler >>
+            GOOS: << parameters.go_os >>
+            GOARCH: << parameters.go_arch >>
+            CLI_V1_LOCATION: ../binary-releases
+          command: make build build-test install prefix=. -e
+      - save_cache:
+          key: go-build-{{ arch }}-{{ checksum "cliv2/go.sum" }}
+          paths: [/home/circleci/go/pkg/mod]
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cliv2/bin
+
+  v2-rename-windows-artifact:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Rename w3security_windows_amd64.exe artifact
+          command: mv w3security_windows_amd64.exe w3security-win.exe
+          working_directory: ./cliv2/bin
+      - run:
+          name: Regenerate sha256
+          command: |
+            shasum -a 256 w3security-win.exe > w3security-win.exe.sha256
+            shasum -a 256 -c w3security-win.exe.sha256
+          working_directory: ./cliv2/bin
+      - run:
+          name: Show files
+          command: |
+            ls -la
+            cat w3security-win.exe.sha256
+          working_directory: ./cliv2/bin
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cliv2/bin
+
+  v2-rename-macos-artifact:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Rename w3security_darwin_amd64 artifact
+          command: mv w3security_darwin_amd64 w3security-macos
+          working_directory: ./cliv2/bin
+      - run:
+          name: Regenerate sha256
+          command: |
+            shasum -a 256 w3security-macos > w3security-macos.sha256
+            shasum -a 256 -c w3security-macos.sha256
+          working_directory: ./cliv2/bin
+      - run:
+          name: Show files
+          command: |
+            ls -la
+            cat w3security-macos.sha256
+          working_directory: ./cliv2/bin
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cliv2/bin
+
+  v2-rename-linux-artifact:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Rename w3security_linux_amd64 artifact
+          command: mv w3security_linux_amd64 w3security-linux
+          working_directory: ./cliv2/bin
+      - run:
+          name: Regenerate sha256
+          command: |
+            shasum -a 256 w3security-linux > w3security-linux.sha256
+            shasum -a 256 -c w3security-linux.sha256
+          working_directory: ./cliv2/bin
+      - run:
+          name: Show files
+          command: |
+            ls -la
+            cat w3security-linux.sha256
+          working_directory: ./cliv2/bin
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cliv2/bin
+
+  v2-rename-linux-arm64-artifact:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Rename w3security_linux_arm64 artifact
+          command: mv w3security_linux_arm64 w3security-linux-arm64
+          working_directory: ./cliv2/bin
+      - run:
+          name: Regenerate sha256
+          command: |
+            shasum -a 256 w3security-linux-arm64 > w3security-linux-arm64.sha256
+            shasum -a 256 -c w3security-linux-arm64.sha256
+          working_directory: ./cliv2/bin
+      - run:
+          name: Show files
+          command: |
+            ls -la
+            cat w3security-linux-arm64.sha256
+          working_directory: ./cliv2/bin
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cliv2/bin
+
+  v2-prepare-release:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - store_artifacts:
+          path: ./cliv2/bin
+
+  v2-test-linux-amd64:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-linux
+          command: |
+            export W3SECURITY_TOKEN="${W3SECURITY_API_KEY}"
+            ./bin/w3security_tests_linux_amd64
+  v2-test-proxy-linux-amd64:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - go/install:
+          version: << pipeline.parameters.go_version >>
+      - start_proxy_linux
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-linux
+            HTTPS_PROXY: http://localhost:8080
+          command: |
+            export W3SECURITY_TOKEN="${W3SECURITY_API_KEY}"
+            ./bin/w3security_tests_linux_amd64
+
+  v2-test-linux-arm64:
+    executor: linux-arm64
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-linux-arm64
+          command: |
+            export W3SECURITY_TOKEN="${W3SECURITY_API_KEY}"
+            ./bin/w3security_tests_linux_arm64
+
+  v2-test-darwin-amd64:
+    executor: macos
+    working_directory: /Users/distiller/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-macos
+          command: |
+            export W3SECURITY_TOKEN="${W3SECURITY_API_KEY}"
+            ./bin/w3security_tests_darwin_amd64
+
+  v2-test-windows-amd64:
+    executor: win/default
+    working_directory: C:\Users\circleci\w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-win.exe
+          command: |
+            $env:W3SECURITY_TOKEN = $env:W3SECURITY_API_KEY
+            ./bin/w3security_tests_windows_amd64.exe
+  v2-test-proxy-windows-amd64:
+    executor: win/default
+    working_directory: C:\Users\circleci\w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - install_sdks_windows
+      - start_proxy_windows
+      - run:
+          name: Run integration tests
+          working_directory: ./cliv2
+          environment:
+            TEST_W3SECURITY_EXECUTABLE_PATH: ./bin/w3security-win.exe
+            HTTPS_PROXY: http://localhost:8080
+          command: |
+            $env:W3SECURITY_TOKEN = $env:W3SECURITY_API_KEY
+            ./bin/w3security_tests_windows_amd64.exe
+
+  v2-sign-darwin-amd64:
+    executor: macos
+    working_directory: /Users/distiller/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Signing macOS artifact
+          # --ignore-errors due to 403s from Apple's service.
+          #   We need to sign a new agreement for our dev account.
+          #   We currently don't publish this artifact so it's safe to ignore.
+          command: make sign GOOS=darwin GOARCH=amd64 BUILD_DIR=$PWD/bin --ignore-errors
+          working_directory: ./cliv2
+      - persist_to_workspace:
+          root: .
+          paths:
+            - cliv2/bin/w3security_darwin_amd64
+            - cliv2/bin/w3security_darwin_amd64.sha256
+
+  v2-sign-windows-amd64:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - run:
+          name: Installing build dependencies
+          command: |
+            sudo apt update
+            sudo apt install osslsigncode
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Signing windows artifact
+          command: make sign GOOS=windows GOARCH=amd64 BUILD_DIR=$PWD/bin
+          working_directory: ./cliv2
+      - persist_to_workspace:
+          root: .
+          paths:
+            - cliv2/bin/w3security_windows_amd64.exe
+            - cliv2/bin/w3security_windows_amd64.exe.sha256
+
+  test-in-proxy-environment-linux-amd64:
+    executor: linux
+    working_directory: /home/circleci/w3security
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run acceptance tests in a proxied environment
+          working_directory: ./
+          environment:
+            TEST_W3SECURITY_COMMAND: ./bin/w3security-linux
+          command: |
+            export W3SECURITY_TOKEN="${W3SECURITY_API_KEY}"
+            make acceptance-test-with-proxy
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - install:
+          name: Install
+      - lint:
+          name: Lint
+          requires:
+            - Install
+      - build:
+          name: Build
+          requires:
+            - Install
+      - test-jest:
+          filters:
+            branches:
+              ignore: master
+          name: Jest Tests (Node v<< matrix.node_version >>)
+          context: nodejs-install
+          requires:
+            - Build
+          matrix:
+            parameters:
+              node_version: ['12.22.11', '14.20.0', '16.16.0']
+              npm_global_sudo: [true, false]
+            exclude:
+              - node_version: '12.22.11'
+                npm_global_sudo: false
+              - node_version: '14.20.0'
+                npm_global_sudo: false
+              - node_version: '16.16.0'
+                npm_global_sudo: true
+      - test-tap:
+          filters:
+            branches:
+              ignore: master
+          name: Tap Tests
+          context: nodejs-install
+          requires:
+            - Build
+      - version:
+          name: Version
+          requires:
+            - Build
+      - build-artifact:
+          name: Build (<< matrix.artifact >>)
+          requires:
+            - Version
+          context: w3security-windows-signing
+          matrix:
+            parameters:
+              artifact:
+                - w3security-fix.tgz
+                - w3security-protect.tgz
+                - w3security-alpine
+                - w3security-linux
+                - w3security-linux-arm64
+                - w3security-macos
+                - w3security-win.exe
+                - w3security-for-docker-desktop-darwin-x64.tar.gz
+                - w3security-for-docker-desktop-darwin-arm64.tar.gz
+                - docker-mac-signed-bundle.tar.gz
+      - test-windows:
+          filters:
+            branches:
+              ignore: master
+          name: Acceptance Tests (w3security-win.exe)
+          context: nodejs-install
+          requires:
+            - Build (w3security-win.exe)
+          test_w3security_command: C:\Users\circleci\w3security\binary-releases\w3security-win.exe
+      - test-macos:
+          filters:
+            branches:
+              ignore: master
+          name: Acceptance Tests (w3security-macos)
+          context: nodejs-install
+          requires:
+            - Build (w3security-macos)
+          test_w3security_command: /Users/distiller/w3security/binary-releases/w3security-macos
+      - test-linux:
+          filters:
+            branches:
+              ignore: master
+          name: Acceptance Tests (w3security-linux)
+          context: nodejs-install
+          requires:
+            - Build (w3security-linux)
+          test_w3security_command: /home/circleci/w3security/binary-releases/w3security-linux
+      - test-linux-arm64:
+          filters:
+            branches:
+              ignore: master
+          name: Acceptance Tests (w3security-linux-arm64)
+          context: nodejs-install
+          requires:
+            - Build (w3security-linux-arm64)
+          test_w3security_command: /home/circleci/w3security/binary-releases/w3security-linux-arm64
+      - regression-test:
+          filters:
+            branches:
+              ignore: master
+          name: Regression Tests (w3security-linux)
+          context: nodejs-install
+          requires:
+            - Build (w3security-linux)
+          test_w3security_command: /mnt/ramdisk/w3security/binary-releases/w3security-linux
+      - prepare-release:
+          name: Prepare Release
+          context:
+            - w3security-cli-pgp-signing
+          requires:
+            - Build (w3security-fix.tgz)
+            - Build (w3security-protect.tgz)
+            - Build (w3security-alpine)
+            - Build (w3security-linux)
+            - Build (w3security-linux-arm64)
+            - Build (w3security-for-docker-desktop-darwin-x64.tar.gz)
+            - Build (w3security-for-docker-desktop-darwin-arm64.tar.gz)
+            - Build (docker-mac-signed-bundle.tar.gz)
+            - v2 / Prepare Release
+      - should-release:
+          name: Release?
+          type: approval
+          requires:
+            - Prepare Release
+            - Lint
+          filters:
+            branches:
+              only:
+                - master
+      - pre-release:
+          name: Pre-Release
+          context: nodejs-app-release
+          requires:
+            - Release?
+          filters:
+            branches:
+              only:
+                - master
+      - test-release:
+          name: Test Release (<< matrix.executor >>)
+          matrix:
+            parameters:
+              executor: ['linux', 'win/default', 'macos']
+          requires:
+            - Pre-Release
+          filters:
+            branches:
+              only:
+                - master
+      - release:
+          name: Release
+          context: nodejs-app-release
+          requires:
+            - Test Release (linux)
+            - Test Release (win/default)
+            - Test Release (macos)
+          filters:
+            branches:
+              only:
+                - master
+      #
+      # Snyk CLI v2 Workflow Jobs
+      #
+      - v2-lint:
+          name: v2 / Lint
+      - v2-unit-test:
+          name: v2 / Unit Tests
+      - v2-build-artifact:
+          name: v2 / Build (linux/amd64)
+          requires:
+            - Build (w3security-linux)
+          go_os: linux
+          go_arch: amd64
+      - v2-rename-linux-artifact:
+          name: v2 / Rename linux/amd64 artifact
+          requires:
+            - v2 / Build (linux/amd64)
+      - v2-build-artifact:
+          name: v2 / Build (linux/arm64)
+          requires:
+            - Build (w3security-linux-arm64)
+          go_os: linux
+          go_arch: arm64
+      - v2-rename-linux-arm64-artifact:
+          name: v2 / Rename linux/arm64 artifact
+          requires:
+            - v2 / Build (linux/arm64)
+      - v2-build-artifact:
+          name: v2 / Build (darwin/amd64)
+          requires:
+            - Build (w3security-macos)
+          go_os: darwin
+          go_arch: amd64
+      - v2-rename-macos-artifact:
+          name: v2 / Rename macos/amd64 artifact
+          requires:
+            - v2 / Sign (darwin/amd64)
+      - v2-build-artifact:
+          name: v2 / Build (windows/amd64)
+          requires:
+            - Build (w3security-win.exe)
+          go_os: windows
+          go_arch: amd64
+      - v2-rename-windows-artifact:
+          name: v2 / Rename windows/amd64 artifact
+          requires:
+            - v2 / Sign (windows/amd64)
+      - v2-build-artifact:
+          name: v2 / Build (alpine/amd64)
+          requires:
+            - Build (w3security-alpine)
+          go_os: alpine
+          go_arch: amd64
+          c_compiler: /usr/bin/musl-gcc
+      - v2-test-linux-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Integration Tests (linux/amd64)
+          requires:
+            - v2 / Rename linux/amd64 artifact
+      - v2-test-proxy-linux-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Proxy Integration Tests (linux/amd64)
+          requires:
+            - v2 / Rename linux/amd64 artifact
+      - v2-test-linux-arm64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Integration Tests (linux/arm64)
+          requires:
+            - v2 / Rename linux/arm64 artifact
+      - v2-test-darwin-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Integration Tests (darwin/amd64)
+          requires:
+            - v2 / Rename macos/amd64 artifact
+      - v2-test-windows-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Integration Tests (windows/amd64)
+          requires:
+            - v2 / Rename windows/amd64 artifact
+      - v2-test-proxy-windows-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Proxy Integration Tests (windows/amd64)
+          requires:
+            - v2 / Rename windows/amd64 artifact
+      # Tests for backwards compatibility with CLIv1
+      - test-alpine:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Jest Acceptance Tests (alpine/amd64)
+          context: nodejs-install
+          requires:
+            - v2 / Build (alpine/amd64)
+          test_w3security_command: /home/circleci/w3security/cliv2/bin/w3security_alpine_amd64
+      - test-linux:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Jest Acceptance Tests (linux/amd64)
+          context: nodejs-install
+          requires:
+            - v2 / Rename linux/amd64 artifact
+          test_w3security_command: /home/circleci/w3security/cliv2/bin/w3security-linux
+      - test-linux-arm64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Jest Acceptance Tests (linux/arm64)
+          context: nodejs-install
+          requires:
+            - v2 / Rename linux/arm64 artifact
+          test_w3security_command: /home/circleci/w3security/cliv2/bin/w3security-linux-arm64
+      - test-windows:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Jest Acceptance Tests (windows/amd64)
+          context: nodejs-install
+          requires:
+            - v2 / Rename windows/amd64 artifact
+          test_w3security_command: C:\Users\circleci\w3security\cliv2\bin\w3security-win.exe
+      - test-macos:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Jest Acceptance Tests (darwin/amd64)
+          context: nodejs-install
+          requires:
+            - v2 / Rename macos/amd64 artifact
+          test_w3security_command: /Users/distiller/w3security/cliv2/bin/w3security-macos
+      - regression-test:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Regression Tests (linux/amd64)
+          context: nodejs-install
+          requires:
+            - v2 / Rename linux/amd64 artifact
+          test_w3security_command: /mnt/ramdisk/w3security/cliv2/bin/w3security-linux
+      - v2-sign-darwin-amd64:
+          name: v2 / Sign (darwin/amd64)
+          context: w3security-macos-signing
+          requires:
+            - v2 / Build (darwin/amd64)
+      - v2-sign-windows-amd64:
+          name: v2 / Sign (windows/amd64)
+          context: w3security-windows-signing
+          requires:
+            - v2 / Build (windows/amd64)
+      - v2-prepare-release:
+          name: v2 / Prepare Release
+          requires:
+            - v2 / Build (alpine/amd64)
+            - v2 / Rename linux/amd64 artifact
+            - v2 / Rename linux/arm64 artifact
+            - v2 / Rename macos/amd64 artifact
+            - v2 / Rename windows/amd64 artifact
+      - test-in-proxy-environment-linux-amd64:
+          filters:
+            branches:
+              ignore: master
+          name: v2 / Acceptance Tests With Proxy (linux/amd64)
+          requires:
+            - v2 / Rename linux/amd64 artifact

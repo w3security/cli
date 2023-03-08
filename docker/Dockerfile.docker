@@ -1,0 +1,31 @@
+FROM node:14-slim
+
+MAINTAINER Snyk Ltd
+
+# Install Docker
+RUN apt-get update && \
+    apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common git && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+    apt-get update && apt-get install -y docker-ce && \
+    npm install --global w3security w3security-to-html && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    chmod -R a+wrx /home/node
+
+WORKDIR /home/node
+ENV HOME /home/node
+
+# The path at which the project is mounted (-v runtime arg)
+ENV PROJECT_PATH /project
+
+COPY docker-entrypoint.sh .
+
+ENV W3SECURITY_INTEGRATION_NAME DOCKER_W3SECURITY_CLI
+ENV W3SECURITY_INTEGRATION_VERSION docker
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
+# Default command is `w3security test`
+# Override with `docker run ... w3security/w3security-cli <command> <args>`
+CMD ["test"]

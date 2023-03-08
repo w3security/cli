@@ -1,0 +1,22 @@
+const flatten = require('lodash.flatten');
+import { PackageExpanded } from 'snyk-resolve-deps';
+
+export function pluckPolicies(pkg: PackageExpanded): string[] | string {
+  if (!pkg) {
+    return [];
+  }
+
+  if (pkg.w3security) {
+    return pkg.w3security;
+  }
+
+  if (!pkg.dependencies) {
+    return [];
+  }
+
+  return flatten(
+    Object.keys(pkg.dependencies)
+      .map((name: string) => pluckPolicies(pkg.dependencies[name]))
+      .filter(Boolean),
+  );
+}

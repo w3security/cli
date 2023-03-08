@@ -1,0 +1,16 @@
+{
+  "name": "@w3security/project-with-patchable-dep-fixture",
+  "version": "1.0.0",
+  "description": "Not for production use. This project is for testing @w3security/protect.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "npm run w3security-protect",
+    "w3security-protect": "w3security-protect"
+  },
+  "dependencies": {
+    "@w3security/patchable-dep-fixture": "^1.0.0",
+    "@w3security/protect": "latest"
+  },
+  "private": true,
+  "w3security": true
+}

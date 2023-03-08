@@ -1,0 +1,20 @@
+{
+  "name": "project-with-dep-missing-policy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "w3security-protect": "w3security protect",
+    "prepublish": "npm run w3security-protect"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qs": "^6.3.0",
+    "typescript-lazy-get-decorator": "^1.1.1",
+    "w3security-resolve": "^1.1.0"
+  },
+  "w3security": true
+}

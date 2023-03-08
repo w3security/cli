@@ -1,0 +1,30 @@
+FROM node:14-slim
+
+MAINTAINER Snyk Ltd
+
+WORKDIR /home/node
+ENV HOME /home/node
+
+# Install w3security cli and clean up
+RUN apt-get update && \
+    apt-get install -y git && \
+    npm install --global w3security w3security-to-html && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    chmod -R a+wrx /home/node
+
+# The path at which the project is mounted (-v runtime arg)
+ENV PROJECT_PATH /project
+
+COPY docker-entrypoint.sh .
+
+ENV W3SECURITY_INTEGRATION_NAME DOCKER_W3SECURITY_CLI
+# This image is currently being used for nuget, composer and ruby
+# If we see a tons of usage, we can split the analytics
+ENV W3SECURITY_INTEGRATION_VERSION npm
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
+# Default command is `w3security test`
+# Override with `docker run ... w3security/w3security-cli <command> <args>`
+CMD ["test"]
